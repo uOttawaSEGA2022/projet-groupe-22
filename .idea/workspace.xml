@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f652475a-b085-43ff-b94d-f86ca625e312" name="Changes" comment="files here">
+      <change afterPath="$PROJECT_DIR$/Mealer/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/google-services.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/androidTest/java/com/example/mealer/ExampleInstrumentedTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/ClientRegisterPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/CookRegisterPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/CreditCardFormattingTextWatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/MainActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/PageMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/RegisterOptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_client_register_page.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_cook_register_page.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_page_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_register_options.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/app/src/test/java/com/example/mealer/ExampleUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mealer/settings.gradle" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2GSnl5MZsVDYNm0Fml3n7O0aqpN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\merie\Documents\GitHub\projet-groupe-22" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f652475a-b085-43ff-b94d-f86ca625e312" name="Changes" comment="" />
+      <created>1666391001138</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666391001138</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit">
+      <created>1666391026141</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666391026141</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial commit">
+      <created>1666391044759</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666391044759</updated>
+    </task>
+    <task id="LOCAL-00003" summary="files here">
+      <created>1666391617287</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666391617287</updated>
+    </task>
+    <task id="LOCAL-00004" summary="files here">
+      <created>1666391930988</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666391930988</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="files here" />
+    <option name="LAST_COMMIT_MESSAGE" value="files here" />
+  </component>
+</project>
