@@ -4,60 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f652475a-b085-43ff-b94d-f86ca625e312" name="Changes" comment="files here">
-      <change afterPath="$PROJECT_DIR$/Mealer/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/google-services.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/androidTest/java/com/example/mealer/ExampleInstrumentedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/ClientRegisterPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/CookRegisterPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/CreditCardFormattingTextWatcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/MainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/PageMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/java/com/example/mealer/RegisterOptions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_client_register_page.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_cook_register_page.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_page_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_register_options.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values-night/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/app/src/test/java/com/example/mealer/ExampleUnitTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mealer/settings.gradle" afterDir="false" />
-    </list>
+    <list default="true" id="f652475a-b085-43ff-b94d-f86ca625e312" name="Changes" comment="files here" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +26,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Mealer" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
