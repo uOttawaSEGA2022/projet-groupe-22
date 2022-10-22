@@ -77,6 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/address"
         android:text="Enter card details:"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"/>
 
     <EditText
@@ -89,6 +90,22 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="0dp"/>
 
+    <EditText
+        android:id="@+id/cvv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CVV"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/expiry"
+        android:layout_below="@id/creditcard"/>
+
+    <EditText
+        android:id="@+id/expiry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/cvv"
+        android:layout_marginStart="80dp"/>
 
     <Button
         android:id="@+id/donebutton"
