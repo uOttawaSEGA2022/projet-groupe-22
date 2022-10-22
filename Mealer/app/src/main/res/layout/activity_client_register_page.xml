@@ -71,12 +71,31 @@
         android:inputType="textPostalAddress"
         android:hint="Address"/>
 
+    <TextView
+        android:id="@+id/credittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:text="Enter card details:"
+        android:layout_marginStart="30dp"/>
+
+    <EditText
+        android:id="@+id/creditcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_below="@id/credittext"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="0dp"/>
+
+
     <Button
         android:id="@+id/donebutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Done"
-        android:layout_below="@id/address"
+        android:layout_below="@id/creditcard"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
         android:layout_marginTop="30dp"
