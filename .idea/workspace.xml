@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f652475a-b085-43ff-b94d-f86ca625e312" name="Changes" comment="files here">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_client_register_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Mealer/app/src/main/res/layout/activity_client_register_page.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f652475a-b085-43ff-b94d-f86ca625e312" name="Changes" comment="files here" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
