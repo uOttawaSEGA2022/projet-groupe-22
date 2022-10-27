@@ -3,7 +3,7 @@ public class Cook extends User {
     private String name;
     private String lastName;
 
-    private String adress;
+    private String address;
 
 
     /**
@@ -13,11 +13,11 @@ public class Cook extends User {
      * @param email
      * @param password
      */
-    public Cook(String name,String lastName,String adress,String email , String password) {
-        super(email ,password);
+    public Cook(String name,String lastName,String address,String email , String password) {
+        super(email, password);
         this.name = name;
         this.lastName = lastName;
-        this.adress=adress;
+        this.address = address;
     }
     /**
      * @return
@@ -30,7 +30,7 @@ public class Cook extends User {
      * @return
      */
     public String getLastName(){
-        return this.LastName;
+        return this.lastName;
     }
     /**
      * @return
