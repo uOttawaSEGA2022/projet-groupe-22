@@ -24,6 +24,7 @@ public class ClientRegisterPage extends AppCompatActivity {
         });
     }
     //this takes you back to login
+    //this is a test comment 
     public void openMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
