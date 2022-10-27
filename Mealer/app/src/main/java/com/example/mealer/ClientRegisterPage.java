@@ -29,13 +29,17 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_client_register_page);
 
         donebutton = (Button) findViewById(R.id.donebutton);
-        
+        //added the listener method
+        donebutton.setOnClickListener(this);
+        //deleted the method and re-created it again!
+        /*
         donebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMainActivity();
             }
         });
+        */
         
         //*********************************************************************************************
         //added the view access to the edit texts 
@@ -48,6 +52,44 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         editTextCVV = (EditText) findViewById(R.id.cvv);
         editTextExpiry = (EditText) findViewById(R.id.expiry);
         //*********************************************************************************************
+        
+    }
+    
+    private void registerUser(){
+        //Creating the getters for the inputs
+        
+        String inputname=editTextname.getText().toString().trim();
+        String inputlastname=editTextLastName.getText().toString().trim();
+        String inputemail=editTextinputEmail.getText().toString().trim();
+        String inputpass=editTextpassword.getText().toString().trim();
+        String address=editTextaddress.getText().toString().trim();
+        String creditcard=editTextcreditCard.getText().toString().trim();
+        String cvv=editTextCVV.getText().toString().trim();
+        String expiry=editTextExpiry.getText().toString().trim();
+        
+        //Creating the gerror messages
+        
+        if(inputname.isEmpty()){
+            editTextname.setError("First name is required");
+            editTextname.requestFocus();
+            return;
+        }
+        if(inputlastname.isEmpty()){
+            editTextLastName.setError("Last name is required");
+            editTextLastName.requestFocus();
+            return;
+        }
+        if(inputemail.isEmpty()){
+            editTextinputEmail.setError("Email is required");
+            editTextinputEmail.requestFocus();
+            return;
+        }
+        if(inputpass.isEmpty()){
+            editTextpassword.setError("Password is required");
+            editTextpassword.requestFocus();
+            return;
+        }
+        
     }
     //this takes you back to login
     //this is a test comment 
