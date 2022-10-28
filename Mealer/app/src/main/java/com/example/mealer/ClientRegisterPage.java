@@ -84,9 +84,50 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
             editTextinputEmail.requestFocus();
             return;
         }
+        
+        if (!Patterns.EMAIL_ADDRESS.matcher(inputemail).matches()){
+            editTextinputEmail.setError("Please provide a valid email");
+            editTextinputEmail.requestFocus();
+            return;
+        }
+        
         if(inputpass.isEmpty()){
             editTextpassword.setError("Password is required");
             editTextpassword.requestFocus();
+            return;
+        }
+        
+        if (inputpass.length()<6){
+            editTextpassword.setError("Email is required");
+            editTextpassword.requestFocus();
+            return;
+        }
+        
+        if(address.isEmpty()){
+            editTextaddress.setError("Address is required");
+            editTextaddress.requestFocus();
+            return;
+        }
+        
+        if(creditcard.isEmpty()){
+            editTextcreditCard.setError("Credit card is required");
+            editTextcreditCard.requestFocus();
+            return;
+        }
+        if(cvv.isEmpty()){
+            editTextCVV.setError("cvv is required");
+            editTextCVV.requestFocus();
+            return;
+        }
+        if (cvv.length()<3){
+            editTextCVV.setError("The number should not be less than 3 numbers");
+            editTextCVV.requestFocus();
+            return;
+        }
+        
+        if(expiry.isEmpty()){
+            editTextExpiry.setError("The expiry date is required");
+            editTextExpiry.requestFocus();
             return;
         }
         
