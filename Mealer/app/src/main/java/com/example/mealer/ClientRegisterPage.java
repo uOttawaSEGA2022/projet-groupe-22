@@ -1,10 +1,13 @@
 package com.example.mealer;
 
+package com.example.mealer_seg;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +45,7 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
              */
         }
 
-    private void registerUser(){
+    private void onRegisterButtonClicked(View view){
         //Creating the getters for the inputs
 
         String inputname=editTextname.getText().toString().trim();
@@ -53,7 +56,7 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         String cvv=editTextCVV.getText().toString().trim();
         String expiry=editTextExpiry.getText().toString().trim();
 
-        //Creating the gerror messages
+        //Creating the error messages
 
         if(inputname.isEmpty()){
             editTextname.setError("First name is required");
@@ -137,4 +140,5 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         startActivity(intent);
     }
 
+}
 }
