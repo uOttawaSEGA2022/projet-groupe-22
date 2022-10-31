@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 public class ClientRegisterPage extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editTextname, editTextLastName, editTextinputEmail, editTextpassword, editTextaddress, editTextcreditCard, editTextCVV, editTextExpiry;
+    private EditText editTextname, editTextLastName, editTextinputEmail, editTextpassword, editTextcreditCard, editTextCVV, editTextExpiry;
     //private FirebaseAuth fAuth;
 
     private TextView creditText, donebutton;
@@ -33,7 +33,6 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         editTextLastName = (EditText) findViewById(R.id.inputlastname);
         editTextinputEmail = (EditText) findViewById(R.id.inputemail);
         editTextpassword = (EditText) findViewById(R.id.inputpass);
-        editTextaddress = (EditText) findViewById(R.id.address);
         editTextcreditCard = (EditText) findViewById(R.id.creditcard);
         editTextCVV = (EditText) findViewById(R.id.cvv);
         editTextExpiry = (EditText) findViewById(R.id.expiry);
@@ -50,12 +49,11 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         String inputlastname=editTextLastName.getText().toString().trim();
         String inputemail=editTextinputEmail.getText().toString().trim();
         String inputpass=editTextpassword.getText().toString().trim();
-        String address=editTextaddress.getText().toString().trim();
         String creditcard=editTextcreditCard.getText().toString().trim();
         String cvv=editTextCVV.getText().toString().trim();
         String expiry=editTextExpiry.getText().toString().trim();
 
-        //Creating the error messages
+        //Creating the gerror messages
 
         if(inputname.isEmpty()){
             editTextname.setError("First name is required");
@@ -88,12 +86,6 @@ public class ClientRegisterPage extends AppCompatActivity implements View.OnClic
         if (inputpass.length()<6){
             editTextpassword.setError("Email is required");
             editTextpassword.requestFocus();
-            return;
-        }
-
-        if(address.isEmpty()){
-            editTextaddress.setError("Address is required");
-            editTextaddress.requestFocus();
             return;
         }
 
