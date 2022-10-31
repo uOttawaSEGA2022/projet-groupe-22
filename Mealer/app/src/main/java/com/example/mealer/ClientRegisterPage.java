@@ -1,7 +1,5 @@
 package com.example.mealer;
 
-package com.example.mealer_seg;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
