@@ -25,8 +25,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,7 +62,6 @@ public class CookRegisterPage extends AppCompatActivity {
         editAddress = (EditText) findViewById(R.id.Address);
 
         fAuth = FirebaseAuth.getInstance();
-        fDataRef = FirebaseDatabase.getInstance().getReference("UserData");
 
         setContentView(R.layout.activity_cook_register_page);
 
@@ -70,9 +71,10 @@ public class CookRegisterPage extends AppCompatActivity {
         donebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMainActivity();
+                onRegisterButtonClicked(donebutton);
             }
         });
+
 
         //initializing the submit button and image preview
         submitchequebutton = findViewById(R.id.submitchequebutton);
@@ -83,118 +85,126 @@ public class CookRegisterPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 imageChooser();
+
             }
         });
 
 
     }
 
-    private void onRegisterButtonClicked(View view){
+    private void onRegisterButtonClicked(View view) {
         //Creating the getters for the inputs
 
-        String inputname=editTextname.getText().toString().trim();
-        String inputlastname=editTextLastName.getText().toString().trim();
-        String inputemail=editTextinputEmail.getText().toString().trim();
-        String inputpass=editTextpassword.getText().toString().trim();
-        String creditcard=editTextcreditCard.getText().toString().trim();
-        String cvv=editTextCVV.getText().toString().trim();
-        String expiry=editTextExpiry.getText().toString().trim();
+        String inputname = editTextname.getText().toString().trim();
+        String inputlastname = editTextLastName.getText().toString().trim();
+        String inputemail = editTextinputEmail.getText().toString().trim();
+        String inputpass = editTextpassword.getText().toString().trim();
+        String creditcard = editTextcreditCard.getText().toString().trim();
+        String cvv = editTextCVV.getText().toString().trim();
+        String expiry = editTextExpiry.getText().toString().trim();
 
-        String Address=editAddress.getText().toString().trim();
+        String Address = editAddress.getText().toString().trim();
 
         //Creating the error messages
 
-        if(Address.isEmpty()){
+        if (Address.isEmpty()) {
             editAddress.setError("Address is required");
             editAddress.requestFocus();
             return;
         }
 
-        if(inputname.isEmpty()){
+        if (inputname.isEmpty()) {
             editTextname.setError("First name is required");
             editTextname.requestFocus();
             return;
         }
-        if(inputlastname.isEmpty()){
+        if (inputlastname.isEmpty()) {
             editTextLastName.setError("Last name is required");
             editTextLastName.requestFocus();
             return;
         }
-        if(inputemail.isEmpty()){
+        if (inputemail.isEmpty()) {
             editTextinputEmail.setError("Email is required");
             editTextinputEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(inputemail).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(inputemail).matches()) {
             editTextinputEmail.setError("Please provide a valid email");
             editTextinputEmail.requestFocus();
             return;
         }
 
-        if(inputpass.isEmpty()){
+        if (inputpass.isEmpty()) {
             editTextpassword.setError("Password is required");
             editTextpassword.requestFocus();
             return;
         }
 
-        if (inputpass.length()<6){
+        if (inputpass.length() < 6) {
             editTextpassword.setError("Email is required");
             editTextpassword.requestFocus();
             return;
         }
 
-        if(creditcard.isEmpty()){
+        if (creditcard.isEmpty()) {
             editTextcreditCard.setError("Credit card is required");
             editTextcreditCard.requestFocus();
             return;
         }
-        if(cvv.isEmpty()){
+        if (cvv.isEmpty()) {
             editTextCVV.setError("cvv is required");
             editTextCVV.requestFocus();
             return;
         }
-        if (cvv.length()<3){
+        if (cvv.length() < 3) {
             editTextCVV.setError("The number should not be less than 3 numbers");
             editTextCVV.requestFocus();
             return;
         }
 
-        if(expiry.isEmpty()){
+        if (expiry.isEmpty()) {
             editTextExpiry.setError("The expiry date is required");
             editTextExpiry.requestFocus();
             return;
         }
 
         final Address address;
-        
 
 
-        fAuth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
-        {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task)
-            {
-                if (task.isSuccessful())
-                {
-                    String id = fAuth.getCurrentUser().getUid();
-                    Object fDataRef;
-                    fDataRef.child(id).setValue(new EmployeeData(inputName, userRole, id, inputEmail, employeePhoneNumber, new Address (province, employeePostalCode, inputStreet, inputCity)));
+        fAuth.createUserWithEmailAndPassword(inputemail, inputpass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
+                    {
+                        @Override
+                        public void onComplete (@NonNull Task < AuthResult > task)
+                        {
+                            if (task.isSuccessful()) {   //creating the user object
+                                User user = new User( inputemail, inputpass);
 
-                    Toast.makeText(Register.this,"User Created",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Register.this, Login.class);
-                    startActivity(intent);
-                    finish();
-                    }
-                else
-                {
-                    Toast.makeText(Register.this,"Error! "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                                FirebaseDatabase.getInstance().getReference("users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>(){
+
+                                    public void onComplete(Task<Void> task){
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(CookRegisterPage.this, "User has been successful", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(CookRegisterPage.this, "User has not been successful. Try again!", Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                                });
+                            }
+
+                             else
+                            {
+                            Toast.makeText(CookRegisterPage.this, "User has not been successful. Try again!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
-            }
-        });
 
 
-    }
 
     //this chooses the photo
     void imageChooser(){
