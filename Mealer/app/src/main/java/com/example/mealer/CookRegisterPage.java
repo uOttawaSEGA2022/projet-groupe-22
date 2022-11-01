@@ -2,8 +2,10 @@ package com.example.mealer;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +19,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -33,10 +41,11 @@ public class CookRegisterPage extends AppCompatActivity {
     int SELECT_PICTURE = 200;
 
     private EditText editTextname, editTextLastName, editTextinputEmail, editTextpassword, editTextcreditCard, editTextCVV, editTextExpiry;
-    private EditText city, postalCode, phoneNumber, street;
-    //private FirebaseAuth fAuth;
-    private Address.Province province;
+    private EditText editAddress;
+    private FirebaseAuth fAuth;
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +57,11 @@ public class CookRegisterPage extends AppCompatActivity {
         editTextcreditCard = (EditText) findViewById(R.id.creditcard);
         editTextCVV = (EditText) findViewById(R.id.cvv);
         editTextExpiry = (EditText) findViewById(R.id.expiry);
-        city =findViewById(R.id.rcity);//add in xml
-        postalCode=findViewById(R.id.rpostalCode);//add in xml
-        phoneNumber=findViewById(R.id.rphoneNumber);//add in xml
-        street=findViewById(R.id.rstreet);//add in xml
-            /*once we add firebase
-            fAuth = FirebaseAuth.getInstance();
+        editAddress = (EditText) findViewById(R.id.Address);
+
+        fAuth = FirebaseAuth.getInstance();
         fDataRef = FirebaseDatabase.getInstance().getReference("UserData");
-             */
-        
+
         setContentView(R.layout.activity_cook_register_page);
 
 
@@ -95,7 +100,15 @@ public class CookRegisterPage extends AppCompatActivity {
         String cvv=editTextCVV.getText().toString().trim();
         String expiry=editTextExpiry.getText().toString().trim();
 
+        String Address=editAddress.getText().toString().trim();
+
         //Creating the error messages
+
+        if(Address.isEmpty()){
+            editAddress.setError("Address is required");
+            editAddress.requestFocus();
+            return;
+        }
 
         if(inputname.isEmpty()){
             editTextname.setError("First name is required");
@@ -152,47 +165,11 @@ public class CookRegisterPage extends AppCompatActivity {
             editTextExpiry.requestFocus();
             return;
         }
-        
-        String inputPhoneNumber = phoneNumber.getText().toString().trim();
-        final String inputCity = city.getText().toString().trim();
-        final String inputStreet = street.getText().toString().trim();
-        String inputPostalCode = postalCode.getText().toString().trim();
+
         final Address address;
         
-            if(TextUtils.isEmpty(inputPhoneNumber)){phoneNumber.setError("Phone number is required. ");return;}
-            if (inputPhoneNumber.length() == 10) {
-                inputPhoneNumber = inputPhoneNumber.substring(0, 3)+ "-"
-                        + inputPhoneNumber.substring(3, 6)+ "-"
-                        + inputPhoneNumber.substring(6);
-            }
-            if (!Pattern.matches("^(\\d{3}-){2}\\d{4}$", inputPhoneNumber)) {
-                phoneNumber.setError("Phone number is invalid. ex. 1234567891");
-                return;
-            }
 
-            if(TextUtils.isEmpty(inputCity)){city.setError("City is Required. ");return;}
-            if(TextUtils.isEmpty(inputStreet)){street.setError("Street is Required. ");return;}
 
-            if(TextUtils.isEmpty(inputPostalCode)){postalCode.setError("Postal Code is Required. ");return;}
-
-            if (inputPostalCode.length()==6){
-                inputPostalCode = inputPostalCode.substring(0, 3)
-                        + " "
-                        + inputPostalCode.substring(3);
-            }
-            inputPostalCode=inputPostalCode.toUpperCase();
-
-            Pattern phonePattern = Pattern.compile("[A-Z]\\d[A-Z] \\d[A-Z]\\d");
-            Matcher m = phonePattern.matcher(inputPostalCode);
-            if (!m.matches()) {
-                postalCode.setError("Postal code is invalid. ex.m1a1d9");
-                return;
-            }
-
-        final String employeePhoneNumber=inputPhoneNumber;
-        final String employeePostalCode=inputPostalCode;
-        
-        /*
         fAuth.createUserWithEmailAndPassword(inputEmail, inputPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
         {
             @Override
@@ -201,8 +178,9 @@ public class CookRegisterPage extends AppCompatActivity {
                 if (task.isSuccessful())
                 {
                     String id = fAuth.getCurrentUser().getUid();
-                        fDataRef.child(id).setValue(new EmployeeData(inputName, userRole, id, inputEmail, employeePhoneNumber, new Address (province, employeePostalCode, inputStreet, inputCity)));
-                    
+                    Object fDataRef;
+                    fDataRef.child(id).setValue(new EmployeeData(inputName, userRole, id, inputEmail, employeePhoneNumber, new Address (province, employeePostalCode, inputStreet, inputCity)));
+
                     Toast.makeText(Register.this,"User Created",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Register.this, Login.class);
                     startActivity(intent);
@@ -214,7 +192,7 @@ public class CookRegisterPage extends AppCompatActivity {
                 }
             }
         });
-         */
+
 
     }
 
