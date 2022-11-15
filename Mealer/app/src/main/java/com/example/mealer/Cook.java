@@ -16,41 +16,30 @@ public class Cook extends User {
      * @param password
      */
     public Cook(String name, String lastName, String address, String email, String password) {
-        super(email, password);
         this.name = name;
         this.lastName = lastName;
         this.address = address;
+        super.setEmail(email);
+        super.setPassword(password);
+        super.setRole("Cook");
     }
-    /**
-     * @return
-     */
+
     public String getName(){
         return this.name;
     }
 
-    /**
-     * @return
-     */
     public String getLastName(){
         return this.lastName;
     }
-    /**
-     * @return
-     */
+
     public String getAddress(){
         return this.address;
     }
 
-    /**
-     * @param name
-     */
     public void setName(String name){
         this.name = name;
     }
 
-    /**
-     * @param lastName
-     */
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
