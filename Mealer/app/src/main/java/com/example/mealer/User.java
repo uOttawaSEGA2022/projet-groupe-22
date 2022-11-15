@@ -4,16 +4,12 @@ public class User {
     
     private String email;
     private String password;
-    
-    /**
-     * @param email
-     * @param password
-     */
-    public User (String email , String password){
-        this.email = email;
-        this.password = password;
+    private String role; //easier to differentiate
 
-    }
+    /**
+     * make everything a setter here, it's easier
+     */
+    public User (){}
 
     public String getEmail(){
         return this.email;
@@ -23,6 +19,8 @@ public class User {
         return this.password;
     }
 
+    public String getRole() {return this.role;}
+
     public void setEmail(String email){
         this.email = email;
     }
@@ -31,6 +29,7 @@ public class User {
         this.password = password;
     }
 
+    public void setRole(String role) {this.role = role;}
 
 
     
