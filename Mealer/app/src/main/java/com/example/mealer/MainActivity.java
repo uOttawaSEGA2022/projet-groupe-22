@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: put login verification here
                 openPageMain(); //sends to main page
             }
         });
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         registerbutton = (Button) findViewById(R.id.registerbutton);
         registerbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            //  TODO: edit this onClick to only happen upon verification of login
             public void onClick(View v) {
                 openRegisterOptions();
             }

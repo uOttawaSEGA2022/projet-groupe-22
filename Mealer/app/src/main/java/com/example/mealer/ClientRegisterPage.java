@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-//added implememntation
+//added implementation
 
 public class ClientRegisterPage extends AppCompatActivity {
 
