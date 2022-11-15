@@ -1,3 +1,5 @@
+package com.example.mealer;
+
 public class Cook extends User {
 
     private String name;
@@ -9,11 +11,11 @@ public class Cook extends User {
     /**
      * @param name
      * @param lastName
-     * @param adress
+     * @param address
      * @param email
      * @param password
      */
-    public Cook(String name,String lastName,String address,String email , String password) {
+    public Cook(String name, String lastName, String address, String email, String password) {
         super(email, password);
         this.name = name;
         this.lastName = lastName;
@@ -35,8 +37,8 @@ public class Cook extends User {
     /**
      * @return
      */
-    public String getAdress(){
-        return this.adress;
+    public String getAddress(){
+        return this.address;
     }
 
     /**
@@ -53,12 +55,8 @@ public class Cook extends User {
         this.lastName = lastName;
     }
 
-    public void setAdress(String adress){
-        this.adress = adress;
+    public void setAddress(String address){
+        this.address = address;
     }
-    public Cook() {
-    }
-
-
 
 }
