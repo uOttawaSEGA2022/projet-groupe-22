@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
@@ -29,7 +30,8 @@ public class ClientRegisterPage extends AppCompatActivity {
             creditCard, inputCVV, inputExpiry;
     Button donebutton;
 
-    private FirebaseAuth fAuth;
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
 
 
@@ -50,9 +52,17 @@ public class ClientRegisterPage extends AppCompatActivity {
         inputExpiry = (EditText) findViewById(R.id.expiry);
         donebutton = (Button) findViewById(R.id.donebutton);
 
-        fAuth = FirebaseAuth.getInstance();
+        donebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("users");
 
-    }
+                reference.setValue("we storing data boys");
+            }
+        }); //donebutton method end
+
+    } //oncreate end
 
     private void onRegisterButtonClicked(View view) {
         //Creating the getters for the inputs
