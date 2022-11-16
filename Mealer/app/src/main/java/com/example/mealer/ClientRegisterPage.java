@@ -58,6 +58,18 @@ public class ClientRegisterPage extends AppCompatActivity {
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("users");
 
+                //get all vals
+                String name = inputName.getText().toString();
+                String lastname = inputLastName.getText().toString();
+                String email = inputEmail.getText().toString();
+                String lastname = inputLastName.getText().toString();
+                String lastname = inputLastName.getText().toString();
+                String lastname = inputLastName.getText().toString();
+                String lastname = inputLastName.getText().toString();
+                String lastname = inputLastName.getText().toString();
+
+                Client client = new Client();
+
                 reference.setValue("we storing data boys");
             }
         }); //donebutton method end
