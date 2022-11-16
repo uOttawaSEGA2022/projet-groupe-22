@@ -7,20 +7,7 @@ public class Cook extends User {
 
     private String address;
 
-
-    /**
-     * @param name
-     * @param lastName
-     * @param address
-     * @param email
-     * @param password
-     */
-    public Cook(String name, String lastName, String address, String email, String password) {
-        this.name = name;
-        this.lastName = lastName;
-        this.address = address;
-        super.setEmail(email);
-        super.setPassword(password);
+    public Cook() {
         super.setRole("Cook");
     }
 

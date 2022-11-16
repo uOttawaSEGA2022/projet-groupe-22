@@ -25,27 +25,30 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ClientRegisterPage extends AppCompatActivity {
 
-    private EditText editTextname, editTextLastName, editTextinputEmail, editTextpassword, editTextcreditCard, editTextCVV, editTextExpiry;
+    EditText inputName, inputLastName, inputEmail, inputPass, inputAddress,
+            creditCard, inputCVV, inputExpiry;
+    Button donebutton;
+
     private FirebaseAuth fAuth;
 
-    private TextView creditText, donebutton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_register_page);
 
+        //hooks to all xml elements
+
+        inputName = (EditText) findViewById(R.id.inputname);
+        inputLastName = (EditText) findViewById(R.id.inputlastname);
+        inputEmail = (EditText) findViewById(R.id.inputemail);
+        inputPass = (EditText) findViewById(R.id.inputpass);
+        inputAddress = (EditText) findViewById(R.id.address);
+        creditCard = (EditText) findViewById(R.id.creditcard);
+        inputCVV = (EditText) findViewById(R.id.cvv);
+        inputExpiry = (EditText) findViewById(R.id.expiry);
         donebutton = (Button) findViewById(R.id.donebutton);
-
-        donebutton.setOnClickListener((View.OnClickListener) this);
-
-        editTextname = (EditText) findViewById(R.id.inputname);
-        editTextLastName = (EditText) findViewById(R.id.inputlastname);
-        editTextinputEmail = (EditText) findViewById(R.id.inputemail);
-        editTextpassword = (EditText) findViewById(R.id.inputpass);
-        editTextcreditCard = (EditText) findViewById(R.id.creditcard);
-        editTextCVV = (EditText) findViewById(R.id.cvv);
-        editTextExpiry = (EditText) findViewById(R.id.expiry);
 
         fAuth = FirebaseAuth.getInstance();
 
