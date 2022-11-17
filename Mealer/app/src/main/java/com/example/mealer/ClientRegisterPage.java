@@ -29,7 +29,7 @@ public class ClientRegisterPage extends AppCompatActivity {
     EditText inputName, inputLastName, inputEmail, inputPass, inputAddress,
             creditCard, inputCVV, inputExpiry;
     Button donebutton;
-
+    private FirebaseAuth fAuth;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
 
@@ -41,7 +41,7 @@ public class ClientRegisterPage extends AppCompatActivity {
         setContentView(R.layout.activity_client_register_page);
 
         //hooks to all xml elements
-        /*
+
         inputName = (EditText) findViewById(R.id.inputname);
         inputLastName = (EditText) findViewById(R.id.inputlastname);
         inputEmail = (EditText) findViewById(R.id.inputemail);
@@ -64,90 +64,81 @@ public class ClientRegisterPage extends AppCompatActivity {
                 String email = inputEmail.getText().toString();
                 String password = inputPass.getText().toString();
                 //TODO: add the other values
-                //TODO: add a check to ensure people with this specific email
-                //can't make an acc
 
                 Client client = new Client();
-                client.setName(name);
-                client.setLastName(lastname);
-                client.setEmail(email);
-                client.setPassword(password);
 
-                reference.setValue(client);
+                reference.setValue("we storing data boys");
             }
         }); //donebutton method end
 
-         */
-
     } //oncreate end
 
-    /*
     private void onRegisterButtonClicked(View view) {
         //Creating the getters for the inputs
 
-        String inputname = editTextname.getText().toString().trim();
-        String inputlastname = editTextLastName.getText().toString().trim();
-        String inputemail = editTextinputEmail.getText().toString().trim();
-        String inputpass = editTextpassword.getText().toString().trim();
-        String creditcard = editTextcreditCard.getText().toString().trim();
-        String cvv = editTextCVV.getText().toString().trim();
-        String expiry = editTextExpiry.getText().toString().trim();
+        String inputname = inputName.getText().toString().trim();
+        String inputlastname = inputLastName.getText().toString().trim();
+        String inputemail = inputEmail.getText().toString().trim();
+        String inputpass = inputPass.getText().toString().trim();
+        String creditcard = creditCard.getText().toString().trim();
+        String cvv = inputCVV.getText().toString().trim();
+        String expiry = inputExpiry.getText().toString().trim();
 
         //Creating the error messages
 
         if (inputname.isEmpty()) {
-            editTextname.setError("First name is required");
-            editTextname.requestFocus();
+            inputName.setError("First name is required");
+            inputName.requestFocus();
             return;
         }
         if (inputlastname.isEmpty()) {
-            editTextLastName.setError("Last name is required");
-            editTextLastName.requestFocus();
+            inputLastName.setError("Last name is required");
+            inputLastName.requestFocus();
             return;
         }
         if (inputemail.isEmpty()) {
-            editTextinputEmail.setError("Email is required");
-            editTextinputEmail.requestFocus();
+            inputEmail.setError("Email is required");
+            inputEmail.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(inputemail).matches()) {
-            editTextinputEmail.setError("Please provide a valid email");
-            editTextinputEmail.requestFocus();
+            inputEmail.setError("Please provide a valid email");
+            inputEmail.requestFocus();
             return;
         }
 
         if (inputpass.isEmpty()) {
-            editTextpassword.setError("Password is required");
-            editTextpassword.requestFocus();
+            inputPass.setError("Password is required");
+            inputPass.requestFocus();
             return;
         }
 
         if (inputpass.length() < 6) {
-            editTextpassword.setError("Email is required");
-            editTextpassword.requestFocus();
+            inputPass.setError("Email is required");
+            inputPass.requestFocus();
             return;
         }
 
         if (creditcard.isEmpty()) {
-            editTextcreditCard.setError("Credit card is required");
-            editTextcreditCard.requestFocus();
+            creditCard.setError("Credit card is required");
+            creditCard.requestFocus();
             return;
         }
         if (cvv.isEmpty()) {
-            editTextCVV.setError("cvv is required");
-            editTextCVV.requestFocus();
+            inputCVV.setError("cvv is required");
+            inputCVV.requestFocus();
             return;
         }
         if (cvv.length() < 3) {
-            editTextCVV.setError("The number should not be less than 3 numbers");
-            editTextCVV.requestFocus();
+            inputCVV.setError("The number should not be less than 3 numbers");
+            inputCVV.requestFocus();
             return;
         }
 
         if (expiry.isEmpty()) {
-            editTextExpiry.setError("The expiry date is required");
-            editTextExpiry.requestFocus();
+            inputExpiry.setError("The expiry date is required");
+            inputExpiry.requestFocus();
             return;
         }
 
@@ -183,7 +174,7 @@ public class ClientRegisterPage extends AppCompatActivity {
                     }
                 });
     }
-    */
+
 
 
     //this takes you back to login
@@ -192,6 +183,4 @@ public class ClientRegisterPage extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
 }
