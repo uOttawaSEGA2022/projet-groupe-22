@@ -62,11 +62,8 @@ public class ClientRegisterPage extends AppCompatActivity {
                 String name = inputName.getText().toString();
                 String lastname = inputLastName.getText().toString();
                 String email = inputEmail.getText().toString();
-                String lastname = inputLastName.getText().toString();
-                String lastname = inputLastName.getText().toString();
-                String lastname = inputLastName.getText().toString();
-                String lastname = inputLastName.getText().toString();
-                String lastname = inputLastName.getText().toString();
+                String password = inputPass.getText().toString();
+                //TODO: add the other values
 
                 Client client = new Client();
 
