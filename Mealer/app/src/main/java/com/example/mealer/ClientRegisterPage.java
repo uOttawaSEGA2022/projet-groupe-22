@@ -41,7 +41,7 @@ public class ClientRegisterPage extends AppCompatActivity {
         setContentView(R.layout.activity_client_register_page);
 
         //hooks to all xml elements
-
+        /*
         inputName = (EditText) findViewById(R.id.inputname);
         inputLastName = (EditText) findViewById(R.id.inputlastname);
         inputEmail = (EditText) findViewById(R.id.inputemail);
@@ -64,15 +64,24 @@ public class ClientRegisterPage extends AppCompatActivity {
                 String email = inputEmail.getText().toString();
                 String password = inputPass.getText().toString();
                 //TODO: add the other values
+                //TODO: add a check to ensure people with this specific email
+                //can't make an acc
 
                 Client client = new Client();
+                client.setName(name);
+                client.setLastName(lastname);
+                client.setEmail(email);
+                client.setPassword(password);
 
-                reference.setValue("we storing data boys");
+                reference.setValue(client);
             }
         }); //donebutton method end
 
+         */
+
     } //oncreate end
 
+    /*
     private void onRegisterButtonClicked(View view) {
         //Creating the getters for the inputs
 
@@ -174,7 +183,7 @@ public class ClientRegisterPage extends AppCompatActivity {
                     }
                 });
     }
-
+    */
 
 
     //this takes you back to login

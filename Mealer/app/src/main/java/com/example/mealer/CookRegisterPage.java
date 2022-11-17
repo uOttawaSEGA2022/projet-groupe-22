@@ -59,7 +59,7 @@ public class CookRegisterPage extends AppCompatActivity {
         editTextcreditCard = (EditText) findViewById(R.id.creditcard);
         editTextCVV = (EditText) findViewById(R.id.cvv);
         editTextExpiry = (EditText) findViewById(R.id.expiry);
-        editAddress = (EditText) findViewById(R.id.Address);
+        editAddress = (EditText) findViewById(R.id.address);
 
         fAuth = FirebaseAuth.getInstance();
 
