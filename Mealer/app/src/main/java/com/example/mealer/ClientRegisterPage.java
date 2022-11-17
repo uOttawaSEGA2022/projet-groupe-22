@@ -38,10 +38,10 @@ public class ClientRegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_register_page);
+
 
         //hooks to all xml elements
-        /*
+
         inputName = (EditText) findViewById(R.id.inputname);
         inputLastName = (EditText) findViewById(R.id.inputlastname);
         inputEmail = (EditText) findViewById(R.id.inputemail);
@@ -51,6 +51,8 @@ public class ClientRegisterPage extends AppCompatActivity {
         inputCVV = (EditText) findViewById(R.id.cvv);
         inputExpiry = (EditText) findViewById(R.id.expiry);
         donebutton = (Button) findViewById(R.id.donebutton);
+
+        setContentView(R.layout.activity_client_register_page);
 
         donebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +79,7 @@ public class ClientRegisterPage extends AppCompatActivity {
             }
         }); //donebutton method end
 
-         */
+
 
     } //oncreate end
 
