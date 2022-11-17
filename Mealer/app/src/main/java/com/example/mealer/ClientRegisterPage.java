@@ -68,8 +68,12 @@ public class ClientRegisterPage extends AppCompatActivity {
                 //TODO: add the other values
 
                 Client client = new Client();
+                client.setName(name);
+                client.setLastName(lastname);
+                client.setEmail(email);
+                client.setPassword(password);
 
-                reference.child(name).setValue("we storing data boys");
+                reference.child(name).setValue(client);
             }
         }); //donebutton method end
 
