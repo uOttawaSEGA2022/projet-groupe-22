@@ -69,7 +69,7 @@ public class ClientRegisterPage extends AppCompatActivity {
 
                 Client client = new Client();
 
-                reference.setValue("we storing data boys");
+                reference.child(name).setValue("we storing data boys");
             }
         }); //donebutton method end
 
