@@ -3,6 +3,7 @@ package com.example.mealer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,15 +32,17 @@ public class ClientRegisterPage extends AppCompatActivity {
             creditCard, inputCVV, inputExpiry;
     Button donebutton;
     private FirebaseAuth fAuth;
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    FirebaseUser fUser;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference();
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_client_register_page);
 
         //hooks to all xml elements
 
@@ -50,78 +54,67 @@ public class ClientRegisterPage extends AppCompatActivity {
         creditCard = (EditText) findViewById(R.id.creditcard);
         inputCVV = (EditText) findViewById(R.id.cvv);
         inputExpiry = (EditText) findViewById(R.id.expiry);
-        donebutton = (Button) findViewById(R.id.donebutton);
+        donebutton = (Button) findViewById(R.id.donebuttonclient);
 
-        setContentView(R.layout.activity_client_register_page);
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("users");
 
         donebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("users");
-
-                //get all vals
-                String name = inputName.getText().toString();
-                String lastname = inputLastName.getText().toString();
-                String email = inputEmail.getText().toString();
-                String password = inputPass.getText().toString();
+                onRegisterButtonClicked();
                 //TODO: add the other values
-
-                Client client = new Client();
-                client.setName(name);
-                client.setLastName(lastname);
-                client.setEmail(email);
-                client.setPassword(password);
-
-                reference.child(name).setValue(client);
             }
         }); //donebutton method end
 
 
     } //oncreate end
 
-    private void onRegisterButtonClicked(View view) {
+    private void onRegisterButtonClicked() {
         //Creating the getters for the inputs
 
-        String inputname = inputName.getText().toString().trim();
-        String inputlastname = inputLastName.getText().toString().trim();
-        String inputemail = inputEmail.getText().toString().trim();
-        String inputpass = inputPass.getText().toString().trim();
+        String name = inputName.getText().toString().trim();
+        String lastname = inputLastName.getText().toString().trim();
+        String email = inputEmail.getText().toString().trim();
+        String pass = inputPass.getText().toString().trim();
         String creditcard = creditCard.getText().toString().trim();
         String cvv = inputCVV.getText().toString().trim();
         String expiry = inputExpiry.getText().toString().trim();
 
         //Creating the error messages
 
-        if (inputname.isEmpty()) {
+        if (name.isEmpty()) {
             inputName.setError("First name is required");
             inputName.requestFocus();
             return;
         }
-        if (inputlastname.isEmpty()) {
+        if (lastname.isEmpty()) {
             inputLastName.setError("Last name is required");
             inputLastName.requestFocus();
             return;
         }
-        if (inputemail.isEmpty()) {
+        if (email.isEmpty()) {
             inputEmail.setError("Email is required");
             inputEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(inputemail).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             inputEmail.setError("Please provide a valid email");
             inputEmail.requestFocus();
             return;
         }
 
-        if (inputpass.isEmpty()) {
+        if (pass.isEmpty()) {
             inputPass.setError("Password is required");
             inputPass.requestFocus();
             return;
         }
 
-        if (inputpass.length() < 6) {
+        if (pass.length() < 6) {
             inputPass.setError("Email is required");
             inputPass.requestFocus();
             return;
@@ -149,45 +142,41 @@ public class ClientRegisterPage extends AppCompatActivity {
             return;
         }
 
+        //TODO: allow for authentication here
+        final String address = inputAddress.getText().toString();
 
-        final Address address;
+        fAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    Client client = new Client();
+                    client.setName(name);
+                    client.setLastName(lastname);
+                    client.setEmail(email);
+                    client.setPassword(pass);
+                    client.setAddress(address);
 
 
-        fAuth.createUserWithEmailAndPassword(inputemail, inputpass)
-                        .
+                    fUser = fAuth.getCurrentUser();
+                    String IDstring = fUser.getUid();
 
-                addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {   //creating the user object
-                            User user = new User(inputemail, inputpass);
 
-                            FirebaseDatabase.getInstance().getReference("users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.child("users").child(IDstring).setValue(client);
 
-                                        public void onComplete(Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(ClientRegisterPage.this, "User has been successful", Toast.LENGTH_LONG).show();
-                                            } else {
-                                                Toast.makeText(ClientRegisterPage.this, "User has not been successful. Try again!", Toast.LENGTH_LONG).show();
-                                            }
+                    Intent intent = new Intent(ClientRegisterPage.this, MainActivity.class);
+                    startActivity(intent);
 
-                                        }
-                                    });
-                        } else {
-                            Toast.makeText(ClientRegisterPage.this, "User has not been successful. Try again!", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                    Toast.makeText(ClientRegisterPage.this,"Registration successful!",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(ClientRegisterPage.this,""+task.getException(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
 
 
-
-    //this takes you back to login
-    //this is a test comment
-    public void openMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 }

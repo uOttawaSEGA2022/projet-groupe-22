@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ClientRegisterPage">
+        tools:context=".ClientRegisterPage"
+        android:scrollbars="vertical">
+
+    <RelativeLayout
+        android:id="@+id/clientpagelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/banner"
@@ -90,29 +96,31 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="0dp"/>
 
-    <EditText
-        android:id="@+id/cvv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/creditcard"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="19dp"
-        android:hint="CVV" />
+        <EditText
+            android:id="@+id/cvv"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/creditcard"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="21dp"
+            android:hint="CVV" />
 
-    <EditText
-        android:id="@+id/expiry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/cvv"
-        android:layout_marginStart="80dp"
-        android:inputType="date"/>
+        <EditText
+            android:id="@+id/expiry"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cvv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="21dp"
+            android:inputType="date" />
 
-    <Button
-        android:id="@+id/donebutton"
+        <Button
+        android:id="@+id/donebuttonclient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cvv"
+        android:layout_below="@id/expiry"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="70dp"
         android:layout_marginTop="26dp"
@@ -120,5 +128,5 @@
         android:layout_marginBottom="70dp"
         android:text="Done" />
 
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
