@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: put login verification here
                 onLoginButtonClicked(v); //sends to main page
             }
         });

@@ -32,7 +32,9 @@ public class ClientRegisterPage extends AppCompatActivity {
             creditCard, inputCVV, inputExpiry;
     Button donebutton;
     private FirebaseAuth fAuth;
+
     FirebaseUser fUser;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
 
