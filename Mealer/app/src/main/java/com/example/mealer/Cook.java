@@ -11,18 +11,6 @@ public class Cook extends User {
         super.setRole("Cook");
     }
 
-    public String getName(){
-        return this.name;
-    }
-
-    public String getLastName(){
-        return this.lastName;
-    }
-
-    public String getAddress(){
-        return this.address;
-    }
-
     public void setName(String name){
         this.name = name;
     }
@@ -33,6 +21,18 @@ public class Cook extends User {
 
     public void setAddress(String address){
         this.address = address;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public String getAddress(){
+        return this.address;
     }
 
 }

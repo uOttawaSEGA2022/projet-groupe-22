@@ -20,4 +20,12 @@ public class Client extends User{
 
     public void setAddress(String address){this.address = address;}
 
+    public String getAddress() {return address;}
+
+    public String getName() {return name;}
+
+    public String getLastName() {return lastName;}
+
+
+
 }

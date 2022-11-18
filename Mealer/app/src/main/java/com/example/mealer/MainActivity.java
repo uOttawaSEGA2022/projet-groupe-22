@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginbutton;
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
 
-        database = FirebaseDatabase.getInstance().getReference();
+
 
         //creating the variables for the user inputs
         inputEmail = (EditText) findViewById(R.id.inputemail);
@@ -61,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void openPageMain(){
-        Intent intent = new Intent(this,PageMain.class);
-        startActivity(intent);
-    }
     public void openRegisterOptions(){
         Intent intent = new Intent(this,RegisterOptions.class);
         startActivity(intent);
@@ -119,12 +119,37 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     //TODO: make this so it opens a specific activity depending on what type of user it is
                     String id = fUser.getUid();
-                    String val = String.valueOf(database.child("users").child(id).child("role").get());
-                    if(val=="Client") {
-                        openPageMain();
-                    }else if(val=="Administrator"){
+
+                    String[] roleholder = new String[1];
+
+
+                    database = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("role");
+                    database.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String role = snapshot.getValue(String.class);
+                            System.out.println(role);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                    String usertype = roleholder[0];
+                    System.out.println(usertype);
+
+
+                    if(usertype.equals("Client")) {
+                        Intent intent = new Intent(MainActivity.this, PageMain.class);
+                        startActivity(intent);
+                    }
+                    else if(usertype.equals("Administrator")){
                         //TODO:admin page
-                    }else if(val=="Cook"){
+                    }
+                    else if(usertype.equals("Cook")){
                         //TODO: cook page
                     }
                     Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
