@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,13 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private Button loginbutton;
     private Button registerbutton;
     private EditText inputPassword, inputEmail;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
-    DatabaseReference database;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
+
 
 
 
@@ -117,42 +121,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //TODO: make this so it opens a specific activity depending on what type of user it is
+
                     String id = fUser.getUid();
 
-                    String[] roleholder = new String[1];
-
-
-                    database = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("role");
-                    database.addValueEventListener(new ValueEventListener() {
+                    reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("role");
+                    reference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String role = snapshot.getValue(String.class);
-                            System.out.println(role);
+                            String usertype = snapshot.getValue(String.class);
+
+                            if(usertype.equals("Client")) {
+                                Intent intent = new Intent(MainActivity.this, PageMain.class);
+                                startActivity(intent);
+                            }
+                            else if(usertype.equals("Administrator")){
+                                Intent intent = new Intent(MainActivity.this, AdminPage.class);
+                                startActivity(intent);
+                            }
+                            else if(usertype.equals("Cook")){
+                                //TODO: cook page
+                            }
+                            Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Toast.makeText(MainActivity.this, "Hey that didn't work out, sorry",Toast.LENGTH_LONG).show();
                         }
                     });
 
-
-                    String usertype = roleholder[0];
-                    System.out.println(usertype);
-
-
-                    if(usertype.equals("Client")) {
-                        Intent intent = new Intent(MainActivity.this, PageMain.class);
-                        startActivity(intent);
-                    }
-                    else if(usertype.equals("Administrator")){
-                        //TODO:admin page
-                    }
-                    else if(usertype.equals("Cook")){
-                        //TODO: cook page
-                    }
-                    Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(MainActivity.this, "Login unsuccessful, try again",Toast.LENGTH_SHORT).show();
                 }
