@@ -118,13 +118,13 @@ public class ClientRegisterPage extends AppCompatActivity {
         }
 
         if (pass.length() < 6) {
-            inputPass.setError("Email is required");
+            inputPass.setError("Password should not be less than 6 characters");
             inputPass.requestFocus();
             return;
         }
 
         if (creditcard.isEmpty()) {
-            creditCard.setError("Credit card is required");
+            creditCard.setError("CreditCard is required");
             creditCard.requestFocus();
             return;
         }
@@ -134,7 +134,7 @@ public class ClientRegisterPage extends AppCompatActivity {
             return;
         }
         if (cvv.length() < 3) {
-            inputCVV.setError("The number should not be less than 3 numbers");
+            inputCVV.setError("The CVV number should not be less than 3 numbers");
             inputCVV.requestFocus();
             return;
         }
