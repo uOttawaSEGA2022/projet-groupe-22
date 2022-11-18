@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, PageMain.class);
                                 startActivity(intent);
                             }
-                            else if(usertype.equals("Administrator")){
+                            else if(usertype.equals("Admin")){
                                 Intent intent = new Intent(MainActivity.this, AdminPage.class);
                                 startActivity(intent);
                             }

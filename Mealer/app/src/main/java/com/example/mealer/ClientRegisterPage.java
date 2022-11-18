@@ -53,6 +53,8 @@ public class ClientRegisterPage extends AppCompatActivity {
         inputAddress = (EditText) findViewById(R.id.address);
         creditCard = (EditText) findViewById(R.id.creditcard);
         inputCVV = (EditText) findViewById(R.id.cvv);
+        //TODO: i wanna make it so expiry is stored as an actual date
+        //TODO: no clue how tho
         inputExpiry = (EditText) findViewById(R.id.expiry);
         donebutton = (Button) findViewById(R.id.donebuttonclient);
 
