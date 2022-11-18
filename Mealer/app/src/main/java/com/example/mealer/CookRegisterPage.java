@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 
 
 public class CookRegisterPage extends AppCompatActivity {
+    //TODO: FIX THIS
     private Button donebutton;
 
     private Button submitchequebutton;
