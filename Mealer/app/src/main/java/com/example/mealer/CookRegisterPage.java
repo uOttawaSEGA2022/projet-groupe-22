@@ -25,6 +25,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
@@ -45,6 +47,9 @@ public class CookRegisterPage extends AppCompatActivity {
     private EditText editTextname, editTextLastName, editTextinputEmail, editTextpassword, editTextcreditCard, editTextCVV, editTextExpiry;
     private EditText editAddress;
     private FirebaseAuth fAuth;
+    FirebaseUser fUser;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference();
 
 
     @SuppressLint("MissingInflatedId")
@@ -173,40 +178,35 @@ public class CookRegisterPage extends AppCompatActivity {
 
 
         fAuth.createUserWithEmailAndPassword(inputemail, inputpass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
-                    {
-                        @Override
-                        public void onComplete (@NonNull Task < AuthResult > task)
-                        {
-                            if (task.isSuccessful()) {   //creating the user object
-                                User user = new User( inputemail, inputpass);
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {   //creating the user object
+                            Cook cook = new Cook();
+                            cook.setName(inputname);
+                            cook.setLastName(inputlastname);
+                            cook.setEmail(inputemail);
+                            cook.setPassword(inputpass);
+                            //TODO: add other vals here
 
-                                FirebaseDatabase.getInstance().getReference("users")
-                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>(){
+                            fUser = fAuth.getCurrentUser();
+                            String IDstring = fUser.getUid();
 
-                                    public void onComplete(Task<Void> task){
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(CookRegisterPage.this, "User has been successful", Toast.LENGTH_LONG).show();
-                                    } else {
-                                        Toast.makeText(CookRegisterPage.this, "User has not been successful. Try again!", Toast.LENGTH_LONG).show();
-                                    }
+                            reference.child("users").child(IDstring).setValue(cook);
 
-                                }
-                                });
-                            }
+                            Intent intent = new Intent(CookRegisterPage.this, MainActivity.class);
+                            startActivity(intent);
 
-                             else
-                            {
-                            Toast.makeText(CookRegisterPage.this, "User has not been successful. Try again!", Toast.LENGTH_LONG).show();
-                            }
+                            Toast.makeText(CookRegisterPage.this, "Registration successful! Welcome", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(CookRegisterPage.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
+                    }
+                });
+    }
 
-
-
-    //this chooses the photo
+        //this chooses the photo
     void imageChooser(){
         Intent i = new Intent();
         i.setType("image/*");
@@ -234,11 +234,5 @@ public class CookRegisterPage extends AppCompatActivity {
                 }
             });
 
-
-    //this takes you back to login
-    public void openMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
 }

@@ -66,7 +66,6 @@ public class ClientRegisterPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onRegisterButtonClicked();
-                //TODO: add the other values
             }
         }); //donebutton method end
 
@@ -142,7 +141,7 @@ public class ClientRegisterPage extends AppCompatActivity {
             return;
         }
 
-        //TODO: allow for authentication here
+        //TODO: allow for authentication here, this is a placeholder
         final String address = inputAddress.getText().toString();
 
         fAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -176,7 +175,7 @@ public class ClientRegisterPage extends AppCompatActivity {
         });
 
 
-    }
+    } //end of onregisterbuttonclicked
 
 
 }
