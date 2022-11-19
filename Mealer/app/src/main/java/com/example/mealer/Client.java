@@ -26,6 +26,8 @@ public class Client extends User{
 
     public String getLastName() {return lastName;}
 
+    //TODO: method creating a complaint, calls complaint constructor
+
 
 
 }

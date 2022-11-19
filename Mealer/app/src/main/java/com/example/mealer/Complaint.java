@@ -3,6 +3,7 @@ package com.example.mealer;
 public class Complaint {
 
     String clientUid;
+    //TODO: should chef really be a string? it would make more sense as a reference
     String chef;
     String date;
     String complaintText="";
