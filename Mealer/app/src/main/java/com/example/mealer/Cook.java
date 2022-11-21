@@ -7,6 +7,8 @@ public class Cook extends User {
 
     private String address;
 
+    private String description;
+
     public Cook() {
         super.setRole("Cook");
     }
@@ -22,6 +24,8 @@ public class Cook extends User {
     public void setAddress(String address){
         this.address = address;
     }
+
+    public void setDescription(String description) { this.description = description; }
 
     public String getName(){
         return this.name;

@@ -21,7 +21,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
     <EditText
-        android:id="@+id/inputname"
+        android:id="@+id/inputnamecook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/banner"
@@ -32,10 +32,10 @@
         android:hint="Name" />
 
     <EditText
-        android:id="@+id/inputlastname"
+        android:id="@+id/inputlastnamecook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputname"
+        android:layout_below="@id/inputnamecook"
         android:layout_marginStart="30dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="30dp"
@@ -43,10 +43,10 @@
         android:hint="Last name" />
 
     <EditText
-        android:id="@+id/inputemail"
+        android:id="@+id/inputemailcook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputlastname"
+        android:layout_below="@id/inputlastnamecook"
         android:layout_marginStart="30dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="30dp"
@@ -54,31 +54,31 @@
         android:hint="Email address" />
 
     <EditText
-        android:id="@+id/inputpass"
+        android:id="@+id/inputpasscook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputemail"
+        android:layout_below="@id/inputemailcook"
         android:layout_marginStart="30dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="30dp"
         android:hint="Password" />
 
     <EditText
-        android:id="@+id/address"
+        android:id="@+id/addresscook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="30dp"
-        android:layout_below="@id/inputpass"
+        android:layout_below="@id/inputpasscook"
         android:inputType="textPostalAddress"
         android:hint="Address"/>
 
     <EditText
-        android:id="@+id/inputdescription"
+        android:id="@+id/inputdescriptioncook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/address"
+        android:layout_below="@id/addresscook"
         android:layout_marginStart="30dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="30dp"
@@ -89,7 +89,7 @@
         android:id="@+id/chequetext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputdescription"
+        android:layout_below="@id/inputdescriptioncook"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="10dp"
@@ -115,7 +115,7 @@
         android:layout_below="@id/submitchequebutton"/>
 
     <Button
-        android:id="@+id/donebutton"
+        android:id="@+id/donebuttoncook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/previewimage"

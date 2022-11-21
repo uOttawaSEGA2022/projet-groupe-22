@@ -13,7 +13,6 @@ import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -30,23 +29,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class CookRegisterPage extends AppCompatActivity {
     //TODO: FIX THIS
-    private Button donebutton;
+    Button donebutton;
 
-    private Button submitchequebutton;
+    Button submitchequebutton;
 
-    private ImageView previewimage;
+    ImageView previewimage;
 
     int SELECT_PICTURE = 200;
 
-    private EditText editTextname, editTextLastName, editTextinputEmail, editTextpassword, editTextcreditCard, editTextCVV, editTextExpiry;
-    private EditText editAddress;
+    EditText inputName, inputLastName, inputEmail, inputPass, inputAddress, inputDescription;
+    //TODO: find a way to store the image
+
+
     private FirebaseAuth fAuth;
     FirebaseUser fUser;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -57,29 +55,27 @@ public class CookRegisterPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        editTextname = (EditText) findViewById(R.id.inputname);
-        editTextLastName = (EditText) findViewById(R.id.inputlastname);
-        editTextinputEmail = (EditText) findViewById(R.id.inputemail);
-        editTextpassword = (EditText) findViewById(R.id.inputpass);
-        editTextcreditCard = (EditText) findViewById(R.id.creditcard);
-        editTextCVV = (EditText) findViewById(R.id.cvv);
-        editTextExpiry = (EditText) findViewById(R.id.expiry);
-        editAddress = (EditText) findViewById(R.id.address);
-
-        fAuth = FirebaseAuth.getInstance();
-
         setContentView(R.layout.activity_cook_register_page);
 
+        //hooks
+        inputName = (EditText) findViewById(R.id.inputnamecook);
+        inputLastName = (EditText) findViewById(R.id.inputlastnamecook);
+        inputEmail = (EditText) findViewById(R.id.inputemailcook);
+        inputPass = (EditText) findViewById(R.id.inputpasscook);
+        inputAddress = (EditText) findViewById(R.id.addresscook);
+        inputDescription = (EditText) findViewById(R.id.inputdescriptioncook);
+
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
 
         //setting done button's onclick
-        donebutton = (Button) findViewById(R.id.donebutton);
+        donebutton = (Button) findViewById(R.id.donebuttoncook);
         donebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onRegisterButtonClicked(donebutton);
+                onRegisterButtonClicked();
             }
-        });
+        }); //end of donebutton
 
 
         //initializing the submit button and image preview
@@ -91,103 +87,83 @@ public class CookRegisterPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 imageChooser();
-
             }
-        });
+        }); //end of chequebutton
 
 
-    }
+    } //end of oncreate
 
     private void onRegisterButtonClicked(View view) {
         //Creating the getters for the inputs
 
-        String inputname = editTextname.getText().toString().trim();
-        String inputlastname = editTextLastName.getText().toString().trim();
-        String inputemail = editTextinputEmail.getText().toString().trim();
-        String inputpass = editTextpassword.getText().toString().trim();
-        String creditcard = editTextcreditCard.getText().toString().trim();
-        String cvv = editTextCVV.getText().toString().trim();
-        String expiry = editTextExpiry.getText().toString().trim();
-
-        String Address = editAddress.getText().toString().trim();
+        String name = inputName.getText().toString().trim();
+        String lastname = inputLastName.getText().toString().trim();
+        String email = inputEmail.getText().toString().trim();
+        String password = inputPass.getText().toString().trim();
+        String address = inputAddress.getText().toString().trim();
+        String description = inputDescription.getText().toString().trim();
 
         //Creating the error messages
 
-        if (Address.isEmpty()) {
-            editAddress.setError("Address is required");
-            editAddress.requestFocus();
+        if (address.isEmpty()) {
+            inputAddress.setError("Address is required");
+            inputAddress.requestFocus();
             return;
         }
 
-        if (inputname.isEmpty()) {
-            editTextname.setError("First name is required");
-            editTextname.requestFocus();
+        if (name.isEmpty()) {
+            inputName.setError("First name is required");
+            inputName.requestFocus();
             return;
         }
-        if (inputlastname.isEmpty()) {
-            editTextLastName.setError("Last name is required");
-            editTextLastName.requestFocus();
+        if (lastname.isEmpty()) {
+            inputLastName.setError("Last name is required");
+            inputLastName.requestFocus();
             return;
         }
-        if (inputemail.isEmpty()) {
-            editTextinputEmail.setError("Email is required");
-            editTextinputEmail.requestFocus();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(inputemail).matches()) {
-            editTextinputEmail.setError("Please provide a valid email");
-            editTextinputEmail.requestFocus();
+        if (email.isEmpty()) {
+            inputEmail.setError("Email is required");
+            inputEmail.requestFocus();
             return;
         }
 
-        if (inputpass.isEmpty()) {
-            editTextpassword.setError("Password is required");
-            editTextpassword.requestFocus();
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            inputEmail.setError("Please provide a valid email");
+            inputEmail.requestFocus();
             return;
         }
 
-        if (inputpass.length() < 6) {
-            editTextpassword.setError("Email is required");
-            editTextpassword.requestFocus();
+        if (password.isEmpty()) {
+            inputPass.setError("Password is required");
+            inputPass.requestFocus();
             return;
         }
 
-        if (creditcard.isEmpty()) {
-            editTextcreditCard.setError("Credit card is required");
-            editTextcreditCard.requestFocus();
-            return;
-        }
-        if (cvv.isEmpty()) {
-            editTextCVV.setError("cvv is required");
-            editTextCVV.requestFocus();
-            return;
-        }
-        if (cvv.length() < 3) {
-            editTextCVV.setError("The number should not be less than 3 numbers");
-            editTextCVV.requestFocus();
+        if (password.length() < 6) {
+            inputPass.setError("Email is required");
+            inputPass.requestFocus();
             return;
         }
 
-        if (expiry.isEmpty()) {
-            editTextExpiry.setError("The expiry date is required");
-            editTextExpiry.requestFocus();
+        if (description.isEmpty()){
+            inputDescription.setError("Description is required!");
+            inputDescription.requestFocus();
             return;
         }
 
-        final Address address;
 
-
-        fAuth.createUserWithEmailAndPassword(inputemail, inputpass)
+        fAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {   //creating the user object
                             Cook cook = new Cook();
-                            cook.setName(inputname);
-                            cook.setLastName(inputlastname);
-                            cook.setEmail(inputemail);
-                            cook.setPassword(inputpass);
+                            cook.setName(name);
+                            cook.setLastName(lastname);
+                            cook.setEmail(email);
+                            cook.setPassword(password);
+                            cook.setDescription(description);
+
                             //TODO: add other vals here
 
                             fUser = fAuth.getCurrentUser();
