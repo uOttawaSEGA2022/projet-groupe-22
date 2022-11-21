@@ -4,16 +4,16 @@ public class Complaint {
 
     String clientUid;
     //TODO: should chef really be a string? it would make more sense as a reference
-    String chef;
+    String chefUid;
     String date;
     String complaintText="";
 
     //Constructors
     public Complaint (){}
 
-    public Complaint(String clientUid, String chef, String date, String complaintText){
+    public Complaint(String clientUid, String chefUid, String date, String complaintText){
         this.clientUid=clientUid;
-        this.chef=chef;
+        this.chefUid=chefUid;
         this.date=date;
         this.complaintText=complaintText;
     }

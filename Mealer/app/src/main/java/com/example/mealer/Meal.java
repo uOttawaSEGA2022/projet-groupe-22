@@ -1,14 +1,14 @@
 public class Meal {
 	
-	private String chef ;
+	private String chefUid ;
 	private String mealName;
 	private String mealType;
 	private String gastronomyType;
 	private double price;
 	
 	
-	public Meal (String chef,String mealName,String mealType,String gastronomyType,double price){
-		this.chef = chef ;
+	public Meal (String chefUid,String mealName,String mealType,String gastronomyType,double price){
+		this.chefUid = chefUid ;
 		this.mealName = mealName ;
 		this.mealType = mealType ;
 		this.gastronomyType = gastronomyType ;
@@ -16,8 +16,8 @@ public class Meal {
 	}
 	
 	//Setters
-	public void setChef (String chef){
-		this.chef = chef ;
+	public void setChef (String chefUid){
+		this.chefUid = chefUid ;
 	}
 	
 	public void setMealName(String mealName){
@@ -35,8 +35,8 @@ public class Meal {
 	}
 	
 	//Getters
-	public String getChef(){
-		return this.chef;
+	public String getChefUid(){
+		return this.chefUid;
 	}
 	public String getMealName(){
 		return this.mealName;
