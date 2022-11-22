@@ -93,7 +93,7 @@ public class CookRegisterPage extends AppCompatActivity {
 
     } //end of oncreate
 
-    private void onRegisterButtonClicked(View view) {
+    private void onRegisterButtonClicked() {
         //Creating the getters for the inputs
 
         String name = inputName.getText().toString().trim();
