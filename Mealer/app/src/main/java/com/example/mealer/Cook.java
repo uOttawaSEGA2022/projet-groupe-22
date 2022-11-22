@@ -9,6 +9,8 @@ public class Cook extends User {
 
     private String description;
 
+    //TODO: way of storing cheque
+
     public Cook() {
         super.setRole("Cook");
     }
@@ -38,5 +40,7 @@ public class Cook extends User {
     public String getAddress(){
         return this.address;
     }
+
+    public String getDescription() {return this.description; }
 
 }
