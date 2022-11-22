@@ -138,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             else if(usertype.equals("Cook")){
-                                //TODO: cook page
+                                Intent intent = new Intent(MainActivity.this, CookPage.class);
+                                startActivity(intent);
                             }
                             Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
 
