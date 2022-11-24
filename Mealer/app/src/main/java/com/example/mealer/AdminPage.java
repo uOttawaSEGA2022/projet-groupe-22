@@ -1,5 +1,6 @@
 package com.example.mealer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +33,10 @@ public class AdminPage extends AppCompatActivity {
 
     DatabaseReference databaseComplaints;
 
+    private FirebaseAuth mAuth;
+
+    DatabaseReference ref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +50,22 @@ public class AdminPage extends AppCompatActivity {
 
         //has been used to create the complaints
 
-        /*String id = databaseComplaints.push().getKey();
-        Complaint complaint = new Complaint("first", "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the food");
+        String id = databaseComplaints.push().getKey();
+        Complaint complaint = new Complaint(id, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the food");
 
 
         //saving the product
         databaseComplaints.child(id).setValue(complaint);
 
         String id2 = databaseComplaints.push().getKey();
-        Complaint complaint2 = new Complaint("second", "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the food");
+        Complaint complaint2 = new Complaint(id2, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the foodjhgcdfgvfdvdyfgvdgv            ");
 
 
 
 
         //saving the product
         databaseComplaints.child(id2).setValue(complaint2);
-*/
+
 
         listViewComplaints.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
@@ -122,32 +129,34 @@ public class AdminPage extends AppCompatActivity {
 
         final Button buttonAcceptComplaint = (Button) dialogView.findViewById(R.id.buttonAcceptComplaint);
         final Button buttonDismissComplaint = (Button) dialogView.findViewById(R.id.buttonDismissComplaint);
-        final Button buttonGoBack = (Button) dialogView.findViewById(R.id.buttonGoBack);
 
-        dialogBuilder.setTitle("Complaint on " + chefUid);
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
-        buttonAcceptComplaint.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("name");
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                acceptAndGoToChefProfile(complaintId, chefUid);
-                b.dismiss();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String chefName = snapshot.getValue(String.class);
+                dialogBuilder.setTitle("Complaint on " + chefName);
+                final AlertDialog b = dialogBuilder.create();
+                b.show();
+
+                buttonAcceptComplaint.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        acceptAndGoToChefProfile(complaintId, chefUid);
+                        b.dismiss();
+                    }
+                });
+
+                buttonDismissComplaint.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DismissComplaint(complaintId);
+                        b.dismiss();
+                    }
+                });
             }
-        });
-
-        buttonDismissComplaint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DismissComplaint(complaintId);
-                b.dismiss();
-            }
-        });
-
-        buttonGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                b.dismiss();
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(AdminPage.this, "Hey that didn't work out, sorry",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -157,6 +166,7 @@ public class AdminPage extends AppCompatActivity {
     private boolean DismissComplaint(String id) {
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaints").child(id);
+        System.out.println(id);
         dR.removeValue();
         Toast.makeText(getApplicationContext(), "Complaint Dismissed", Toast.LENGTH_LONG).show();
         return true;
@@ -173,6 +183,46 @@ public class AdminPage extends AppCompatActivity {
         startActivity(intent);
 
         return true;
+    }
+
+    private boolean suspendTemp (String chefID , String time){
+        boolean result = false;
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            mAuth = FirebaseAuth.getInstance();
+            String currentUserID = mAuth.getCurrentUser().getUid();
+            if (currentUserID.equals(chefID)){
+                //The status shouldn't be a boolean
+                //It's better to use it like a string
+                // Suspended def
+                // Suspended Tem
+                // Not suspended
+                ref = FirebaseDatabase.getInstance().getReference().child("users").child(chefID).child("status");
+                //TODO: Change the value in firebase
+                //TODO: Add the timer for the suspension time
+                // Change the statut after the suspension
+                //TODO: Add the event listener
+                Toast.makeText(getApplicationContext(), "Cook successfully suspended for !", Toast.LENGTH_LONG).show();
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    private boolean suspendDef (String chefID){
+        boolean result = false;
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            mAuth = FirebaseAuth.getInstance();
+            String currentUserID = mAuth.getCurrentUser().getUid();
+            if (currentUserID.equals(chefID)){
+                ref = FirebaseDatabase.getInstance().getReference().child("users").child(chefID).child("status");
+                //TODO: Change the value in firebase to suspended def
+                Toast.makeText(getApplicationContext(), "Cook successfully suspended !", Toast.LENGTH_LONG).show();
+                result = true;
+            }
+        }
+        return result;
     }
 
 }
