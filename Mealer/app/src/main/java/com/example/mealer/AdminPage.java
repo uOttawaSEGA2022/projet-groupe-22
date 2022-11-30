@@ -57,10 +57,12 @@ public class AdminPage extends AppCompatActivity {
         //saving the product
         databaseComplaints.child(id).setValue(complaint);
 
+
+
         String id2 = databaseComplaints.push().getKey();
         Complaint complaint2 = new Complaint(id2, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the foodjhgcdfgvfdvdyfgvdgv            ");
 
-
+        //^this functionality is tba to client page
 
 
         //saving the product
