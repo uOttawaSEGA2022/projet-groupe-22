@@ -179,10 +179,10 @@ public class AdminPage extends AppCompatActivity {
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaints").child(id);
         dR.removeValue();
-        Toast.makeText(getApplicationContext(), "Complaint is deleted and you will be directed to the chef's profile", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Complaint is deleted and now you need to decide for how long the suspension will be", Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(AdminPage.this, CookPage.class);
-        startActivity(intent);
+        //Intent intent = new Intent(AdminPage.this, CookPage.class);
+        //startActivity(intent);
 
         return true;
     }
