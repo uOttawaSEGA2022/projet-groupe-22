@@ -9,13 +9,19 @@ public class Cook extends User {
 
     private String description;
 
+    //status of cook if suspended or not
     private boolean status;
+
+    //for initial time of suspension
+    //if not suspended, this is 0
+    private long initialtime;
 
     //TODO: way of storing cheque
 
     public Cook() {
         super.setRole("Cook");
         status = false;
+        initialtime = -1;
     }
 
     public void setName(String name){
@@ -49,6 +55,8 @@ public class Cook extends User {
     public String getDescription() {return this.description; }
 
     public boolean getStatus() {return this.status;}
+
+    public long getInitialtime() {return initialtime;}
 
 
 
