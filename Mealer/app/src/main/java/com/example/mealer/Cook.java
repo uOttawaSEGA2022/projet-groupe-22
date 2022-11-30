@@ -9,13 +9,13 @@ public class Cook extends User {
 
     private String description;
 
-    private boolean hascomplaint;
+    private boolean status;
 
     //TODO: way of storing cheque
 
     public Cook() {
         super.setRole("Cook");
-        hascomplaint = false;
+        status = false;
     }
 
     public void setName(String name){
@@ -32,7 +32,7 @@ public class Cook extends User {
 
     public void setDescription(String description) { this.description = description; }
 
-    public void changeStatus() {this.hascomplaint = true;}
+    public void changeStatus() {this.status = true;}
 
     public String getName(){
         return this.name;
@@ -48,7 +48,7 @@ public class Cook extends User {
 
     public String getDescription() {return this.description; }
 
-    public boolean getStatus() {return this.hascomplaint;}
+    public boolean getStatus() {return this.status;}
 
 
 
