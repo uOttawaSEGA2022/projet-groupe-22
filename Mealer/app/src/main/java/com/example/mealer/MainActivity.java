@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     DatabaseReference reference;
+    Boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,23 @@ public class MainActivity extends AppCompatActivity {
         }
          //sends to main page
     }
+    boolean checkStatus(String id){
+
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("status");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                status = snapshot.getValue(Boolean.class);
+                
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return status;
+    }
 
     private void performLogin(){
         String inputemail = inputEmail.getText().toString().trim();
@@ -133,13 +151,17 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, PageMain.class);
                                 startActivity(intent);
                             }
-                            else if(usertype.equals("Admin")){
+                            if(usertype.equals("Admin")){
                                 Intent intent = new Intent(MainActivity.this, AdminPage.class);
                                 startActivity(intent);
                             }
-                            else if(usertype.equals("Cook")){
+                            if(usertype.equals("Cook")){
+                                if (!checkStatus(id)){
                                 Intent intent = new Intent(MainActivity.this, CookPage.class);
-                                startActivity(intent);
+                                startActivity(intent);}
+                                else
+                                    //TODO to be updated and show details
+                                    Toast.makeText(MainActivity.this, "Sorry you were suspended",Toast.LENGTH_SHORT).show();
                             }
                             Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
 
@@ -158,5 +180,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-
-
