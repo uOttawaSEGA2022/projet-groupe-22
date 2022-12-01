@@ -14,50 +14,44 @@ public class Cook extends User {
 
     //for initial time of suspension
     //if not suspended, this is 0
-    private long initialtime;
+    //private long initialtime;
+    private String initialtime;
 
     //TODO: way of storing cheque
 
     public Cook() {
         super.setRole("Cook");
         status = false;
-        initialtime = -1;
+        //initialtime = -1;
     }
 
+    //setters
     public void setName(String name){
         this.name = name;
     }
-
     public void setLastName(String lastName){
         this.lastName = lastName;
     }
-
     public void setAddress(String address){
         this.address = address;
     }
-
     public void setDescription(String description) { this.description = description; }
-
     public void changeStatus() {this.status = true;}
+    public void setInitialtime(String initialtime) { this.initialtime = initialtime;}
 
+    //getters
     public String getName(){
         return this.name;
     }
-
     public String getLastName(){
         return this.lastName;
     }
-
     public String getAddress(){
         return this.address;
     }
-
     public String getDescription() {return this.description; }
-
     public boolean getStatus() {return this.status;}
-
-    public long getInitialtime() {return initialtime;}
-
-
+    public String getInitialtime() {return initialtime;}
 
 }
+
