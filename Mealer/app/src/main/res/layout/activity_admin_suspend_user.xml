@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bt_white"
+    android:orientation="vertical"
+    tools:context=".AdminSuspendUser">
+
+    <TextView
+        android:id="@+id/suspDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="23sp"
+        android:text="Date"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="70dp"
+        />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/bg_calendar">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="320dp">
+
+        </CalendarView>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/bg_btn"
+        android:id="@+id/setSuspDateBtn"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:text="Set This Date"
+        android:textColor="#fff"
+        />
+
+    <Button
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/bg_btn"
+        android:id="@+id/SuspEterBtn"
+        android:layout_width="200dp"
+        android:layout_height="56dp"
+        android:text="Suspend Eternally"
+        android:textColor="#fff"
+        />
+
+</LinearLayout>
