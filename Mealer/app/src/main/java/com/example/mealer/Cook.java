@@ -10,19 +10,19 @@ public class Cook extends User {
     private String description;
 
     //status of cook if suspended or not
-    private boolean status;
+    private int status;
 
     //for initial time of suspension
     //if not suspended, this is 0
     //private long initialtime;
-    private String initialtime;
+    private long susTime;
 
     //TODO: way of storing cheque
 
     public Cook() {
         super.setRole("Cook");
-        status = false;
-        //initialtime = -1;
+        status = 0;
+        susTime = 0;
     }
 
     //setters
@@ -36,8 +36,9 @@ public class Cook extends User {
         this.address = address;
     }
     public void setDescription(String description) { this.description = description; }
-    public void changeStatus() {this.status = true;}
-    public void setInitialtime(String initialtime) { this.initialtime = initialtime;}
+    public void changeStatus_sus_eter() {this.status = 2;}
+    public void changeStatus_sus_temp() {this.status = 1;}
+    public void setSusTime(Long susTime) { this.susTime = susTime;}
 
     //getters
     public String getName(){
@@ -50,8 +51,7 @@ public class Cook extends User {
         return this.address;
     }
     public String getDescription() {return this.description; }
-    public boolean getStatus() {return this.status;}
-    public String getInitialtime() {return initialtime;}
+    public int getStatus() {return this.status;}
+    public Long getSusTime() {return susTime;}
 
 }
-
