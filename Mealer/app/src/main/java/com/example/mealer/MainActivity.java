@@ -25,7 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginbutton;
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 status = snapshot.getValue(Boolean.class);
-                
+
             }
 
             @Override
@@ -159,9 +162,43 @@ public class MainActivity extends AppCompatActivity {
                                 if (!checkStatus(id)){
                                 Intent intent = new Intent(MainActivity.this, CookPage.class);
                                 startActivity(intent);}
-                                else
-                                    //TODO to be updated and show details
-                                    Toast.makeText(MainActivity.this, "Sorry you were suspended",Toast.LENGTH_SHORT).show();
+                                else {
+                                    //TODO add the suspDate in realtimedatabase 
+                                    //TODO test this
+                                    //TODO add the possibility of the eternal susp
+                                    /*
+                                    //find the current time
+
+                                    Calendar calendar = Calendar.getInstance();
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                                    String date = dateFormat.format(calendar.getTime());
+
+                                    //take the suspension time from the database of the chef
+
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("suspTime")
+                                    reference.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String chefsuspdate = snapshot.getValue(String.class);
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                    Date currentDate = new Date (date);
+                                    Date suspDate = new Date (chefsuspdate);
+                                    long diff = suspDate.getTime() - currentDate.getTime();
+                                    long seconds = diff / 1000;
+                                    long minutes = seconds / 60;
+                                    long hours = minutes / 60;
+                                    long days = (hours / 24) + 1;
+                                    Toast.makeText(MainActivity.this, "Sorry you were suspended for "+ days + " days " + hours + "hours" , Toast.LENGTH_SHORT).show();
+                                            */
+                                    Toast.makeText(MainActivity.this, "Sorry you were suspended", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
 
