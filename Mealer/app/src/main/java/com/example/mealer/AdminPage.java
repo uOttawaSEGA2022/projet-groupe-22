@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -36,6 +37,11 @@ public class AdminPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     DatabaseReference ref;
+
+    private static String value;
+    public static String getValue() {
+        return value;
+    }
 
 
     @Override
@@ -179,13 +185,15 @@ public class AdminPage extends AppCompatActivity {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaints").child(id);
         dR.removeValue();
         Toast.makeText(getApplicationContext(), "Complaint is deleted and now you will be directed to suspend user page", Toast.LENGTH_LONG).show();
-        //TODO save the reference of the chef
-        /*
-        DatabaseReference Chefreference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
-        Administrator.saveSuspChefRef(Chefreference);
 
-         */
+        //took the id of this specific chef
+        //SharedPreferences sharedPref = getSharedPreferences("susChef", MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedPref.edit();
+        //editor.putString("chefID", chefUid);
+        //editor.apply();
+        value = chefUid;
         Intent intent = new Intent(AdminPage.this, AdminSuspendUser.class);
+        intent.putExtra("chefID",chefUid);
         startActivity(intent);
 
         return true;
