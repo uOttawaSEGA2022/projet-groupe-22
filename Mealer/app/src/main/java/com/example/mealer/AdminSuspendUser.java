@@ -44,7 +44,7 @@ public class AdminSuspendUser extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 //Date format : MM/DD/YYYY
-                String date = (i1 + 1) + "/" + i2 + "/" + 1;
+                String date = (i1 + 1) + "/" + i2 + "/" + i;
                 suspDate.setText(date);
 
 
