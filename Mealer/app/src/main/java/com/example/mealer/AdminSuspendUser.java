@@ -3,7 +3,10 @@ package com.example.mealer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,10 @@ public class AdminSuspendUser extends AppCompatActivity {
     Calendar calendar;
     SimpleDateFormat dateFormat;
     String date;
+    Button setSuspDateBtn;
+    Button SuspEterBtn;
+    String chefID = AdminPage.getValue();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +48,51 @@ public class AdminSuspendUser extends AppCompatActivity {
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         suspDate = (TextView) findViewById(R.id.suspDate);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 //Date format : MM/DD/YYYY
                 String date = (i1 + 1) + "/" + i2 + "/" + i;
                 suspDate.setText(date);
 
-
-                //chefReference = Administrator.getSuspChefRef();
             }
         });
-    }
-//TODO take the chef id from the admin class
 
-    private void suspendTemp (String chefID , String time){
-            //chefID.setInitialtime(time);
+        setSuspDateBtn = (Button) findViewById(R.id.setSuspDateBtn);
+        setSuspDateBtn.setOnClickListener(new View.OnClickListener() {
+
+            //TODO the method should takes the value of the chosen date
+            @Override
+            public void onClick(View v) {suspendTemp(12453L);}
+        });
+
+        SuspEterBtn = (Button) findViewById(R.id.SuspEterBtn);
+        SuspEterBtn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {suspendDef();}
+        });
+
     }
 
-    private void suspendDef (String chefID){
-            //chefID.changeStatus();
+    private void suspendTemp ( Long time){
+        updateProfile(chefID, 1, time);
+    }
+
+    private void suspendDef (){
+        updateProfile(chefID, 2, 0L);
+    }
+
+    private void updateProfile(String id, int status, long susTime){
+        //getting the specified chef reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(id);
+
+        //updating profile
+        dR.child("status").setValue(status);
+        dR.child("susTime").setValue(susTime);
+
+        Toast.makeText(getApplicationContext(), "Product Updated", Toast.LENGTH_LONG).show();
+
     }
 }
