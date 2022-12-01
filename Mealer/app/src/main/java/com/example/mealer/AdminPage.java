@@ -57,12 +57,10 @@ public class AdminPage extends AppCompatActivity {
         //saving the product
         databaseComplaints.child(id).setValue(complaint);
 
-
-
         String id2 = databaseComplaints.push().getKey();
         Complaint complaint2 = new Complaint(id2, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the foodjhgcdfgvfdvdyfgvdgv            ");
 
-        //^this functionality is tba to client page
+
 
 
         //saving the product
@@ -138,6 +136,7 @@ public class AdminPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String chefName = snapshot.getValue(String.class);
                 dialogBuilder.setTitle("Complaint on " + chefName);
+
                 final AlertDialog b = dialogBuilder.create();
                 b.show();
 
@@ -179,15 +178,21 @@ public class AdminPage extends AppCompatActivity {
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("complaints").child(id);
         dR.removeValue();
-        Toast.makeText(getApplicationContext(), "Complaint is deleted and now you need to decide for how long the suspension will be", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Complaint is deleted and now you will be directed to suspend user page", Toast.LENGTH_LONG).show();
+        //TODO save the reference of the chef
+        /*
+        DatabaseReference Chefreference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
+        Administrator.saveSuspChefRef(Chefreference);
 
-        //Intent intent = new Intent(AdminPage.this, CookPage.class);
-        //startActivity(intent);
+         */
+        Intent intent = new Intent(AdminPage.this, AdminSuspendUser.class);
+        startActivity(intent);
 
         return true;
     }
-
-    private boolean suspendTemp (String chefID , String time){
+    //TODO these methods should be in the adminSuspendUser activity
+/*
+private boolean suspendTemp (String chefID , String time){
         boolean result = false;
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -226,5 +231,7 @@ public class AdminPage extends AppCompatActivity {
         }
         return result;
     }
+ */
+
 
 }
