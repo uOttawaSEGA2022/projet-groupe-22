@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 status = snapshot.getValue(Integer.class);
+                System.out.println("*****************************************"+status);
 
             }
 
@@ -153,16 +154,19 @@ public class MainActivity extends AppCompatActivity {
                             if(usertype.equals("Client")) {
                                 Intent intent = new Intent(MainActivity.this, PageMain.class);
                                 startActivity(intent);
+                                Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
                             }
                             if(usertype.equals("Admin")){
                                 Intent intent = new Intent(MainActivity.this, AdminPage.class);
                                 startActivity(intent);
+                                Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
                             }
                             if(usertype.equals("Cook")){
                                 if (checkStatus(id)==0){
-                                Intent intent = new Intent(MainActivity.this, CookPage.class);
-                                startActivity(intent);}
-                                else if(checkStatus(id)==1) {
+                                    Intent intent = new Intent(MainActivity.this, CookPage.class);
+                                    startActivity(intent);
+                                    Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();}
+                                if(checkStatus(id)==1) {
                                     //TODO add the suspDate in realtimedatabase
                                     //TODO test this
 
@@ -199,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                                 else
                                     Toast.makeText(MainActivity.this, "Sorry you were suspended :(",Toast.LENGTH_SHORT).show();
                             }
-                            Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
+
 
                         }
 
