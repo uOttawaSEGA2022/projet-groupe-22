@@ -48,14 +48,28 @@ public class CookPage extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String firstName = String.valueOf(reference.child("name"));
-                String lastName = String.valueOf(reference.child("lastName"));
+                //String firstName = String.valueOf(reference.child("name"));
 
-                //String firstNAme = snapshot.getValue(String.class);
+                String firstNAme = snapshot.getValue(String.class);
 
-                viewFirstName.setText(firstName);
-                viewLastName.setText(lastName);
-                welcomingTag.setText("Welcome" + firstName);
+                viewFirstName.setText(firstNAme);
+                welcomingTag.setText("Welcome  " + firstNAme +" !");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(IDstring).child("lastName");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //String lastName = String.valueOf(reference.child("lastName"));
+
+                String lastNAme = snapshot.getValue(String.class);
+
+                viewLastName.setText(lastNAme);
 
             }
 
