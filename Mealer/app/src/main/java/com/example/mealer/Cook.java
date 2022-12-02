@@ -15,14 +15,14 @@ public class Cook extends User {
     //for initial time of suspension
     //if not suspended, this is 0
     //private long initialtime;
-    private long susTime;
+    private String susTime;
 
     //TODO: way of storing cheque
 
     public Cook() {
         super.setRole("Cook");
         status = 0;
-        susTime = 0;
+        susTime = null;
     }
 
     //setters
@@ -38,7 +38,7 @@ public class Cook extends User {
     public void setDescription(String description) { this.description = description; }
     public void changeStatus_sus_eter() {this.status = 2;}
     public void changeStatus_sus_temp() {this.status = 1;}
-    public void setSusTime(Long susTime) { this.susTime = susTime;}
+    public void setSusTime(String susTime) { this.susTime = susTime;}
 
     //getters
     public String getName(){
@@ -52,6 +52,6 @@ public class Cook extends User {
     }
     public String getDescription() {return this.description; }
     public int getStatus() {return this.status;}
-    public Long getSusTime() {return susTime;}
+    public String getSusTime() {return susTime;}
 
 }
