@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     DatabaseReference reference;
-    Boolean status;
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
         }
          //sends to main page
     }
-    boolean checkStatus(String id){
+    int checkStatus(String id){
 
         reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("status");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                status = snapshot.getValue(Boolean.class);
+                status = snapshot.getValue(Integer.class);
 
             }
 
@@ -159,14 +159,13 @@ public class MainActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                             if(usertype.equals("Cook")){
-                                if (!checkStatus(id)){
+                                if (checkStatus(id)==0){
                                 Intent intent = new Intent(MainActivity.this, CookPage.class);
                                 startActivity(intent);}
-                                else {
-                                    //TODO add the suspDate in realtimedatabase 
+                                else if(checkStatus(id)==1) {
+                                    //TODO add the suspDate in realtimedatabase
                                     //TODO test this
-                                    //TODO add the possibility of the eternal susp
-                                    /*
+
                                     //find the current time
 
                                     Calendar calendar = Calendar.getInstance();
@@ -175,11 +174,19 @@ public class MainActivity extends AppCompatActivity {
 
                                     //take the suspension time from the database of the chef
 
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("suspTime")
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("suspTime");
                                     reference.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             String chefsuspdate = snapshot.getValue(String.class);
+                                            Date currentDate = new Date (date);
+                                            Date suspDate = new Date (chefsuspdate);
+                                            long diff = suspDate.getTime() - currentDate.getTime();
+                                            long seconds = diff / 1000;
+                                            long minutes = seconds / 60;
+                                            long hours = minutes / 60;
+                                            long days = (hours / 24) + 1;
+                                            Toast.makeText(MainActivity.this, "Sorry you were suspended for "+ days + " days " + hours + "hours" , Toast.LENGTH_SHORT).show();
 
                                         }
 
@@ -188,17 +195,9 @@ public class MainActivity extends AppCompatActivity {
 
                                         }
                                     });
-                                    Date currentDate = new Date (date);
-                                    Date suspDate = new Date (chefsuspdate);
-                                    long diff = suspDate.getTime() - currentDate.getTime();
-                                    long seconds = diff / 1000;
-                                    long minutes = seconds / 60;
-                                    long hours = minutes / 60;
-                                    long days = (hours / 24) + 1;
-                                    Toast.makeText(MainActivity.this, "Sorry you were suspended for "+ days + " days " + hours + "hours" , Toast.LENGTH_SHORT).show();
-                                            */
-                                    Toast.makeText(MainActivity.this, "Sorry you were suspended", Toast.LENGTH_SHORT).show();
                                 }
+                                else
+                                    Toast.makeText(MainActivity.this, "Sorry you were suspended :(",Toast.LENGTH_SHORT).show();
                             }
                             Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
 
@@ -217,3 +216,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+
+
