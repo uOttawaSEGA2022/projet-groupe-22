@@ -63,12 +63,11 @@ public class AdminSuspendUser extends AppCompatActivity {
 
             //TODO the method should takes the value of the chosen date
             @Override
-            public void onClick(View v) {suspendTemp(12453L);}
+            public void onClick(View v) {suspendTemp(date);}
         });
 
         SuspEterBtn = (Button) findViewById(R.id.SuspEterBtn);
         SuspEterBtn.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {suspendDef();}
@@ -76,21 +75,21 @@ public class AdminSuspendUser extends AppCompatActivity {
 
     }
 
-    private void suspendTemp ( Long time){
-        updateProfile(chefID, 1, time);
+    private void suspendTemp ( String date){
+        updateProfile(chefID, 1, date);
     }
 
     private void suspendDef (){
-        updateProfile(chefID, 2, 0L);
+        updateProfile(chefID, 2, null);
     }
 
-    private void updateProfile(String id, int status, long susTime){
+    private void updateProfile(String id, int status, String susDate){
         //getting the specified chef reference
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("users").child(id);
 
         //updating profile
         dR.child("status").setValue(status);
-        dR.child("susTime").setValue(susTime);
+        dR.child("susTime").setValue(susDate);
 
         Toast.makeText(getApplicationContext(), "Product Updated", Toast.LENGTH_LONG).show();
 
