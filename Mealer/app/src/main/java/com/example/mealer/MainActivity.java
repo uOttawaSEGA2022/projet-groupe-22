@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 status = snapshot.getValue(Integer.class);
-                System.out.println("*****************************************"+status);
+                //test print
+                //System.out.println("*****************************************"+status);
 
             }
 
