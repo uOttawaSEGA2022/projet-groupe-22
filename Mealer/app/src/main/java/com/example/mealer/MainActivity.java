@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
     int status;
 
+    @SuppressWarnings("deprecated")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                                     Intent intent = new Intent(MainActivity.this, CookPage.class);
                                     startActivity(intent);
                                     Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();}
-                                if(checkStatus(id)==1) {
+                                else if(checkStatus(id)==1) {
                                     //TODO add the suspDate in realtimedatabase
                                     //TODO test this
 
@@ -183,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             String chefsuspdate = snapshot.getValue(String.class);
+
                                             Date currentDate = new Date (date);
                                             Date suspDate = new Date (chefsuspdate);
                                             long diff = suspDate.getTime() - currentDate.getTime();
@@ -200,8 +203,9 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
-                                else
+                                else{
                                     Toast.makeText(MainActivity.this, "Sorry you were suspended :(",Toast.LENGTH_SHORT).show();
+                                }
                             }
 
 
