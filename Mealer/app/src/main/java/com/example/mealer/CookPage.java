@@ -33,6 +33,7 @@ public class CookPage extends AppCompatActivity {
 
     DatabaseReference databaseMeals;
     List<Meal> meals;
+    DatabaseReference mealsReference;
     ListView listViewMeals;
 
     FirebaseUser fUser;
@@ -49,6 +50,8 @@ public class CookPage extends AppCompatActivity {
         databaseMeals = FirebaseDatabase.getInstance().getReference();
         meals = new ArrayList<>();
 
+        mealsReference = FirebaseDatabase.getInstance().getReference().child("meals");//**********************************this should work (I think)
+        
         listViewMeals = (ListView) findViewById(R.id.listViewMeals);
 
         welcomingTag = (TextView) findViewById(R.id.welcomingTag);
@@ -90,7 +93,7 @@ public class CookPage extends AppCompatActivity {
                     String meal_gastronomy_type = mealGastronomyType.getText().toString().trim();
                     String meal_price = mealPrice.getText().toString().trim();
 
-                    DatabaseReference mealsReference = FirebaseDatabase.getInstance().getReference().child("meals").child(fUser.getUid());
+              
 
                     //checking if the value is provided
                     if (!(TextUtils.isEmpty(meal_name) & TextUtils.isEmpty(meal_type) &
@@ -148,7 +151,9 @@ public class CookPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String firstName = String.valueOf(reference.child("name"));
 
-                String firstNAme = snapshot.getValue(String.class);
+                String firstNAme = snapshot.getValue(String.class);//******************************************************here we should go like Meal meal = postSnapshot.child(fUser.getUid()).getValue(Meal.class);
+                //some people used onChildChange but this should also work! we should just go to the right children
+                
 
                 welcomingTag.setText("Welcome  " + firstNAme + " !");
 
@@ -162,7 +167,7 @@ public class CookPage extends AppCompatActivity {
     }
 
     public void viewMealsList(){
-        databaseMeals.addValueEventListener(new ValueEventListener() {
+        mealsReference.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
 
