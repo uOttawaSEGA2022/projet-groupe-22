@@ -7,10 +7,33 @@
     tools:context=".PageMain">
 
     <TextView
+        android:id="@+id/welcomeTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
         android:text="Welcome :D"
-        android:layout_marginTop="80dp"
-        android:textAlignment="center"/>
+        android:textAlignment="center" />
+
+    <ScrollView
+        android:id="@+id/mealsListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/welcomeTag"
+        android:layout_alignBottom="@+id/addComplaintBtn"
+        />
+
+    <Button
+        android:id="@+id/addComplaintBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeTag"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="638dp"
+        android:text="Add Complaint"
+        android:textAlignment="center" />
 
 </RelativeLayout>
