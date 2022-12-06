@@ -64,7 +64,7 @@ public class CookPage extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Meal meal = meals.get(position);
-                decisionMake(meal.getID());
+                decisionMake(meal.getID(),meal.getChefUid());
                 //TODO: work in progress^
                 return true;
             }
@@ -134,7 +134,7 @@ public class CookPage extends AppCompatActivity {
         });
     }
 
-    private void decisionMake(final String mealID){
+    private void decisionMake(final String mealID, String chefUid){
         //TODO: have to create the alertdialog
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -144,8 +144,22 @@ public class CookPage extends AppCompatActivity {
         final Button buttonDeleteMeal = (Button) dialogView.findViewById(R.id.deleteMealBtn);
         final Button buttonDisplayMeal = (Button) dialogView.findViewById(R.id.displayMealBtn);
 
-        
-    }
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("meals").child(chefUid).child(mealID);
+
+
+        buttonDeleteMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if () {
+                    deleteMealfromMenu();
+                }else{
+                    Toast.makeText(CookPage.this, "You cannot delete a meal that is currently on display!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+    }//end of decisionMake method
 
     private void addMealToDisplay(){
         //TODO: write this

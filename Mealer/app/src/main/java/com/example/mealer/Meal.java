@@ -20,6 +20,7 @@ public class Meal {
 	private String chefName;
 	private double price;
 	private String id;
+	private boolean display;
 
 	DatabaseReference mealReference;
 	public Meal (){}
@@ -31,6 +32,7 @@ public class Meal {
 		this.mealType = mealType ;
 		this.gastronomyType = gastronomyType ;
 		this.price = price ;
+		this.display = false;
 		settingChefName();
 	}
 
@@ -66,4 +68,5 @@ public class Meal {
 	public String getGastronomyType(){return this.gastronomyType;}
 	public double getPrice(){return this.price;}
 	public String getID(){return this.id;}
+	public boolean getDisplay(){return this.display;}
 }
