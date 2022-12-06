@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                             if(usertype.equals("Client")) {
-                                int stat = snapshot.child("status").getValue(Integer.class);
                                 Intent intent = new Intent(MainActivity.this, PageMain.class);
                                 startActivity(intent);
                                 Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
@@ -169,13 +168,12 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
                             }
                             if(usertype.equals("Cook")){
-                                int stat = snapshot.child("status").getValue(Integer.class);
                                 //TODO: test --v
-                                if (stat==0){
+                                if (snapshot.child("status").getValue(Integer.class)==0){
                                     Intent intent = new Intent(MainActivity.this, CookPage.class);
                                     startActivity(intent);
                                     Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();}
-                                else if(stat==1) {
+                                else if(snapshot.child("status").getValue(Integer.class)==1) {
                                     //take the suspension time from the database of the chef
 
                                     DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("susTime");
