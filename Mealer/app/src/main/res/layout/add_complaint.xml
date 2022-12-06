@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_below="@id/ComplaintChefName"
-        android:hint="Enter today's date (MM / DD/ YYYY)" />
+        android:hint="Enter today's date (MM/DD/YYYY)" />
 
     <EditText
         android:id="@+id/complaintText"
