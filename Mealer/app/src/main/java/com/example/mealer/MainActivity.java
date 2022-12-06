@@ -186,15 +186,16 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             String chefsuspdate = snapshot.getValue(String.class);
-
+                                            
+                                            /*
                                             Date currentDate = new Date (date);
                                             Date suspDate = new Date (chefsuspdate);
                                             long diff = suspDate.getTime() - currentDate.getTime();
                                             long seconds = diff / 1000;
                                             long minutes = seconds / 60;
                                             long hours = minutes / 60;
-                                            long days = (hours / 24) + 1;
-                                            Toast.makeText(MainActivity.this, "Sorry you were suspended for "+ days + " days " + hours + "hours" , Toast.LENGTH_SHORT).show();
+                                            long days = (hours / 24) + 1;*/
+                                            Toast.makeText(MainActivity.this, "Sorry you were suspended for till " +  chefsuspdate, Toast.LENGTH_SHORT).show();
 
                                         }
 
@@ -225,5 +226,3 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-
-
