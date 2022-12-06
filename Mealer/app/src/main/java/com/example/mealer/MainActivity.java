@@ -153,11 +153,12 @@ public class MainActivity extends AppCompatActivity {
                     reference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                             String usertype = snapshot.child("role").getValue(String.class);
-                            int stat = snapshot.child("status").getValue(Integer.class);
 
 
                             if(usertype.equals("Client")) {
+                                int stat = snapshot.child("status").getValue(Integer.class);
                                 Intent intent = new Intent(MainActivity.this, PageMain.class);
                                 startActivity(intent);
                                 Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
@@ -168,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
                             }
                             if(usertype.equals("Cook")){
+                                int stat = snapshot.child("status").getValue(Integer.class);
                                 //TODO: test --v
                                 if (stat==0){
                                     Intent intent = new Intent(MainActivity.this, CookPage.class);
