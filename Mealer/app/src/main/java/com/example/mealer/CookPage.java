@@ -155,6 +155,7 @@ public class CookPage extends AppCompatActivity {
         final Button buttonDeleteMeal = (Button) dialogView.findViewById(R.id.deleteMealBtn);
         final Button buttonDisplayMeal = (Button) dialogView.findViewById(R.id.displayMealBtn);
 
+        dialogBuilder.setTitle("What would you like to do with this meal?");
         final AlertDialog b = dialogBuilder.create();
         b.show();
         
