@@ -99,7 +99,7 @@ public class PageMain extends AppCompatActivity {
     }
 
     public void successToaster(){Toast.makeText(this, "Complaint added", Toast.LENGTH_LONG).show();}
-    public void failingToaster(){Toast.makeText(this, "Please fill all with the needed info", Toast.LENGTH_LONG).show();}
+    public void failingToaster(){Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();}
 
 
     public void onStart() {
