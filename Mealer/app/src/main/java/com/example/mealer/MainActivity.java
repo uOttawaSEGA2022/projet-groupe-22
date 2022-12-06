@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     DatabaseReference reference;
+    DatabaseReference reference2;
     int status;
 
-    @SuppressWarnings("deprecated")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,16 +118,15 @@ public class MainActivity extends AppCompatActivity {
         }
          //sends to main page
     }
+    //archiving the following method because it works on its own, but not in practice for some reason
+    /*
     int checkStatus(String id){
 
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("status");
-        reference.addValueEventListener(new ValueEventListener() {
+        reference2 = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("status");
+        reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                status = snapshot.getValue(Integer.class);
-                //test print
-                //System.out.println("*****************************************"+status);
-
+                int status = snapshot.getValue(Integer.class);
             }
 
             @Override
@@ -137,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         });
         return status;
     }
+     */
 
     private void performLogin(){
         String inputemail = inputEmail.getText().toString().trim();
@@ -145,14 +145,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
+                    fUser = fAuth.getCurrentUser();
                     String id = fUser.getUid();
 
-                    reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("role");
+
+                    reference = FirebaseDatabase.getInstance().getReference().child("users").child(id);
                     reference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String usertype = snapshot.getValue(String.class);
+                            String usertype = snapshot.child("role").getValue(String.class);
+                            int stat = snapshot.child("status").getValue(Integer.class);
+
 
                             if(usertype.equals("Client")) {
                                 Intent intent = new Intent(MainActivity.this, PageMain.class);
@@ -165,11 +168,12 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();
                             }
                             if(usertype.equals("Cook")){
-                                if (checkStatus(id)==0){
+                                //TODO: test --v
+                                if (stat==0){
                                     Intent intent = new Intent(MainActivity.this, CookPage.class);
                                     startActivity(intent);
                                     Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();}
-                                else if(checkStatus(id)==1) {
+                                else if(stat==1) {
                                     //TODO add the suspDate in realtimedatabase
                                     //TODO test this
 
