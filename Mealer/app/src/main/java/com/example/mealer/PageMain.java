@@ -27,6 +27,7 @@ public class PageMain extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
     Button addComplaintBtn;
+     Button signOutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,19 @@ public class PageMain extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {addComplaint();}
+        });
+        
+        signOutBtn = (Button) findViewById(R.id.signOutBtn);
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                fAuth.signOut();
+                finish();
+                Intent intent = new Intent(PageMain.this,
+                        MainActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
