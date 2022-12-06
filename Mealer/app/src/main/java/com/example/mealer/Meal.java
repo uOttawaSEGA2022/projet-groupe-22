@@ -39,7 +39,7 @@ public class Meal {
 		mealReference.addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
-				String chefName = snapshot.getValue(String.class);
+				String chefName = snapshot.getValue(String.class).toString();
 				setChefName(chefName);
 			}
 
