@@ -141,6 +141,9 @@ public class CookPage extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.chef_meal_actions, null);
         dialogBuilder.setView(dialogView);
 
+        final Button buttonDeleteMeal = (Button) dialogView.findViewById(R.id.deleteMealBtn);
+        final Button buttonDisplayMeal = (Button) dialogView.findViewById(R.id.displayMealBtn);
+
         
     }
 
