@@ -136,6 +136,12 @@ public class CookPage extends AppCompatActivity {
 
     private void decisionMake(final String mealID){
         //TODO: have to create the alertdialog
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.chef_meal_actions, null);
+        dialogBuilder.setView(dialogView);
+
+        
     }
 
     private void addMealToDisplay(){
