@@ -65,7 +65,6 @@ public class CookPage extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Meal meal = meals.get(position);
                 decisionMake(meal.getID(),meal.getChefUid());
-                //TODO: work in progress^
                 return true;
             }
         });
@@ -145,18 +144,31 @@ public class CookPage extends AppCompatActivity {
         final Button buttonDisplayMeal = (Button) dialogView.findViewById(R.id.displayMealBtn);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("meals").child(chefUid).child(mealID);
-
-
-        buttonDeleteMeal.setOnClickListener(new View.OnClickListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                if () {
-                    deleteMealfromMenu();
-                }else{
-                    Toast.makeText(CookPage.this, "You cannot delete a meal that is currently on display!", Toast.LENGTH_LONG).show();
-                }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean displaystatus = snapshot.child("display").getValue(Boolean.class);
+
+                buttonDeleteMeal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (displaystatus==false) {
+                            deleteMealfromMenu(mealID, chefUid);
+                        }else{
+                            Toast.makeText(CookPage.this, "You cannot delete a meal that is currently on display!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CookPage.this, "Hey that didn't work out, sorry",Toast.LENGTH_LONG).show();
             }
         });
+
+
 
 
     }//end of decisionMake method
@@ -165,8 +177,10 @@ public class CookPage extends AppCompatActivity {
         //TODO: write this
     }
 
-    private void deleteMealfromMenu(){
-        //TODO: write this
+    private void deleteMealfromMenu(final String mealID, final String chefUId){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("meals").child("chefUId").child(mealID);
+        ref.removeValue();
+        Toast.makeText(getApplicationContext(), "Meal Deleted", Toast.LENGTH_LONG).show();
     }
 
     public void successToaster() {
