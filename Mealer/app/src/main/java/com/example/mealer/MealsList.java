@@ -40,7 +40,7 @@ public class MealsList extends ArrayAdapter<Meal> {
         textViewChefName.setText(meal.getChefName());
         textViewMealName.setText(meal.getMealName());
         textViewMealType.setText(meal.getMealType());
-        textPrice.setText(String.valueOf(meal.getPrice()));
+        textPrice.setText((String.valueOf(meal.getPrice()))+" CAD");
         textViewGastronomyType.setText(meal.getGastronomyType());
 
         return listViewItem;
