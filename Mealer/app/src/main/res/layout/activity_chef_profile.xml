@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChefProfile">
+
+    <TextView
+        android:id="@+id/headerdisplaymeals"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Displayed Meals:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <ListView
+        android:id="@+id/listViewDisplayedMeals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerdisplaymeals"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="6dp" />
+
+
+</RelativeLayout>

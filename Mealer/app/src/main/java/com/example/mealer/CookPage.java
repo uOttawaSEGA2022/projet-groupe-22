@@ -32,6 +32,7 @@ public class CookPage extends AppCompatActivity {
     TextView welcomingTag;
     Button addMealBtn;
     Button signOutBtn;
+    Button profilebtn;
     
     DatabaseReference databaseMeals;
     DatabaseReference mealsReference;
@@ -51,6 +52,7 @@ public class CookPage extends AppCompatActivity {
         databaseMeals = FirebaseDatabase.getInstance().getReference();
         meals = new ArrayList<>();
 
+        profilebtn = (Button) findViewById(R.id.goProfileBtn);
         listViewMeals = (ListView) findViewById(R.id.listViewMeals);
         welcomingTag = (TextView) findViewById(R.id.welcomingTag);
         addMealBtn = (Button) findViewById(R.id.addMealBtn);
@@ -59,6 +61,14 @@ public class CookPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addMeal();
+            }
+        });
+
+        profilebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ChefProfile.class);
+                startActivity(intent);
             }
         });
 
@@ -203,9 +213,8 @@ public class CookPage extends AppCompatActivity {
     }//end of decisionMake method
 
     private void addMealToDisplay(String mealID, String chefUid){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(chefUid).child(mealID);
-
-
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("meals").child(chefUid).child(mealID).child("display");
+        ref.setValue(true);
     }
 
     private void deleteMealfromMenu(final String mealID, final String chefUId){
