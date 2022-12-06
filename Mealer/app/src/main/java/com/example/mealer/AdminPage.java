@@ -56,21 +56,21 @@ public class AdminPage extends AppCompatActivity {
 
         //has been used to create the complaints
 
-        String id = databaseComplaints.push().getKey();
-        Complaint complaint = new Complaint(id, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the food");
+        //String id = databaseComplaints.push().getKey();
+        //Complaint complaint = new Complaint(id, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the food");
 
 
         //saving the product
-        databaseComplaints.child(id).setValue(complaint);
+        //databaseComplaints.child(id).setValue(complaint);
 
-        String id2 = databaseComplaints.push().getKey();
-        Complaint complaint2 = new Complaint(id2, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the foodjhgcdfgvfdvdyfgvdgv            ");
+        //String id2 = databaseComplaints.push().getKey();
+        //Complaint complaint2 = new Complaint(id2, "WAt0uo7aplYqeY1ukVaCMKpyKLD3", "November", "I hate the foodjhgcdfgvfdvdyfgvdgv            ");
 
 
 
 
         //saving the product
-        databaseComplaints.child(id2).setValue(complaint2);
+        //databaseComplaints.child(id2).setValue(complaint2);
 
 
         listViewComplaints.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
