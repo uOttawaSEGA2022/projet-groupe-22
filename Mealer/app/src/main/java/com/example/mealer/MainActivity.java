@@ -174,18 +174,9 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     Toast.makeText(MainActivity.this, "Successfully logged in! Welcome",Toast.LENGTH_SHORT).show();}
                                 else if(stat==1) {
-                                    //TODO add the suspDate in realtimedatabase
-                                    //TODO test this
-
-                                    //find the current time
-
-                                    Calendar calendar = Calendar.getInstance();
-                                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                                    String date = dateFormat.format(calendar.getTime());
-
                                     //take the suspension time from the database of the chef
 
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("suspTime");
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("susTime");
                                     reference.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
