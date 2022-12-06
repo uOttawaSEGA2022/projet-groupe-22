@@ -178,6 +178,20 @@ public class CookPage extends AppCompatActivity {
                     }
                 });
 
+                buttonDisplayMeal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean displaystat = snapshot.child("display").getValue(Boolean.class);
+                        if(displaystat==true){
+                            Toast.makeText(CookPage.this, "This meal is already on display!", Toast.LENGTH_LONG).show();
+                            b.dismiss();
+                        }else{
+                            addMealToDisplay(mealID,chefUid);
+                            b.dismiss();
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -188,8 +202,10 @@ public class CookPage extends AppCompatActivity {
 
     }//end of decisionMake method
 
-    private void addMealToDisplay(){
-        //TODO: write this
+    private void addMealToDisplay(String mealID, String chefUid){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(chefUid).child(mealID);
+
+
     }
 
     private void deleteMealfromMenu(final String mealID, final String chefUId){
