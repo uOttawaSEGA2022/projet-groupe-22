@@ -176,12 +176,20 @@ public class MainActivity extends AppCompatActivity {
                                 else if(stat==1) {
                                     //take the suspension time from the database of the chef
 
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("susTime");
-                                    reference.addValueEventListener(new ValueEventListener() {
+                                    DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference().child("users").child(id).child("susTime");
+                                    reference3.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             String chefsuspdate = snapshot.getValue(String.class);
-                                            
+
+                                            Calendar calendar = Calendar.getInstance();
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                                            String currentdate = dateFormat.format(calendar.getTime());
+
+                                            if(currentdate.equals(chefsuspdate)){
+                                                //emptying suspension
+                                                reference.child("status").setValue(0);
+                                            }else {
                                             /*
                                             Date currentDate = new Date (date);
                                             Date suspDate = new Date (chefsuspdate);
@@ -190,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
                                             long minutes = seconds / 60;
                                             long hours = minutes / 60;
                                             long days = (hours / 24) + 1;*/
-                                            Toast.makeText(MainActivity.this, "Sorry you were suspended for till " +  chefsuspdate, Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MainActivity.this, "Sorry you were suspended for till " + chefsuspdate, Toast.LENGTH_SHORT).show();
+                                            }
 
                                         }
 
