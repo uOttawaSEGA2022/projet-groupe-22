@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                                             long minutes = seconds / 60;
                                             long hours = minutes / 60;
                                             long days = (hours / 24) + 1;*/
-                                                Toast.makeText(MainActivity.this, "Sorry you were suspended for till " + chefsuspdate, Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MainActivity.this, "Sorry you were suspended till " + chefsuspdate, Toast.LENGTH_SHORT).show();
                                             }
 
                                         }
