@@ -164,15 +164,16 @@ public class CookPage extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean displaystatus = snapshot.child("display").getValue(Boolean.class);
-
                 buttonDeleteMeal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        boolean displaystatus = snapshot.child("display").getValue(Boolean.class);
                         if (displaystatus==false) {
                             deleteMealfromMenu(mealID, chefUid);
+                            b.dismiss();
                         }else{
                             Toast.makeText(CookPage.this, "You cannot delete a meal that is currently on display!", Toast.LENGTH_LONG).show();
+                            b.dismiss();
                         }
                     }
                 });
@@ -185,9 +186,6 @@ public class CookPage extends AppCompatActivity {
             }
         });
 
-
-
-
     }//end of decisionMake method
 
     private void addMealToDisplay(){
@@ -195,7 +193,7 @@ public class CookPage extends AppCompatActivity {
     }
 
     private void deleteMealfromMenu(final String mealID, final String chefUId){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("meals").child("chefUId").child(mealID);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("meals").child(chefUId).child(mealID);
         ref.removeValue();
         Toast.makeText(getApplicationContext(), "Meal Deleted", Toast.LENGTH_LONG).show();
     }
