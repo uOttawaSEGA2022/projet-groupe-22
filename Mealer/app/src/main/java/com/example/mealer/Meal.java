@@ -1,4 +1,5 @@
 package com.example.mealer;
+import android.annotation.SuppressLint;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,14 @@ public class Meal {
 	private String gastronomyType;
 	private String chefName;
 	private double price;
+	private String id;
 
 	DatabaseReference mealReference;
 	public Meal (){}
 
-	public Meal (String chefUid,String mealName,String mealType,String gastronomyType,double price){
+	@SuppressLint("SuspiciousIndentation")
+	public Meal (String id, String chefUid, String mealName, String mealType, String gastronomyType, double price){
+		this.id = id;
 		this.chefUid = chefUid ;
 		this.mealName = mealName ;
 		this.mealType = mealType ;
@@ -59,4 +63,5 @@ public class Meal {
 	public String getMealType(){return this.mealType;}
 	public String getGastronomyType(){return this.gastronomyType;}
 	public double getPrice(){return this.price;}
+	public String getID(){return this.id;}
 }
