@@ -60,6 +60,16 @@ public class CookPage extends AppCompatActivity {
             }
         });
 
+        listViewMeals.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Meal meal = meals.get(position);
+                decisionMake(meal.getID());
+                //TODO: work in progress^
+                return true;
+            }
+        });
+
     }
 
     public void addMeal() {
@@ -122,6 +132,18 @@ public class CookPage extends AppCompatActivity {
                 viewMealsList();
             }
         });
+    }
+
+    private void decisionMake(final String mealID){
+        //TODO: have to create the alertdialog
+    }
+
+    private void addMealToDisplay(){
+        //TODO: write this
+    }
+
+    private void deleteMealfromMenu(){
+        //TODO: write this
     }
 
     public void successToaster() {
