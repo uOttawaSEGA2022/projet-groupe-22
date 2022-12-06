@@ -45,7 +45,7 @@ public class CookPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_page);
 
-        databaseMeals = FirebaseDatabase.getInstance().getReference("meals");
+        databaseMeals = FirebaseDatabase.getInstance().getReference();
         meals = new ArrayList<>();
 
         listViewMeals = (ListView) findViewById(R.id.listViewMeals);
@@ -120,6 +120,7 @@ public class CookPage extends AppCompatActivity {
 
                     }
                 }
+                viewMealsList();
             }
         });
     }
@@ -155,30 +156,33 @@ public class CookPage extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        databaseMeals.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //clearing the previous artist list
-                meals.clear();
-
-                //listening through all the nodes
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //getting products
-                    Meal meal = postSnapshot.getValue(Meal.class);
-                    //adding product to the list
-                    meals.add(meal);
-                }
-                //creating adapter
-                MealsList mealsAdapter = new MealsList(CookPage.this, meals);
-                //attaching adapter to the listview
-                listViewMeals.setAdapter(mealsAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        viewMealsList();
     }
+
+    public void viewMealsList(){
+        databaseMeals.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            //clearing the previous artist list
+            meals.clear();
+
+            //listening through all the nodes
+            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                //getting products
+                Meal meal = postSnapshot.getValue(Meal.class);
+                //adding product to the list
+                meals.add(meal);
+            }
+            //creating adapter
+            MealsList mealsAdapter = new MealsList(CookPage.this, meals);
+            //attaching adapter to the listview
+            listViewMeals.setAdapter(mealsAdapter);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });}
 }
