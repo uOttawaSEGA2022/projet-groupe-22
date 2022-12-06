@@ -18,14 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Dismiss" />
+            android:text="Delete Meal" />
 
         <Button
             android:id="@+id/displayMealBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Accept" />
+            android:text="display Meal" />
 
     </LinearLayout>
 
