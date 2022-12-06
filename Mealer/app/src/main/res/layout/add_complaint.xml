@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <EditText
+        android:id="@+id/ComplaintChefName"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:hint="Enter Chef's name" />
+
+    <EditText
+        android:id="@+id/complaintDate"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/ComplaintChefName"
+        android:hint="Enter today's date (MM / DD/ YYYY)" />
+
+    <EditText
+        android:id="@+id/complaintText"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@id/complaintDate"
+        android:hint="Write your complaint" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/addComplaintBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add   Complaint" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
