@@ -45,10 +45,13 @@ public class CookPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_page);
 
+<<<<<<< Updated upstream
         databaseMeals = FirebaseDatabase.getInstance().getReference();
         meals = new ArrayList<>();
 
         listViewMeals = (ListView) findViewById(R.id.listViewMeals);
+=======
+>>>>>>> Stashed changes
         welcomingTag = (TextView) findViewById(R.id.welcomingTag);
         addMealBtn = (Button) findViewById(R.id.addMealBtn);
         addMealBtn.setOnClickListener(new View.OnClickListener() {
