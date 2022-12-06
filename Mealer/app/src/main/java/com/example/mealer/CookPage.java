@@ -167,6 +167,8 @@ public class CookPage extends AppCompatActivity {
     }
 
     public void viewMealsList(){
+        fUser = fAuth.getCurrentUser();
+        mealsReference = FirebaseDatabase.getInstance().getReference().child("meals").child(fUser.getUid());
         mealsReference.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
