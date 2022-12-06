@@ -16,19 +16,22 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001"
+        app:layout_constraintVertical_bias="0.005"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/yourMenu"
-        android:layout_width="132dp"
+        android:layout_width="match_parent"
         android:layout_height="42dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-thin"
         android:text="Your menu:"
-        android:textAlignment="center"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomingTag" />
