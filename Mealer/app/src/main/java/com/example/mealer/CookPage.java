@@ -30,7 +30,8 @@ public class CookPage extends AppCompatActivity {
 
     TextView welcomingTag;
     Button addMealBtn;
-
+    Button signOutBtn;
+    
     DatabaseReference databaseMeals;
     DatabaseReference mealsReference;
     List<Meal> meals;
@@ -68,7 +69,18 @@ public class CookPage extends AppCompatActivity {
                 return true;
             }
         });
+        signOutBtn = (Button) findViewById(R.id.signOutBtn);
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                fAuth.signOut();
+                finish();
+                Intent intent = new Intent(CookPage.this,
+                        MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void addMeal() {

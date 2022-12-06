@@ -9,12 +9,10 @@
 
     <TextView
         android:id="@+id/welcomingTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
+        android:layout_width="207dp"
+        android:layout_height="55dp"
         android:text=""
         android:textAlignment="center"
-        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,23 +39,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="530dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="-20dp"
-        android:animateLayoutChanges="true"
-        android:background="@color/cardview_light_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/addMealBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourMenu"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="-20dp"
+        android:background="@color/cardview_light_background">
 
         <ListView
             android:id="@+id/listViewMeals"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            >
 
         </ListView>
 
@@ -65,19 +63,32 @@
 
     <Button
         android:id="@+id/addMealBtn"
-        android:layout_width="match_parent"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
+        android:layout_marginHorizontal="55dp"
         android:text="Add Meal"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.991"
-        android:layout_marginHorizontal="60dp"/>
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/signOutBtn"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginEnd="8dp"
+        android:text="Sign Out"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addMealBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
