@@ -24,32 +24,34 @@ public class Meal {
 	DatabaseReference mealReference;
 	public Meal (){}
 
-	@SuppressLint("SuspiciousIndentation")
 	public Meal (String id, String chefUid, String mealName, String mealType, String gastronomyType, double price){
 		this.id = id;
 		this.chefUid = chefUid ;
 		this.mealName = mealName ;
 		this.mealType = mealType ;
 		this.gastronomyType = gastronomyType ;
-		this.price = price ;		
+		this.price = price ;
+		settingChefName();
+	}
 
-			mealReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("name");
-        mealReference.addValueEventListener(new ValueEventListener() {
-		@Override
-		public void onDataChange(@NonNull DataSnapshot snapshot) {
-			String chefName = snapshot.getValue(String.class);
-			setChefName(chefName);
-		}
+	public void settingChefName(){
+		mealReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("name");
+		mealReference.addValueEventListener(new ValueEventListener() {
+			@Override
+			public void onDataChange(@NonNull DataSnapshot snapshot) {
+				String chefName = snapshot.getValue(String.class);
+				setChefName(chefName);
+			}
 
-		@Override
-		public void onCancelled(@NonNull DatabaseError error) {
-		}
-	});
+			@Override
+			public void onCancelled(@NonNull DatabaseError error) {
+			}
+		});
 	}
 
 	//Setters
 	public void setChef (String chefUid){this.chefUid = chefUid ;}
-	public void setChefName (String chefName){this.chefName = chefName ;}
+	public void setChefName (String chefUid){this.chefName = chefName ;}
 	public void setMealName(String mealName){this.mealName = mealName ;}
 	public void setMealType(String mealType){this.mealType = mealType ;}
 	public void setGastronomyType(String gastronomyType){this.gastronomyType = gastronomyType ;}
