@@ -32,8 +32,8 @@ public class CookPage extends AppCompatActivity {
     Button addMealBtn;
 
     DatabaseReference databaseMeals;
-    List<Meal> meals;
     DatabaseReference mealsReference;
+    List<Meal> meals;
     ListView listViewMeals;
 
     FirebaseUser fUser;
@@ -46,14 +46,10 @@ public class CookPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_page);
 
-
         databaseMeals = FirebaseDatabase.getInstance().getReference();
         meals = new ArrayList<>();
 
-        mealsReference = FirebaseDatabase.getInstance().getReference().child("meals");//**********************************this should work (I think)
-        
         listViewMeals = (ListView) findViewById(R.id.listViewMeals);
-
         welcomingTag = (TextView) findViewById(R.id.welcomingTag);
         addMealBtn = (Button) findViewById(R.id.addMealBtn);
         addMealBtn.setOnClickListener(new View.OnClickListener() {
@@ -92,8 +88,6 @@ public class CookPage extends AppCompatActivity {
                     String meal_type = mealType.getText().toString().trim();
                     String meal_gastronomy_type = mealGastronomyType.getText().toString().trim();
                     String meal_price = mealPrice.getText().toString().trim();
-
-              
 
                     //checking if the value is provided
                     if (!(TextUtils.isEmpty(meal_name) & TextUtils.isEmpty(meal_type) &
@@ -151,9 +145,7 @@ public class CookPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String firstName = String.valueOf(reference.child("name"));
 
-                String firstNAme = snapshot.getValue(String.class);//******************************************************here we should go like Meal meal = postSnapshot.child(fUser.getUid()).getValue(Meal.class);
-                //some people used onChildChange but this should also work! we should just go to the right children
-                
+                String firstNAme = snapshot.getValue(String.class);
 
                 welcomingTag.setText("Welcome  " + firstNAme + " !");
 
@@ -167,6 +159,7 @@ public class CookPage extends AppCompatActivity {
     }
 
     public void viewMealsList(){
+        mealsReference = FirebaseDatabase.getInstance().getReference().child("meals").child(fUser.getUid());
         mealsReference.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
