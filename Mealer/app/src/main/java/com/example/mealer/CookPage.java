@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +23,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CookPage extends AppCompatActivity {
 
-    TextView viewFirstName;
-    TextView viewLastName;
     TextView welcomingTag;
     Button addMealBtn;
+
+    DatabaseReference databaseMeals;
+    List<Meal> meals;
+    ListView listViewMeals;
 
     FirebaseUser fUser;
     FirebaseAuth fAuth;
@@ -39,19 +45,23 @@ public class CookPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_page);
 
-        viewFirstName = (TextView) findViewById(R.id.viewFirstName);
-        viewLastName = (TextView) findViewById(R.id.viewLastName);
+        databaseMeals = FirebaseDatabase.getInstance().getReference("meals");
+        meals = new ArrayList<>();
+
+        listViewMeals = (ListView) findViewById(R.id.listViewMeals);
         welcomingTag = (TextView) findViewById(R.id.welcomingTag);
         addMealBtn = (Button) findViewById(R.id.addMealBtn);
-        addMealBtn.setOnClickListener(new View.OnClickListener(){
+        addMealBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view) {addMeal();}
+            public void onClick(View view) {
+                addMeal();
+            }
         });
 
     }
 
-    public void addMeal(){
+    public void addMeal() {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -59,62 +69,68 @@ public class CookPage extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText mealName = (EditText) dialogView.findViewById(R.id.mealName);
-        final EditText mealType  = (EditText) dialogView.findViewById(R.id.mealType);
-        final EditText mealGastronomyType  = (EditText) dialogView.findViewById(R.id.mealGastronomyType);
-        final EditText mealPrice  = (EditText) dialogView.findViewById(R.id.mealPrice);
+        final EditText mealType = (EditText) dialogView.findViewById(R.id.mealType);
+        final EditText mealGastronomyType = (EditText) dialogView.findViewById(R.id.mealGastronomyType);
+        final EditText mealPrice = (EditText) dialogView.findViewById(R.id.mealPrice);
         final Button addMealBtn = (Button) dialogView.findViewById(R.id.addMealBtn);
 
-        dialogBuilder.setTitle("Add complaint");
+        dialogBuilder.setTitle("Add meal");
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
         addMealBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {{
+            public void onClick(View view) {
+                {
 
-                String meal_name = mealName.getText().toString().trim();
-                String meal_type = mealType.getText().toString().trim();
-                String meal_gastronomy_type = mealGastronomyType.getText().toString().trim();
-                String meal_price = mealPrice.getText().toString().trim();
+                    String meal_name = mealName.getText().toString().trim();
+                    String meal_type = mealType.getText().toString().trim();
+                    String meal_gastronomy_type = mealGastronomyType.getText().toString().trim();
+                    String meal_price = mealPrice.getText().toString().trim();
 
-                DatabaseReference complaintReference = FirebaseDatabase.getInstance().getReference().child("meals");
+                    DatabaseReference mealsReference = FirebaseDatabase.getInstance().getReference().child("meals").child(fUser.getUid());
 
-                //checking if the value is provided
-                if (!(TextUtils.isEmpty(meal_name) & TextUtils.isEmpty(meal_type) &
-                        TextUtils.isEmpty(meal_gastronomy_type) & TextUtils.isEmpty(meal_price))) {
+                    //checking if the value is provided
+                    if (!(TextUtils.isEmpty(meal_name) & TextUtils.isEmpty(meal_type) &
+                            TextUtils.isEmpty(meal_gastronomy_type) & TextUtils.isEmpty(meal_price))) {
 
-                    //getting a unique id using push().getKey() method
-                    //it will create a unique id and we will use it as the Primary key for our meal
-                    String id = reference.push().getKey();
+                        //getting a unique id using push().getKey() method
+                        //it will create a unique id and we will use it as the Primary key for our meal
+                        String id = reference.push().getKey();
 
-                    //creating a Product Object
-                    Meal meal = new Meal(id, fUser.getUid(), meal_name, meal_type, meal_gastronomy_type, Double.parseDouble(meal_price));
+                        //creating a Product Object
+                        Meal meal = new Meal(id, fUser.getUid(), meal_name, meal_type, meal_gastronomy_type, Double.parseDouble(meal_price));
 
-                    //saving the product
-                    complaintReference.child(id).setValue(meal);
+                        //saving the product
+                        mealsReference.child(id).setValue(meal);
 
-                    //setting edittext to blank again
-                    mealName.setText("");
-                    mealType.setText("");
-                    mealGastronomyType.setText("");
-                    mealPrice.setText("");
+                        //setting edittext to blank again
+                        mealName.setText("");
+                        mealType.setText("");
+                        mealGastronomyType.setText("");
+                        mealPrice.setText("");
 
-                    //displaying a success toast
-                    successToaster();
-                    b.dismiss();
-                } else{
-                    //if the values are not given displaying a toast
-                    failingToaster();
-                    b.dismiss();
+                        //displaying a success toast
+                        successToaster();
+                        b.dismiss();
+                    } else {
+                        //if the values are not given displaying a toast
+                        failingToaster();
+                        b.dismiss();
 
+                    }
                 }
-            }}
+            }
         });
     }
 
-    public void successToaster(){Toast.makeText(this, "Meal added", Toast.LENGTH_LONG).show();}
-    public void failingToaster(){Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();}
+    public void successToaster() {
+        Toast.makeText(this, "Meal added", Toast.LENGTH_LONG).show();
+    }
 
+    public void failingToaster() {
+        Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();
+    }
 
 
     public void onStart() {
@@ -131,8 +147,7 @@ public class CookPage extends AppCompatActivity {
 
                 String firstNAme = snapshot.getValue(String.class);
 
-                viewFirstName.setText(firstNAme);
-                welcomingTag.setText("Welcome  " + firstNAme +" !");
+                welcomingTag.setText("Welcome  " + firstNAme + " !");
 
             }
 
@@ -140,25 +155,30 @@ public class CookPage extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(IDstring).child("lastName");
-        reference.addValueEventListener(new ValueEventListener() {
+        databaseMeals.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //String lastName = String.valueOf(reference.child("lastName"));
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String lastNAme = snapshot.getValue(String.class);
+                //clearing the previous artist list
+                meals.clear();
 
-                viewLastName.setText(lastNAme);
-
+                //listening through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting products
+                    Meal meal = postSnapshot.getValue(Meal.class);
+                    //adding product to the list
+                    meals.add(meal);
+                }
+                //creating adapter
+                MealsList mealsAdapter = new MealsList(CookPage.this, meals);
+                //attaching adapter to the listview
+                listViewMeals.setAdapter(mealsAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
-
-
-
-
 }
