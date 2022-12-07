@@ -8,16 +8,16 @@
 
     <SearchView
         android:id="@+id/mealsListViewSearch"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/welcomeTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="73dp"
         android:text="Welcome :D"
         android:textAlignment="center" />
 
@@ -46,14 +46,14 @@
 
     <Button
         android:id="@+id/addComplaintBtn"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="22dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="26dp"
         android:layout_toEndOf="@+id/signOutBtn"
         android:text="Add Complaint"
         android:textAlignment="center"
@@ -66,22 +66,21 @@
 
     <Button
         android:id="@+id/signOutBtn"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_width="153dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginStart="126dp"
+        android:layout_marginStart="22dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="27dp"
         android:text="Sign Out"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addComplaintBtn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
-
 
 
 </RelativeLayout>
