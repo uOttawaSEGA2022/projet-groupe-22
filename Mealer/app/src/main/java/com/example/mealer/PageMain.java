@@ -99,41 +99,25 @@ public class PageMain extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Meal meal = meals.get(position);
-                viewMealDetails(meal.getID(), meal.getChefUid(), meal.getPrice());
+                viewMealDetails(meal.getChefUid(), meal.getPrice());
                 return true;
             }
         });
     }
 
-    private void viewMealDetails(String mealID, String chefUid, Double mealPrice){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.activity_display_meal_details, null);
-        dialogBuilder.setView(dialogView);
+    private void collectData(String chefUid, Double mealPrice){
 
-        final Button addToCartBtn = (Button) dialogView.findViewById(R.id.addToCartBtn);
-        final TextView textPrice = (TextView) dialogView.findViewById(R.id.textPrice);
-        final TextView textViewChefAddress = (TextView) dialogView.findViewById(R.id.textViewChefAddress);
-        final TextView textViewChefRating = (TextView) dialogView.findViewById(R.id.textViewChefRating);
-        final TextView textViewChefName = (TextView) dialogView.findViewById(R.id.textViewChefName);
+        String[] list = new String[2];
 
-        final String[] chefNametext = new String[1];
-        final String[] chefAddresstext = new String[1];
-        final String[] chefRatingtext = new String[1];
-
-        DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
+        DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("rating");
         chefReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //listening through all the nodes
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    String chefAddress = postSnapshot.child("address").getValue(String.class);
-                    String chefRating = postSnapshot.child("rating").getValue(String.class);
-                    String chefName= postSnapshot.child("name").getValue(String.class);
-
-                    chefNametext[0] = chefName;
-                    chefAddresstext[0] = chefAddress;
-                    chefRatingtext[0] = chefRating;
+                    Double chefRating = postSnapshot.child("rating").getValue(Double.class);
+                    //adding to the list
+                    list[0] = String.valueOf(chefRating);
                 }
             }
 
@@ -141,33 +125,84 @@ public class PageMain extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        textViewChefName.setText(chefNametext[0]);
-        textViewChefAddress.setText(chefAddresstext[0]);
-        textViewChefRating.setText(chefRatingtext[0]);
-        textPrice.setText(String.valueOf(mealPrice));
 
-        dialogBuilder.setTitle("Chef's Details");
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
+        DatabaseReference chefReference2 = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("name");
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
-        reference.addValueEventListener(new ValueEventListener() {
+        chefReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addToCartBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //TODO add the meal to the cart (create the cart)!!!!!!
-                    }
-                });
+                //listening through all the nodes
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    String chefName = postSnapshot.child("name").getValue(String.class);
+                    //adding to the list
+                    list[1]=chefName;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
+
+    private void viewMealDetails(String chefUid, Double mealPrice){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_display_meal_details, null);
+        dialogBuilder.setView(dialogView);
+
+        final Button addToCartBtn = (Button) dialogView.findViewById(R.id.addToCartBtn);
+        final TextView textPrice = (TextView) dialogView.findViewById(R.id.textPrice);
+        final TextView textViewChefRating = (TextView) dialogView.findViewById(R.id.textViewChefRating);
+        final TextView textViewChefName = (TextView) dialogView.findViewById(R.id.textViewChefName);
+
+        String[] list = new String[2];
+
+        DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("rating");
+        chefReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String chefRating = snapshot.getValue(Double.class).toString();
+                    textViewChefRating.setText(chefRating);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(PageMain.this, "Sorry, Something went wrong!",Toast.LENGTH_LONG).show();
             }
         });
+
+        DatabaseReference chefReference1 = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("name");
+        chefReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String chefName = snapshot.getValue(String.class).toString();
+                textViewChefName.setText(chefName);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        final String chefRating = list[0];
+
+        textPrice.setText(String.valueOf(mealPrice)+" CAD");
+
+        dialogBuilder.setTitle("Chef's Details");
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+                addToCartBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO add the meal to the cart (create the cart)!!!!!!
+                        b.dismiss();
+                    }
+                });
+
 
     }//end of decisionMake method
 
