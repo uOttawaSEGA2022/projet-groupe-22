@@ -240,7 +240,7 @@ public class PageMain extends AppCompatActivity {
                 //listening through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     for(DataSnapshot ds : postSnapshot.getChildren()) {
-                        if  if ( ds.child("display").getValue(Boolean.class) &
+                        if ( ds.child("display").getValue(Boolean.class) &
                                 ( ds.child("status").getValue(Integer.class)==0 ) ) {
                             Meal meal = ds.getValue(Meal.class);
                             //adding product to the list
