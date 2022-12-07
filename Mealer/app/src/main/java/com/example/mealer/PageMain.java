@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 
 public class PageMain extends AppCompatActivity {
     FirebaseUser fUser;
@@ -28,20 +34,32 @@ public class PageMain extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
     Button addComplaintBtn;
-     Button signOutBtn;
+    Button signOutBtn;
+
+    //meals attributes
+    DatabaseReference mealsChefReference;
+    DatabaseReference mealsReference;
+    List<Meal> meals;
+    ListView mealsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_main);
 
+        //setting the meals attributes
+        mealsListView = (ListView) findViewById(R.id.mealsListView);
+        meals = new ArrayList<>();
+
         addComplaintBtn = findViewById(R.id.addComplaintBtn);
-        addComplaintBtn.setOnClickListener(new View.OnClickListener(){
+        addComplaintBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view) {addComplaint();}
+            public void onClick(View view) {
+                addComplaint();
+            }
         });
-        
+
         signOutBtn = (Button) findViewById(R.id.signOutBtn);
         signOutBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -54,33 +72,43 @@ public class PageMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mealsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Meal meal = meals.get(position);
+                return true;
+            }
+        });
     }
 
-    public void addComplaint(){
+    public void addComplaint() {
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            LayoutInflater inflater = getLayoutInflater();
-            final View dialogView = inflater.inflate(R.layout.add_complaint, null);
-            dialogBuilder.setView(dialogView);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.add_complaint, null);
+        dialogBuilder.setView(dialogView);
 
-            final EditText ComplaintChefName = (EditText) dialogView.findViewById(R.id.ComplaintChefName);
-            final EditText complaintDate  = (EditText) dialogView.findViewById(R.id.complaintDate);
-            final EditText complaintText  = (EditText) dialogView.findViewById(R.id.complaintText);
-            final Button addComplaintBtn = (Button) dialogView.findViewById(R.id.addComplaintBtn);
+        final EditText ComplaintChefName = (EditText) dialogView.findViewById(R.id.ComplaintChefName);
+        final EditText complaintDate = (EditText) dialogView.findViewById(R.id.complaintDate);
+        final EditText complaintText = (EditText) dialogView.findViewById(R.id.complaintText);
+        final Button addComplaintBtn = (Button) dialogView.findViewById(R.id.addComplaintBtn);
 
-            dialogBuilder.setTitle("Add complaint");
-            final AlertDialog b = dialogBuilder.create();
-            b.show();
+        dialogBuilder.setTitle("Add complaint");
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
 
-                addComplaintBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {{
+        addComplaintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                {
 
                     String chefName = ComplaintChefName.getText().toString().trim();
                     String date = complaintDate.getText().toString().trim();
                     String text = complaintText.getText().toString().trim();
 
                     DatabaseReference complaintReference = FirebaseDatabase.getInstance().getReference().child("complaints");
+
 
                     //checking if the value is provided
                     if (!(TextUtils.isEmpty(chefName) & TextUtils.isEmpty(date) & TextUtils.isEmpty(text))) {
@@ -89,10 +117,10 @@ public class PageMain extends AppCompatActivity {
                         //it will create a unique id and we will use it as the Primary key for our Complaint
                         String id = reference.push().getKey();
 
-                        //creating a Product Object
+                        //creating a Complaint Object
                         Complaint complaint = new Complaint(id, chefName, date, text);
 
-                        //saving the product
+                        //saving the complaint
                         complaintReference.child(id).setValue(complaint);
 
                         //setting edittext to blank again
@@ -103,18 +131,24 @@ public class PageMain extends AppCompatActivity {
                         //displaying a success toast
                         successToaster();
                         b.dismiss();
-                    } else{
+                    } else {
                         //if the values are not given displaying a toast
                         failingToaster();
                         b.dismiss();
 
                     }
-                }}
-            });
+                }
+            }
+        });
     }
 
-    public void successToaster(){Toast.makeText(this, "Complaint added", Toast.LENGTH_LONG).show();}
-    public void failingToaster(){Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();}
+    public void successToaster() {
+        Toast.makeText(this, "Complaint added", Toast.LENGTH_LONG).show();
+    }
+
+    public void failingToaster() {
+        Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();
+    }
 
 
     public void onStart() {
@@ -128,13 +162,48 @@ public class PageMain extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.getValue(String.class);
-                Toast.makeText(PageMain.this,"Welcome, "+ name +"!",Toast.LENGTH_LONG).show();
+                Toast.makeText(PageMain.this, "Welcome, " + name + "!", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        viewMealsList();
+    }
+
+
+    public void viewMealsList() {
+
+        mealsReference = FirebaseDatabase.getInstance().getReference().child("meals");
+        mealsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //clearing the previous artist list
+                meals.clear();
+
+                //listening through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    for(DataSnapshot ds : postSnapshot.getChildren()) {
+                        if (ds.child("display").getValue(Boolean.class)) {
+                            Meal meal = ds.getValue(Meal.class);
+                            //adding meal to the list
+                            meals.add(meal);
+                        }
+                    }
+                }
+                //creating adapter
+                MealsList mealsAdapter = new MealsList(PageMain.this, meals);
+                //attaching adapter to the listview
+                mealsListView.setAdapter(mealsAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }
+
