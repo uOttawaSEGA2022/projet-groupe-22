@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,19 +99,45 @@ public class PageMain extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Meal meal = meals.get(position);
-                viewMealDetails(meal.getChefUid());
+                viewMealDetails(meal.getID(), meal.getChefUid(), meal.getPrice());
                 return true;
             }
         });
     }
 
-    private void viewMealDetails(String chefUid){
+    private void viewMealDetails(String mealID, String chefUid, Double mealPrice){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_display_meal_details, null);
         dialogBuilder.setView(dialogView);
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button addToCartBtn = (Button) dialogView.findViewById(R.id.addToCartBtn);
+        final Button addToCartBtn = (Button) dialogView.findViewById(R.id.addToCartBtn);
+        final TextView textPrice = (TextView) dialogView.findViewById(R.id.textPrice);
+        final TextView textViewChefAddress = (TextView) dialogView.findViewById(R.id.textViewChefAddress);
+        final TextView textViewChefRating = (TextView) dialogView.findViewById(R.id.textViewChefRating);
+        final TextView textViewChefName = (TextView) dialogView.findViewById(R.id.textViewChefName);
+
+
+        DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
+        chefReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //listening through all the nodes
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    String chefAddress = postSnapshot.child("address").getValue(String.class);
+                    int chefRating = postSnapshot.child("rating").getValue(Integer.class);
+                    String chefName= postSnapshot.child("name").getValue(String.class);
+                    textViewChefName.setText(chefName);
+                    textViewChefAddress.setText(chefAddress);
+                    textPrice.setText(String.valueOf(mealPrice));
+                    textViewChefRating.setText(String.valueOf(chefRating));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         dialogBuilder.setTitle("Chef's Details");
         final AlertDialog b = dialogBuilder.create();
