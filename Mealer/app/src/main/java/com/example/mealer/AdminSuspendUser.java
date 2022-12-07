@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -75,9 +78,7 @@ public class AdminSuspendUser extends AppCompatActivity {
 
     }
 
-    private void suspendTemp ( String date){
-        updateProfile(chefID, 1, date);
-    }
+    private void suspendTemp ( String date){updateProfile(chefID, 1, date);}
 
     private void suspendDef (){
         updateProfile(chefID, 2, null);
@@ -91,7 +92,22 @@ public class AdminSuspendUser extends AppCompatActivity {
         dR.child("status").setValue(status);
         dR.child("susTime").setValue(susDate);
 
-        Toast.makeText(getApplicationContext(), "Product Updated", Toast.LENGTH_LONG).show();
+        DatabaseReference mealsReference = FirebaseDatabase.getInstance().getReference("meals").child(id);
+        mealsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //listening through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Meal meal = postSnapshot.getValue(Meal.class);
+                    meal.setDisplay(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+
+        Toast.makeText(getApplicationContext(), "Profile Updated", Toast.LENGTH_LONG).show();
 
     }
 }
