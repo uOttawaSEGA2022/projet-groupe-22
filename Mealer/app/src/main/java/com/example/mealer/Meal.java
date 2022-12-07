@@ -58,6 +58,7 @@ public class Meal {
 	public void setMealType(String mealType){this.mealType = mealType ;}
 	public void setGastronomyType(String gastronomyType){this.gastronomyType = gastronomyType ;}
 	public void setPrice(double price){this.price = price ;}
+	public void setDisplay(Boolean display){this.display = display;}
 
 	
 	//Getters
