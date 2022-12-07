@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -97,12 +98,44 @@ public class PageMain extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Meal meal = meals.get(position);
+                viewMealDetails(meal.getChefUid());
                 return true;
             }
         });
     }
 
+    private void viewMealDetails(String chefUid){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.activity_display_meal_details, null);
+        dialogBuilder.setView(dialogView);
 
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button addToCartBtn = (Button) dialogView.findViewById(R.id.addToCartBtn);
+
+        dialogBuilder.setTitle("Chef's Details");
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                addToCartBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO add the meal to the cart (create the cart)!!!!!!
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(PageMain.this, "Sorry, Something went wrong!",Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }//end of decisionMake method
 
     public void initSearchWidgets(){
 
@@ -206,7 +239,6 @@ public class PageMain extends AppCompatActivity {
         Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();
     }
 
-
     public void onStart() {
         super.onStart();
         fAuth = FirebaseAuth.getInstance();
@@ -227,7 +259,6 @@ public class PageMain extends AppCompatActivity {
         });
     }
 
-
     public void viewMealsList() {
 
         mealsReference = FirebaseDatabase.getInstance().getReference().child("meals");
@@ -240,8 +271,7 @@ public class PageMain extends AppCompatActivity {
                 //listening through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     for(DataSnapshot ds : postSnapshot.getChildren()) {
-                        if ( ds.child("display").getValue(Boolean.class) &
-                                ( ds.child("status").getValue(Integer.class)==0 ) ) {
+                        if ( ds.child("display").getValue(Boolean.class)  ) {
                             Meal meal = ds.getValue(Meal.class);
                             //adding product to the list
                             meals.add(meal);
