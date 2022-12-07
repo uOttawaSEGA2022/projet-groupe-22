@@ -117,6 +117,9 @@ public class PageMain extends AppCompatActivity {
         final TextView textViewChefRating = (TextView) dialogView.findViewById(R.id.textViewChefRating);
         final TextView textViewChefName = (TextView) dialogView.findViewById(R.id.textViewChefName);
 
+        final String[] chefNametext = new String[1];
+        final String[] chefAddresstext = new String[1];
+        final String[] chefRatingtext = new String[1];
 
         DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid);
         chefReference.addValueEventListener(new ValueEventListener() {
@@ -125,12 +128,12 @@ public class PageMain extends AppCompatActivity {
                 //listening through all the nodes
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     String chefAddress = postSnapshot.child("address").getValue(String.class);
-                    int chefRating = postSnapshot.child("rating").getValue(Integer.class);
+                    String chefRating = postSnapshot.child("rating").getValue(String.class);
                     String chefName= postSnapshot.child("name").getValue(String.class);
-                    textViewChefName.setText(chefName);
-                    textViewChefAddress.setText(chefAddress);
-                    textPrice.setText(String.valueOf(mealPrice));
-                    textViewChefRating.setText(String.valueOf(chefRating));
+
+                    chefNametext[0] = chefName;
+                    chefAddresstext[0] = chefAddress;
+                    chefRatingtext[0] = chefRating;
                 }
             }
 
@@ -138,6 +141,10 @@ public class PageMain extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        textViewChefName.setText(chefNametext[0]);
+        textViewChefAddress.setText(chefAddresstext[0]);
+        textViewChefRating.setText(chefRatingtext[0]);
+        textPrice.setText(String.valueOf(mealPrice));
 
         dialogBuilder.setTitle("Chef's Details");
         final AlertDialog b = dialogBuilder.create();
