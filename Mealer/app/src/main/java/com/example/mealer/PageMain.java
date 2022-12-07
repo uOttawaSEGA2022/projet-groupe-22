@@ -122,7 +122,9 @@ public class PageMain extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 ArrayList<Meal> filteredMeals = new ArrayList<Meal>();
                 for(Meal meal : meals){
-                    if(meal.getMealName().toLowerCase().contains(s.toLowerCase())){
+                    if((meal.getMealName().toLowerCase().contains(s.toLowerCase())) ||
+                         meal.getMealType().toLowerCase().contains(s.toLowerCase())||
+                          meal.getGastronomyType().toLowerCase().contains(s.toLowerCase())){
                         filteredMeals.add(meal);
                     }
                 }
@@ -224,37 +226,6 @@ public class PageMain extends AppCompatActivity {
             }
         });
     }
-
-    public void searchMeals(){/*
-        mealsSearchReference = FirebaseDatabase.getInstance().getReference().child("meals");
-        mealsSearchReference.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            //clearing the previous artist list
-            mealsSearch.clear();
-
-            //listening through all the nodes
-            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                for(DataSnapshot ds : postSnapshot.getChildren()) {
-                    if (ds.child("display").getValue(Boolean.class)) {
-                        String mealName = ds.child("nameName").getValue(String.class);
-                        //adding product to the list
-                        mealsSearch.add(mealName);
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    });
-    //creating adapter
-    MealSearchResults mealsAdapter = new MealSearchResults(PageMain.this, mealsSearch);
-    //attaching adapter to the listview
-        mealsListViewSearch.setAdapter(mealsAdapter);*/
-}
 
 
     public void viewMealsList() {
