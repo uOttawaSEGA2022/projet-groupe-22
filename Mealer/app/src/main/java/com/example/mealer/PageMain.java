@@ -4,15 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -35,6 +42,9 @@ public class PageMain extends AppCompatActivity {
     DatabaseReference reference = database.getReference();
     Button addComplaintBtn;
     Button signOutBtn;
+    Button search;
+
+    ListView listView;
 
     //meals attributes
     DatabaseReference mealsChefReference;
@@ -42,13 +52,22 @@ public class PageMain extends AppCompatActivity {
     List<Meal> meals;
     ListView mealsListView;
 
+    SearchView mealsListViewSearch;
+    ArrayAdapter<String> arrayAdapter;
+
+    DatabaseReference mealsSearchReference;
+    List<String> mealsSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_main);
 
+        initSearchWidgets();
+        viewMealsList();
         //setting the meals attributes
         mealsListView = (ListView) findViewById(R.id.mealsListView);
+        mealsSearch = new ArrayList<>();
         meals = new ArrayList<>();
 
         addComplaintBtn = findViewById(R.id.addComplaintBtn);
@@ -73,6 +92,7 @@ public class PageMain extends AppCompatActivity {
             }
         });
 
+
         mealsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -80,6 +100,40 @@ public class PageMain extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+
+
+    public void initSearchWidgets(){
+
+        mealsListViewSearch = (SearchView) findViewById(R.id.mealsListViewSearch);
+
+        mealsListViewSearch.setQueryHint("Search by meal's name or type");
+
+        mealsListViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            //called when the user presses enter
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            //called to search for what the client wrote
+            @Override
+            public boolean onQueryTextChange(String s) {
+                ArrayList<Meal> filteredMeals = new ArrayList<Meal>();
+                for(Meal meal : meals){
+                    if(meal.getMealName().toLowerCase().contains(s.toLowerCase())){
+                        filteredMeals.add(meal);
+                    }
+                }
+
+                MealsList adapter = new MealsList(PageMain.this, filteredMeals);
+                //attaching adapter to the listview
+                mealsListView.setAdapter(adapter);
+                return false;
+            }
+        });
+
     }
 
     public void addComplaint() {
@@ -169,8 +223,38 @@ public class PageMain extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        viewMealsList();
     }
+
+    public void searchMeals(){/*
+        mealsSearchReference = FirebaseDatabase.getInstance().getReference().child("meals");
+        mealsSearchReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            //clearing the previous artist list
+            mealsSearch.clear();
+
+            //listening through all the nodes
+            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                for(DataSnapshot ds : postSnapshot.getChildren()) {
+                    if (ds.child("display").getValue(Boolean.class)) {
+                        String mealName = ds.child("nameName").getValue(String.class);
+                        //adding product to the list
+                        mealsSearch.add(mealName);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
+    //creating adapter
+    MealSearchResults mealsAdapter = new MealSearchResults(PageMain.this, mealsSearch);
+    //attaching adapter to the listview
+        mealsListViewSearch.setAdapter(mealsAdapter);*/
+}
 
 
     public void viewMealsList() {
@@ -187,7 +271,7 @@ public class PageMain extends AppCompatActivity {
                     for(DataSnapshot ds : postSnapshot.getChildren()) {
                         if (ds.child("display").getValue(Boolean.class)) {
                             Meal meal = ds.getValue(Meal.class);
-                            //adding meal to the list
+                            //adding product to the list
                             meals.add(meal);
                         }
                     }
@@ -206,4 +290,3 @@ public class PageMain extends AppCompatActivity {
     }
 
 }
-
