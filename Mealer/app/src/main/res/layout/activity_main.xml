@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="false"
     android:background="#8DF2FF"
     tools:context=".MainActivity">
 
@@ -11,7 +12,11 @@
         android:id="@+id/banner"
         android:layout_width="373dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="70dp"
+        android:backgroundTint="#A5FFF5"
+        android:backgroundTintMode="add"
         android:fontFamily="monospace"
         android:text="Mealer"
         android:textAlignment="center"
