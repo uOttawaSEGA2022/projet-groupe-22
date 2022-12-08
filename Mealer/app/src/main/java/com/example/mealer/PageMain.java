@@ -105,47 +105,6 @@ public class PageMain extends AppCompatActivity {
         });
     }
 
-    private void collectData(String chefUid, Double mealPrice){
-
-        String[] list = new String[2];
-
-        DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("rating");
-        chefReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //listening through all the nodes
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Double chefRating = postSnapshot.child("rating").getValue(Double.class);
-                    //adding to the list
-                    list[0] = String.valueOf(chefRating);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-        DatabaseReference chefReference2 = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("name");
-
-        chefReference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //listening through all the nodes
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    String chefName = postSnapshot.child("name").getValue(String.class);
-                    //adding to the list
-                    list[1]=chefName;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-    }
-
     private void viewMealDetails(String chefUid, Double mealPrice){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
