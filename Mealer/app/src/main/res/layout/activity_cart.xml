@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cartActivity"
-    tools:context=".CartActivity">
+    tools:context=".PageMain">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,15 +35,37 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-    
-    
-  <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_drink"
-        android:layout_width="396dp"
-        android:layout_height="351dp"
-        android:layout_below="@+id/panel"
-        android:padding="8dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="90dp"
+        android:background="@color/cardview_light_background">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scroll Down to see your cart :"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:id="@+id/text"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/recycler_drink"
+             android:padding="8dp"
+             android:layout_below="@+id/text"
+             />
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtTotal"
