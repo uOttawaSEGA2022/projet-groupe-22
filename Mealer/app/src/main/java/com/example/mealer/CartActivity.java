@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -18,11 +20,13 @@ import com.example.mealer.adapter.MyCartAdapter;
 import com.example.mealer.listener.ICartLoadListener;
 import com.example.mealer.model.CartModel;
 import com.example.mealer.utils.SpaceItemDecoration;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -31,7 +35,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindAnim;
 import butterknife.BindView;
@@ -53,9 +59,55 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
     FirebaseUser fUser;
     FirebaseAuth fAuth;
 
+    Button approveBtn;
+
+    DatabaseReference approveMeals;
+
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+        
+        approveBtn = (Button) findViewById(R.id.approveBtn);
+        approveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                waitingForChefApprove(fUser.getUid());
+            }
+        }); //donebutton method end
+    }
+
+    private void waitingForChefApprove(String uid) {
+
+        approveMeals = FirebaseDatabase.getInstance().getReference().child("cart").child(uid);
+
+        approveMeals.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            //just update status
+                            CartModel cartModel = snapshot.getValue(CartModel.class);
+                            boolean status = snapshot.child("status").getValue(Boolean.class);
+                            cartModel.setStatus(true);
+                            approveMeals.child(cartModel.getKey()).child("status").setValue(true);
+                            
+                        }
+                        } else
+                           onCartLoadFailed("Cart Empty!");
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
