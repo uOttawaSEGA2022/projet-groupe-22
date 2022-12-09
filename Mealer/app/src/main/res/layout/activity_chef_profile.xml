@@ -7,6 +7,72 @@
     tools:context=".ChefProfile">
 
     <TextView
+        android:id="@+id/yourProfileTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:text="Your profile :"/>
+
+    <TextView
+        android:id="@+id/Chefnametext"
+        android:layout_width="108dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/yourProfileTxt"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="30dp"
+        android:text="Name :"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nameTxt"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ratingTxt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="-120dp"
+        android:layout_toEndOf="@+id/Chefnametext"
+        android:minHeight="48dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="textStart"/>
+
+    <TextView
+        android:id="@+id/passwordtext"
+        android:layout_width="111dp"
+        android:layout_height="41dp"
+        android:layout_below="@id/Chefnametext"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:text="Rating:"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ratingTxt"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="30dp"
+        android:layout_toEndOf="@+id/passwordtext"
+        android:minHeight="48dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="textStart"/>
+
+    <TextView
         android:id="@+id/headerdisplaymeals"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +80,7 @@
         android:fontFamily="monospace"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textSize="30sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="200dp"
         android:layout_marginHorizontal="15dp"
         />
     <LinearLayout
