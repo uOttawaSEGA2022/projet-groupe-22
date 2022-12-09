@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="false"
-    android:background="#8DF2FF"
+    android:id="@+id/root_layout"
+    android:background="@drawable/gradient_animation"
     tools:context=".MainActivity">
 
     <TextView
@@ -15,13 +16,12 @@
         android:layout_alignParentEnd="true"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="70dp"
-        android:backgroundTint="#A5FFF5"
-        android:backgroundTintMode="add"
-        android:fontFamily="monospace"
-        android:text="Mealer"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="MEALER"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="#2196F3" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#344D67"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/emailtext"
@@ -32,7 +32,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:text="Email address:"
-        android:textColor="@color/bt_blue" />
+        android:textColor="#344D67" />
 
     <EditText
         android:id="@+id/inputemail"
@@ -55,7 +55,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:text="Password:"
-        android:textColor="@color/bt_blue" />
+        android:textColor="#344D67" />
 
     <EditText
         android:id="@+id/inputpassword"
@@ -79,7 +79,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:backgroundTint="@color/bt_blue"
-        android:text="Login" />
+        android:text="Login"
+        android:textColor="#F3ECB0" />
 
     <TextView
         android:id="@+id/regtext"
@@ -89,7 +90,7 @@
         android:layout_marginTop="4dp"
         android:text="Don't have a Mealer account yet?"
         android:textAlignment="center"
-        android:textColor="@color/bt_blue" />
+        android:textColor="#344D67" />
 
     <Button
         android:id="@+id/registerbutton"
@@ -100,7 +101,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="70dp"
         android:backgroundTint="@color/bt_blue"
-        android:text="Register" />
+        android:text="Register"
+        android:textColor="#F3ECB0" />
 
 
 </RelativeLayout>
