@@ -237,7 +237,7 @@ public class PageMain extends AppCompatActivity implements IMealLoadListener, IC
     public void addToCart(Meal meal){
 
         DatabaseReference userCart = FirebaseDatabase.getInstance().getReference("cart").child(fUser.getUid());
-        userCart.addListenerForSingleValueEvent(new ValueEventListener() {
+        userCart.child(meal.getID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists())//if the user has already item in the cart
