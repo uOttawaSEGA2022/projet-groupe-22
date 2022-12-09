@@ -130,7 +130,7 @@ public class CookPage extends AppCompatActivity {
                         String id = reference.push().getKey();
 
                         //creating a Product Object
-                        Meal meal = new Meal(id, fUser.getUid(), meal_name, meal_type, meal_gastronomy_type, Double.parseDouble(meal_price));
+                        Meal meal = new Meal(id, fUser.getUid(), meal_name, meal_type, meal_gastronomy_type, (meal_price));
 
                         //saving the product
                         mealsReference.child(id).setValue(meal);
