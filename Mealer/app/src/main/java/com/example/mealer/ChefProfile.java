@@ -3,8 +3,10 @@ package com.example.mealer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,19 +26,30 @@ public class ChefProfile extends AppCompatActivity {
     DatabaseReference databaseMeals;
     DatabaseReference mealsReference;
 
+    TextView ratingTxt;
+    TextView nameTxt;
+
     FirebaseUser fUser;
     FirebaseAuth fAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
 
 
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef_profile);
 
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+
         displayedmeals = new ArrayList<>();
         databaseMeals = FirebaseDatabase.getInstance().getReference();
+
+        ratingTxt = (TextView) findViewById(R.id.ratingTxt);
+        nameTxt = (TextView) findViewById(R.id.nameTxt);
 
         listViewDisplayedMeals = (ListView) findViewById(R.id.listViewDisplayedMeals);
 
@@ -48,6 +61,7 @@ public class ChefProfile extends AppCompatActivity {
         fUser = fAuth.getCurrentUser();
         String IDstring = fUser.getUid();
         viewMealsList();
+        viewProfile();
     }
 
     public void viewMealsList(){
@@ -82,5 +96,36 @@ public class ChefProfile extends AppCompatActivity {
 
             }
         });}
+
+    public void viewProfile (){
+
+        fUser = fAuth.getCurrentUser();
+
+        reference = FirebaseDatabase.getInstance().getReference().child("users").child(fUser.getUid());
+        reference.child("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name = dataSnapshot.getValue(String.class);
+                    nameTxt.setText(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+
+        });
+
+        reference.child("rating").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Double rating = dataSnapshot.getValue(Double.class);
+                ratingTxt.setText(String.valueOf(rating));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+
+        });
+    }
+
 
 }
