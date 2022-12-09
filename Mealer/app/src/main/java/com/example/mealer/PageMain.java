@@ -244,7 +244,7 @@ public class PageMain extends AppCompatActivity implements IMealLoadListener, IC
                 {
                     //just update quantity and total Price
                     CartModel cartModel = snapshot.getValue(CartModel.class);
-                    Integer quantity = snapshot.child(meal.getID()).child("quantity").getValue(Integer.class);
+                     Integer quantity = snapshot.child("quantity").getValue(Integer.class);
                     cartModel.setQuantity(quantity + 1);
                     Map<String, Object> updateData = new HashMap<>();
                     updateData.put("quantity", cartModel.getQuantity());
