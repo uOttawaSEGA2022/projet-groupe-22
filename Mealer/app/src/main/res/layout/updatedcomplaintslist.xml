@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource">
 
@@ -16,6 +17,7 @@
         <Button
             android:id="@+id/buttonDismissComplaint"
             android:layout_width="wrap_content"
+            android:background="@drawable/button"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Dismiss" />
@@ -23,6 +25,7 @@
         <Button
             android:id="@+id/buttonAcceptComplaint"
             android:layout_width="wrap_content"
+            android:background="@drawable/button"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Accept" />
