@@ -67,7 +67,8 @@ public class Meal {
 	public String getMealName(){return this.mealName;}
 	public String getMealType(){return this.mealType;}
 	public String getGastronomyType(){return this.gastronomyType;}
-	public double getPrice(){return this.price;}
+	public String getPrice(){ String newprice = String.valueOf(price); return newprice;}
+	//public double getPrice(){return this.price;}
 	public String getID(){return this.id;}
 	public boolean getDisplay(){return this.display;}
 }
