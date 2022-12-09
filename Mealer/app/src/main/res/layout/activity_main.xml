@@ -8,14 +8,17 @@
     tools:context=".MainActivity">
 
 
-    <TextView
+   <TextView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Mealer"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="MEALER"
         android:textAlignment="center"
+        android:textStyle="italic"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
 
     <TextView
         android:id="@+id/emailtext"
