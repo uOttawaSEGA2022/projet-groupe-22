@@ -290,7 +290,7 @@ public class PageMain extends AppCompatActivity implements IMealLoadListener, IC
 
                 }
 
-                EventBus.getDefault().postSticky(new PageMain());
+                EventBus.getDefault().postSticky(new MyUpdateCartEvent());
             }
 
             @Override
