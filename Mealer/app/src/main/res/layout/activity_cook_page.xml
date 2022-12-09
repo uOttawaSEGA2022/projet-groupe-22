@@ -65,24 +65,26 @@
     <Button
         android:id="@+id/signOutBtn"
         android:layout_width="130dp"
-        android:background="@drawable/button"
         android:layout_height="wrap_content"
+        android:layout_below="@id/welcomingTag"
+        android:layout_alignParentStart="true"
         android:layout_marginHorizontal="10dp"
+        android:background="@drawable/button"
         android:text="Sign Out"
         android:textAlignment="center"
-        android:layout_below="@id/welcomingTag"
-        android:layout_alignParentStart="true"/>
+        android:textColor="#695B4A" />
 
     <Button
         android:id="@+id/goProfileBtn"
         android:layout_width="130dp"
-        android:background="@drawable/button"
         android:layout_height="wrap_content"
+        android:layout_below="@id/welcomingTag"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="50dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/button"
         android:text="view profile"
         android:textAlignment="center"
-        android:layout_below="@id/welcomingTag"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="true"/>
+        android:textColor="#695B4A" />
 </RelativeLayout>

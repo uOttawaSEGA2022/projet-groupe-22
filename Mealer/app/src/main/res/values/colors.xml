@@ -9,12 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name = "colorTransparent">#00ffffff</color>
-
-    <color name = "colorGradientStart">#ADE792</color>
-    <color name = "colorGradientCenter">#6ECCAF</color>
-    <color name = "colorGradientEnd">#F3ECB0</color>
-    
     
      <color name="start_color">#E7CAA3</color>
     <color name="end_color">#DBB49A</color>
+    <color name ="middle_color">#dfa47e</color>
+
 </resources>

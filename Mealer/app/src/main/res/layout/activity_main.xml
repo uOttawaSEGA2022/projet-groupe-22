@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@drawable/gradient_animation"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
 
-   <TextView
+    <TextView
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +16,8 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="MEALER"
         android:textAlignment="center"
-        android:textStyle="italic"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textStyle="bold|italic" />
 
    <ImageView
        android:id="@+id/image"
