@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource">
 
@@ -10,12 +11,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:background="@drawable/gradient"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/deleteMealBtn"
             android:layout_width="wrap_content"
+            android:background="@drawable/button"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Delete Meal" />
@@ -23,6 +26,7 @@
         <Button
             android:id="@+id/displayMealBtn"
             android:layout_width="wrap_content"
+            android:background="@drawable/button"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="display Meal" />
