@@ -1,10 +1,7 @@
 package com.example.mealer;
-import android.annotation.SuppressLint;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.mealer.PageMain;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,14 +15,14 @@ public class Meal {
 	private String mealType;
 	private String gastronomyType;
 	private String chefName;
-	private double price;
+	private String price;
 	private String id;
 	private boolean display;
 
 	DatabaseReference mealReference;
 	public Meal (){}
 
-	public Meal (String id, String chefUid, String mealName, String mealType, String gastronomyType, double price){
+	public Meal (String id, String chefUid, String mealName, String mealType, String gastronomyType, String price){
 		this.id = id;
 		this.chefUid = chefUid ;
 		this.mealName = mealName ;
@@ -57,7 +54,7 @@ public class Meal {
 	public void setMealName(String mealName){this.mealName = mealName ;}
 	public void setMealType(String mealType){this.mealType = mealType ;}
 	public void setGastronomyType(String gastronomyType){this.gastronomyType = gastronomyType ;}
-	public void setPrice(double price){this.price = price ;}
+	public void setPrice(String price){this.price = price ;}
 	public void setDisplay(Boolean display){this.display = display;}
 
 	
@@ -67,8 +64,8 @@ public class Meal {
 	public String getMealName(){return this.mealName;}
 	public String getMealType(){return this.mealType;}
 	public String getGastronomyType(){return this.gastronomyType;}
-	public String getPrice(){ String newprice = String.valueOf(price); return newprice;}
-	//public double getPrice(){return this.price;}
+	public String getPrice(){return this.price;}
+	//public String getPrice(){ String newprice = String.valueOf(price); return newprice;}
 	public String getID(){return this.id;}
 	public boolean getDisplay(){return this.display;}
 }
