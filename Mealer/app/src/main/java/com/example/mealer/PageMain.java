@@ -265,14 +265,14 @@ public class PageMain extends AppCompatActivity implements IMealLoadListener, IC
                             });
                 } else //if the item is not in the cart, add new
                 {
-                   // CartModel cartModel = new CartModel();
-                   // cartModel.setChefName(meal.getChefName());
-                    //cartModel.setName(meal.getMealName());
-                    //cartModel.setPrice(meal.getPrice());
-                    //cartModel.setKey(meal.getID());
-                    //cartModel.setQuantity(1);
-                    //cartModel.setTotalPrice(Float.parseFloat(meal.getPrice()));
-                    CartModel cartModel = new CartModel(meal.getID(),meal.getMealName(),meal.getChefName() ,meal.getPrice(),1,Float.parseFloat(meal.getPrice()));
+                    CartModel cartModel = new CartModel();
+                    cartModel.setChefName(meal.getChefName());
+                    cartModel.setName(meal.getMealName());
+                    cartModel.setPrice(meal.getPrice());
+                    cartModel.setKey(meal.getID());
+                    cartModel.setQuantity(1);
+                    cartModel.setTotalPrice(Float.parseFloat(meal.getPrice()));
+                    //CartModel cartModel = new CartModel(meal.getID(),meal.getMealName(),meal.getChefName() ,meal.getPrice(),1,Float.parseFloat(meal.getPrice()));
 
                     userCart.child(meal.getID())
                             .setValue(cartModel)
