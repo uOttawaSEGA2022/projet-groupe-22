@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_below="@id/ComplaintChefName"
-        android:hint="Write the meal's gastronomyType" />
+        android:hint="Write the meal's gastronomy type" />
 
     <EditText
         android:id="@+id/mealPrice"

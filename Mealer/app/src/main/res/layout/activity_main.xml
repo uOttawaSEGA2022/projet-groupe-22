@@ -19,6 +19,14 @@
         android:textStyle="italic"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
+   <ImageView
+       android:id="@+id/image"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/banner"
+       android:layout_marginEnd="4dp"
+       android:layout_marginBottom="450dp"
+       android:src="@drawable/mealer" />
 
     <TextView
         android:id="@+id/emailtext"
@@ -28,21 +36,8 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="400dp"
         android:layout_marginEnd="30dp"
+        android:layout_below="@+id/image"
         android:text="Email address:" />
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="152dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="122dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="450dp"
-        android:src="@drawable/mealer" />
 
     <EditText
         android:id="@+id/inputemail"
