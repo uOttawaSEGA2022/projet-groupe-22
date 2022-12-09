@@ -9,7 +9,9 @@
         android:id="@+id/textViewChefName"
         android:layout_width="match_parent"
         android:layout_height="39dp"
-        android:text="" />
+        android:fontFamily="sans-serif-condensed"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textViewMealName"

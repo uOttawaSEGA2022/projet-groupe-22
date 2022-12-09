@@ -19,14 +19,13 @@
         android:id="@+id/yourMenu"
         android:layout_width="match_parent"
         android:layout_height="42dp"
+        android:layout_below="@id/welcomingTag"
         android:layout_marginHorizontal="20dp"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="monospace"
         android:text="Your menu:"
         android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="34sp"
-        android:layout_below="@id/welcomingTag"
-         />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textSize="34sp" />
 
     <LinearLayout
         android:id="@+id/linlayout"
@@ -53,10 +52,10 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/linlayout"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginHorizontal="55dp"
         android:text="Add Meal"
-        android:textAlignment="center"/>
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/signOutBtn"

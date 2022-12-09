@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="false"
     android:id="@+id/root_layout"
-    android:background="@drawable/gradient_animation"
     tools:context=".MainActivity">
 
     <TextView
