@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context=".CookRegisterPage"
     android:scrollbars="vertical">
@@ -101,6 +102,7 @@
     <Button
         android:id="@+id/submitchequebutton"
         android:layout_width="match_parent"
+        android:background="@drawable/button"
         android:layout_height="wrap_content"
         android:layout_below="@id/chequetext"
         android:text="Submit"
@@ -118,6 +120,7 @@
     <Button
         android:id="@+id/donebuttoncook"
         android:layout_width="match_parent"
+        android:background="@drawable/button"
         android:layout_height="wrap_content"
         android:layout_below="@id/previewimage"
         android:layout_marginStart="70dp"

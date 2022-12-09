@@ -3,35 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="false"
-    android:id="@+id/root_layout"
     tools:context=".MainActivity">
 
-    <TextView
+
+   <TextView
         android:id="@+id/banner"
-        android:layout_width="373dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="MEALER"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#344D67"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
 
     <TextView
         android:id="@+id/emailtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/banner"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="400dp"
         android:layout_marginEnd="30dp"
-        android:text="Email address:"
-        android:textColor="#344D67" />
+        android:text="Email address:" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="152dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="122dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="450dp"
+        android:src="@drawable/mealer" />
 
     <EditText
         android:id="@+id/inputemail"
@@ -39,11 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/emailtext"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="#2196F3"
         android:hint="Email"
-        android:textColorHint="@color/bt_blue" />
+        android:minHeight="48dp" />
 
     <TextView
         android:id="@+id/passwordtext"
@@ -51,10 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/inputemail"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
-        android:text="Password:"
-        android:textColor="#344D67" />
+        android:text="Password:" />
 
     <EditText
         android:id="@+id/inputpassword"
@@ -62,12 +71,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordtext"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="#2196F3"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="@color/bt_blue" />
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/loginbutton"
@@ -75,33 +83,31 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/inputpassword"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/bt_blue"
-        android:text="Login"
-        android:textColor="#F3ECB0" />
+        android:background="@drawable/button"
+        android:text="Login" />
 
     <TextView
         android:id="@+id/regtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginbutton"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:text="Don't have a Mealer account yet?"
-        android:textAlignment="center"
-        android:textColor="#344D67" />
+        android:textAlignment="center" />
+
 
     <Button
         android:id="@+id/registerbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/regtext"
-        android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
+        android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
-        android:backgroundTint="@color/bt_blue"
         android:text="Register"
-        android:textColor="#F3ECB0" />
+        android:background="@drawable/button"/>
 
 
 </RelativeLayout>
