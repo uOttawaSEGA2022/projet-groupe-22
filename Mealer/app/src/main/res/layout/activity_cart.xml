@@ -37,35 +37,62 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="367dp"
+        android:layout_height="299dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="90dp"
+        android:background="@color/cardview_light_background"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="90dp"
-        android:background="@color/cardview_light_background">
+        tools:ignore="MissingConstraints">
 
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Scroll Down to see your cart :"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:id="@+id/text"/>
+            android:textStyle="bold" />
 
 
         <androidx.recyclerview.widget.RecyclerView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:id="@+id/recycler_drink"
-             android:padding="8dp"
-             android:layout_below="@+id/text"
-             />
+            android:id="@+id/recycler_drink"
+            android:layout_width="match_parent"
+            android:layout_height="266dp"
+            android:layout_below="@+id/text"
+            android:padding="8dp" />
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/approveBtn"
+        android:layout_width="169dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="612dp"
+        android:layout_marginEnd="241dp"
+        android:layout_marginBottom="69dp"
+        android:text="Request chef approval" />
+
+    <TextView
+        android:layout_width="389dp"
+        android:layout_height="109dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="402dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="220dp"
+        android:gravity="center"
+        android:text="Please note that after clicking on the approve button you should wait for the chef to approve and then payment will be completed"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtTotal"
@@ -75,7 +102,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="245dp"
+        android:layout_marginStart="250dp"
         android:layout_marginTop="612dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="80dp"
