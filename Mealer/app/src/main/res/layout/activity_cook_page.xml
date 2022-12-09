@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context=".CookPage">
 
@@ -31,6 +32,7 @@
     <LinearLayout
         android:id="@+id/linlayout"
         android:layout_width="match_parent"
+        android:backgroundTint="@color/end_color"
         android:layout_height="530dp"
         android:orientation="vertical"
         android:layout_below="@id/yourMenu"
@@ -52,6 +54,7 @@
         android:id="@+id/addMealBtn"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button"
         android:layout_below="@id/linlayout"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="55dp"
@@ -61,6 +64,7 @@
     <Button
         android:id="@+id/signOutBtn"
         android:layout_width="130dp"
+        android:background="@drawable/button"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:text="Sign Out"
@@ -71,6 +75,7 @@
     <Button
         android:id="@+id/goProfileBtn"
         android:layout_width="130dp"
+        android:background="@drawable/button"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginEnd="8dp"
