@@ -10,16 +10,17 @@
     <TextView
         android:id="@+id/welcomingTag"
         android:layout_width="207dp"
-        android:layout_height="55dp"
+        android:layout_height="30dp"
         android:text=""
         android:textAlignment="center"
+        android:layout_centerHorizontal="true"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/yourMenu"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:layout_below="@id/welcomingTag"
+        android:layout_below="@id/signOutBtn"
         android:layout_marginHorizontal="20dp"
         android:fontFamily="monospace"
         android:text="Your menu:"
@@ -64,6 +65,7 @@
         android:layout_marginHorizontal="10dp"
         android:text="Sign Out"
         android:textAlignment="center"
+        android:layout_below="@id/welcomingTag"
         android:layout_alignParentStart="true"/>
 
     <Button
@@ -74,6 +76,7 @@
         android:layout_marginEnd="8dp"
         android:text="view profile"
         android:textAlignment="center"
+        android:layout_below="@id/welcomingTag"
         android:layout_centerHorizontal="true"
         android:layout_alignParentEnd="true"/>
 </RelativeLayout>
