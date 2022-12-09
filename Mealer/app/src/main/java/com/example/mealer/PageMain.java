@@ -3,6 +3,8 @@ package com.example.mealer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -18,11 +20,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mealer.EventBus.MyUpdateCartEvent;
+import com.example.mealer.adapter.MyMealAdapter;
+import com.example.mealer.listener.ICartLoadListener;
+import com.example.mealer.listener.IMealLoadListener;
+import com.example.mealer.model.CartModel;
+import com.example.mealer.model.MealModel;
+import com.example.mealer.utils.SpaceItemDecoration;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,26 +45,51 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nex3z.notificationbadge.NotificationBadge;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class PageMain extends AppCompatActivity {
+
+public class PageMain extends AppCompatActivity implements IMealLoadListener, ICartLoadListener {
+
+    //setting the cart stuff
+    //@BindView(R.id.recycler_drink)
+    //RecyclerView recyclerDrink;
+    @BindView(R.id.pageMainLayout)
+    RelativeLayout pagemainlayout;
+    @BindView(R.id.badge)
+    NotificationBadge badge;
+    @BindView(R.id.btnCart)
+    FrameLayout btnCart;
+    @BindView(R.id.btnBack)
+    ImageView btnBack;
+
+    IMealLoadListener mealLoadListener;
+    ICartLoadListener cartLoadListener;
+    //end of the set
+
     FirebaseUser fUser;
     FirebaseAuth fAuth;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference();
+    //
+    DatabaseReference cartMealReference = database.getReference();
+    //
     Button addComplaintBtn;
     Button signOutBtn;
-    Button search;
-
-    ListView listView;
 
     //meals attributes
-    DatabaseReference mealsChefReference;
     DatabaseReference mealsReference;
     List<Meal> meals;
     ListView mealsListView;
@@ -60,10 +100,18 @@ public class PageMain extends AppCompatActivity {
     DatabaseReference mealsSearchReference;
     List<String> mealsSearch;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_main);
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
+
+        init();
+
+        //loadDrinkFromFirebase();
+        countCartItem();
 
         initSearchWidgets();
         viewMealsList();
@@ -95,17 +143,28 @@ public class PageMain extends AppCompatActivity {
         });
 
 
-        mealsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+      mealsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Meal meal = meals.get(position);
-                viewMealDetails(meal.getChefUid(), meal.getPrice());
+                viewMealDetails(meal.getChefUid(), meal.getPrice(), position, meal.getID());
                 return true;
             }
         });
     }
 
-    private void viewMealDetails(String chefUid, Double mealPrice){
+    private void init(){
+        ButterKnife.bind(this);
+
+        mealLoadListener = this;
+        cartLoadListener = this;
+
+        btnBack.setOnClickListener(v -> finish());
+
+        btnCart.setOnClickListener(v -> startActivity(new Intent (this, CartActivity.class)));
+    }
+
+    private void viewMealDetails(String chefUid, String mealPrice, int position, String mealID){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_display_meal_details, null);
@@ -115,8 +174,6 @@ public class PageMain extends AppCompatActivity {
         final TextView textPrice = (TextView) dialogView.findViewById(R.id.textPrice);
         final TextView textViewChefRating = (TextView) dialogView.findViewById(R.id.textViewChefRating);
         final TextView textViewChefName = (TextView) dialogView.findViewById(R.id.textViewChefName);
-
-        String[] list = new String[2];
 
         DatabaseReference chefReference = FirebaseDatabase.getInstance().getReference().child("users").child(chefUid).child("rating");
         chefReference.addValueEventListener(new ValueEventListener() {
@@ -146,9 +203,7 @@ public class PageMain extends AppCompatActivity {
             }
         });
 
-        final String chefRating = list[0];
-
-        textPrice.setText(String.valueOf(mealPrice)+" CAD");
+        textPrice.setText(mealPrice+" CAD");
 
         dialogBuilder.setTitle("Chef's Details");
 
@@ -158,12 +213,94 @@ public class PageMain extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //TODO add the meal to the cart (create the cart)!!!!!!
+                        cartMealReference = FirebaseDatabase.getInstance().getReference().child("meals")
+                                .child(chefUid).child(mealID);
+                        cartMealReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Meal meal = snapshot.getValue(Meal.class);
+                                addToCart(meal);
+                                b.dismiss();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
                         b.dismiss();
                     }
                 });
 
 
     }//end of decisionMake method
+
+    public void addToCart(Meal meal){
+
+        DatabaseReference userCart = FirebaseDatabase.getInstance().getReference("cart").child(fUser.getUid());
+        userCart.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())//if the user has already item in the cart
+                {
+                    //just update quantity and total Price
+                    CartModel cartModel = snapshot.getValue(CartModel.class);
+                    Integer quantity = snapshot.child(meal.getID()).child("quantity").getValue(Integer.class);
+                    cartModel.setQuantity(quantity + 1);
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("quantity", cartModel.getQuantity());
+                    updateData.put("totalPrice", cartModel.getQuantity()*Float.parseFloat(meal.getPrice()));
+
+                    userCart.child(cartMealReference.getKey())
+                            .updateChildren(updateData)
+                            .addOnSuccessListener(aVoid -> {
+                                onCartLoadFailed("Meal added to the cart");
+                                //successToaster("Meal added to the cart");
+                                countCartItem();
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    failingToaster(e.getMessage());
+                                }
+                            });
+                } else //if the item is not in the cart, add new
+                {
+                   // CartModel cartModel = new CartModel();
+                   // cartModel.setChefName(meal.getChefName());
+                    //cartModel.setName(meal.getMealName());
+                    //cartModel.setPrice(meal.getPrice());
+                    //cartModel.setKey(meal.getID());
+                    //cartModel.setQuantity(1);
+                    //cartModel.setTotalPrice(Float.parseFloat(meal.getPrice()));
+                    CartModel cartModel = new CartModel(meal.getID(),meal.getMealName(),meal.getChefName() ,meal.getPrice(),1,Float.parseFloat(meal.getPrice()));
+
+                    userCart.child(meal.getID())
+                            .setValue(cartModel)
+                            .addOnSuccessListener(aVoid -> {
+                                onCartLoadFailed("Meal added to the cart");
+                                //successToaster("Meal added to the cart");
+                                countCartItem();
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    failingToaster(e.getMessage());
+                                }
+                            });
+
+                }
+
+                EventBus.getDefault().postSticky(new PageMain());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
 
     public void initSearchWidgets(){
 
@@ -246,11 +383,11 @@ public class PageMain extends AppCompatActivity {
                         complaintText.setText("");
 
                         //displaying a success toast
-                        successToaster();
+                        successToaster("Complaint added");
                         b.dismiss();
                     } else {
                         //if the values are not given displaying a toast
-                        failingToaster();
+                        failingToaster("Make sure everything is filled");
                         b.dismiss();
 
                     }
@@ -259,38 +396,40 @@ public class PageMain extends AppCompatActivity {
         });
     }
 
-    public void successToaster() {
-        Toast.makeText(this, "Complaint added", Toast.LENGTH_LONG).show();
+    public void successToaster(String msg) {
+        Snackbar.make(pagemainlayout, msg, Snackbar.LENGTH_LONG).show();
+        //Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    public void failingToaster() {
-        Toast.makeText(this, "Try again and fill all the fields with the needed info", Toast.LENGTH_LONG).show();
+    public void failingToaster(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
     public void onStart() {
         super.onStart();
-        fAuth = FirebaseAuth.getInstance();
-        fUser = fAuth.getCurrentUser();
-        String IDstring = fUser.getUid();
+        countCartItem();
+        EventBus.getDefault().register(this);
+    }
 
-        reference = FirebaseDatabase.getInstance().getReference().child("users").child(IDstring).child("name");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.getValue(String.class);
-                Toast.makeText(PageMain.this, "Welcome, " + name + "!", Toast.LENGTH_LONG).show();
-            }
+    @Override
+    protected void onStop(){
+        if(EventBus.getDefault().hasSubscriberForEvent(MyUpdateCartEvent.class))
+            EventBus.getDefault().removeStickyEvent(MyUpdateCartEvent.class);
+        EventBus.getDefault().unregister(this);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onUpdateCart(MyUpdateCartEvent event){
+        countCartItem();
     }
 
     public void viewMealsList() {
 
         mealsReference = FirebaseDatabase.getInstance().getReference().child("meals");
         mealsReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SuspiciousIndentation")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //clearing the previous artist list
@@ -298,6 +437,7 @@ public class PageMain extends AppCompatActivity {
 
                 //listening through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if (postSnapshot.exists()){
                     for(DataSnapshot ds : postSnapshot.getChildren()) {
                         if ( ds.child("display").getValue(Boolean.class)  ) {
                             Meal meal = ds.getValue(Meal.class);
@@ -305,6 +445,9 @@ public class PageMain extends AppCompatActivity {
                             meals.add(meal);
                         }
                     }
+                    }
+                    else
+                    mealLoadListener.onMealLoadFailed("Cannot find these meals");
                 }
                 //creating adapter
                 MealsList mealsAdapter = new MealsList(PageMain.this, meals);
@@ -314,9 +457,61 @@ public class PageMain extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                mealLoadListener.onMealLoadFailed(error.getMessage());
             }
         });
     }
 
+    @Override
+    public void onMealLoadSuccess(List<Meal> mealModelList) {
+        //MyUpdateCartEvent adapter = new  MyUpdateCartEvent(this, mealModelList);
+        //mealsListView.setAdapter((ListAdapter) adapter);
+    }
+
+    @Override
+    public void onMealLoadFailed(String message) {
+        Snackbar.make(pagemainlayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCartLoadSuccess(List<CartModel> cartModelList) {
+        int cartSum=0;
+        for(CartModel cartModel : cartModelList){
+            cartSum += cartModel.getQuantity();
+            badge.setNumber(cartSum);
+        }
+    }
+
+    @Override
+    public void onCartLoadFailed(String message) {
+        Snackbar.make(pagemainlayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        countCartItem();
+    }
+
+    private void countCartItem() {
+        List<CartModel> cartModels = new ArrayList<>();
+
+        DatabaseReference userCartFinal = FirebaseDatabase.getInstance().getReference().child("cart").child(fUser.getUid());
+        userCartFinal.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot cartSnapshot : snapshot.getChildren()){
+                    CartModel cartModel = cartSnapshot.getValue(CartModel.class);
+                    cartModel.setKey(cartModel.getKey());
+                    cartModels.add(cartModel);
+                }
+                onCartLoadSuccess(cartModels);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
