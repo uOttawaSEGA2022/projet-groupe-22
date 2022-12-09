@@ -104,7 +104,7 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
                             onCartLoadSuccess(cartModels);
                         }
                         else
-                        onCartLoadFailed("Cart empty");
+                        onCartLoadFailed("Cart empty! To update the cart, you can return and then come back");
                     }
 
                     @Override
