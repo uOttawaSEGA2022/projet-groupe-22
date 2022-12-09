@@ -61,6 +61,7 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
 
     Button approveBtn;
 
+    DatabaseReference waitapproveMeals;
     DatabaseReference approveMeals;
 
     public void onStart() {
@@ -80,10 +81,10 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
     }
 
     private void waitingForChefApprove(String uid) {
+        approveMeals =  FirebaseDatabase.getInstance().getReference().child("appendingCart");
 
-        approveMeals = FirebaseDatabase.getInstance().getReference().child("cart").child(uid);
-
-        approveMeals.addValueEventListener(new ValueEventListener() {
+        waitapproveMeals = FirebaseDatabase.getInstance().getReference().child("cart").child(uid);
+        waitapproveMeals.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -91,10 +92,9 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
 
                             //just update status
                             CartModel cartModel = snapshot.getValue(CartModel.class);
-                            boolean status = snapshot.child("status").getValue(Boolean.class);
-                            cartModel.setStatus(true);
-                            approveMeals.child(cartModel.getKey()).child("status").setValue(true);
-                            
+
+                            approveMeals.child(cartModel.getChefName()).child(uid).child(cartModel.getKey()).setValue(cartModel);
+
                         }
                         } else
                            onCartLoadFailed("Cart Empty!");
