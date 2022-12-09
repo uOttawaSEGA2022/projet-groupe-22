@@ -76,9 +76,12 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
         });
 
         holder.txtPrice.setText(new StringBuilder("CAD ").append(cartModelList.get(position).getPrice()));
-        holder.txtName.setText(new StringBuilder().append(cartModelList.get(position).getName()));
+       // holder.txtName.setText(new StringBuilder().append(cartModelList.get(position).getName()));
         holder.txtQuantity.setText(new StringBuilder().append(cartModelList.get(position).getQuantity()));
-
+        if(!cartModelList.get(position).isStatus())
+            holder.txtName.setText(new StringBuilder().append(cartModelList.get(position).getName()+"(not approved yet)"));
+        else
+            holder.txtName.setText(new StringBuilder().append(cartModelList.get(position).getName()+"(approved)"));
         //Event
         holder.btnMinus.setOnClickListener(v -> {
             minusCartItem(holder, cartModelList.get(position));
