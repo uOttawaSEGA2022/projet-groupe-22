@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
+    android:background="@drawable/gradient"
     android:layout_height="fill_parent"
-    android:background="@color/bt_white"
     android:orientation="vertical"
     tools:context=".AdminSuspendUser">
 
@@ -38,9 +38,9 @@
     <Button
         android:layout_marginTop="24dp"
         android:layout_marginLeft="100dp"
-        android:background="@drawable/bg_btn"
         android:id="@+id/setSuspDateBtn"
         android:layout_width="200dp"
+        android:background="@drawable/button"
         android:layout_height="56dp"
         android:text="Set This Date"
         android:textColor="#fff"
@@ -49,7 +49,7 @@
     <Button
         android:layout_marginTop="24dp"
         android:layout_marginLeft="100dp"
-        android:background="@drawable/bg_btn"
+        android:background="@drawable/button"
         android:id="@+id/SuspEterBtn"
         android:layout_width="200dp"
         android:layout_height="56dp"
