@@ -36,6 +36,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".chefsList"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ratingChefs"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CartActivity"
             android:exported="false">
             <meta-data
