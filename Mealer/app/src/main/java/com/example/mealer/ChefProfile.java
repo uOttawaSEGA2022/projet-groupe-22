@@ -1,12 +1,18 @@
 package com.example.mealer;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,6 +59,15 @@ public class ChefProfile extends AppCompatActivity {
 
         listViewDisplayedMeals = (ListView) findViewById(R.id.listViewDisplayedMeals);
 
+        listViewDisplayedMeals.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Meal meal = displayedmeals.get(position);
+                removeMeal(meal.getID(),meal.getChefUid());
+                return true;
+            }
+        });
+
     }
 
     public void onStart() {
@@ -96,6 +111,30 @@ public class ChefProfile extends AppCompatActivity {
 
             }
         });}
+
+    public void removeMeal(String mealID, String chefID){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.display_delete, null);
+        dialogBuilder.setView(dialogView);
+
+        final Button buttonRemoveMeal = (Button) dialogView.findViewById(R.id.removeMealBtn);
+
+        dialogBuilder.setTitle("Would you like to stop offering this meal?");
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("meals").child(chefID).child(mealID).child("display");
+
+        buttonRemoveMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ref.setValue(false);
+                Toast.makeText(ChefProfile.this,"Meal taken off display",Toast.LENGTH_SHORT).show();
+                b.dismiss();
+            }
+        });
+    }
 
     public void viewProfile (){
 
