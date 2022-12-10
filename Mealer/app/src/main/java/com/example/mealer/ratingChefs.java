@@ -75,7 +75,7 @@ public class ratingChefs extends AppCompatActivity {
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateRating);
         final Button complaintButton = (Button) dialogView.findViewById(R.id.complaintBtn);
 
-            dialogBuilder.setTitle("Set the rating for "+cartMeal.getChefName());
+            dialogBuilder.setTitle("Set a rating or Complaint");
             final AlertDialog b = dialogBuilder.create();
             b.show();
 
