@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,6 +56,8 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
     @BindView(R.id.txtTotal)
     TextView txtTotal;
 
+
+
     ICartLoadListener cartLoadListener;
 
     FirebaseUser fUser;
@@ -63,14 +67,23 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
 
     DatabaseReference waitapproveMeals;
     DatabaseReference approveMeals;
+    DatabaseReference ratingChefs;
+    DatabaseReference cartMeals;
 
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    Button ratingBtn;
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cart);
 
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
-        
+
+        init();
+        loadCartFromFirebase();
+
         approveBtn = (Button) findViewById(R.id.approveBtn);
         approveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +91,23 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
                 waitingForChefApprove(fUser.getUid());
             }
         }); //donebutton method end
+
+        ratingBtn= (Button) findViewById(R.id.ratingBtn);
+        ratingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, ratingChefs.class);
+                startActivity(intent);
+            }
+        }); //donebutton method end
+
+    }
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
     }
 
     private void waitingForChefApprove(String uid) {
@@ -98,9 +128,6 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
                         }
                         } else
                            onCartLoadFailed("Cart Empty!");
-
-
-
             }
 
             @Override
@@ -124,17 +151,6 @@ public class CartActivity extends AppCompatActivity implements ICartLoadListener
         loadCartFromFirebase();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
-
-        fAuth = FirebaseAuth.getInstance();
-        fUser = fAuth.getCurrentUser();
-
-        init();
-        loadCartFromFirebase();
-    }
 
     private void loadCartFromFirebase() {
 
