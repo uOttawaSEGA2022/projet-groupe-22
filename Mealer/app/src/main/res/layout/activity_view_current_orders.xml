@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_center"
+    android:background="@drawable/gradient_start"
     tools:context=".ViewCurrentOrders">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="monospace"
-        android:text="Your Order Requests:"
+        android:text="Your Current Orders:"
         android:textSize="25sp"
         android:layout_marginStart="10dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
