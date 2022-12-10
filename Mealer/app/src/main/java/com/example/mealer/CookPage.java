@@ -99,8 +99,7 @@ public class CookPage extends AppCompatActivity {
         viewordersBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CookPage.this,CookViewOrders.class);
-                startActivity(intent);
+                openChoiceDialog();
             }
         });
     }
@@ -163,6 +162,36 @@ public class CookPage extends AppCompatActivity {
                     }
                 }
                 viewMealsList();
+            }
+        });
+    }
+
+    private void openChoiceDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.chef_view_options, null);
+        dialogBuilder.setView(dialogView);
+
+        final Button buttonOrderRequests = (Button) dialogView.findViewById(R.id.orderRequestsBtn);
+        final Button buttonCurrentOrders = (Button) dialogView.findViewById(R.id.currentOrdersBtn);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        buttonOrderRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CookPage.this, ViewOrderRequests.class);
+                startActivity(intent);
+                b.dismiss();
+            }
+        });
+
+        buttonCurrentOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CookPage.this, ViewCurrentOrders.class);
+                startActivity(intent);
+                b.dismiss();
             }
         });
     }
