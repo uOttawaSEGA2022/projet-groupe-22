@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mealer.model.CartModel;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +37,9 @@ public class ratingChefs extends AppCompatActivity {
     DatabaseReference mealsReference;
     DatabaseReference  ratingChefs;
     List<CartModel> mealsDetails;
+    //complaint reference
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +71,9 @@ public class ratingChefs extends AppCompatActivity {
             final View dialogView = inflater.inflate(R.layout.set_rating, null);
             dialogBuilder.setView(dialogView);
 
-            @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final EditText editTextRate = (EditText) dialogView.findViewById(R.id.editTextRating);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateRating);
+        final EditText editTextRate = (EditText) dialogView.findViewById(R.id.editTextRating);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateRating);
+        final Button complaintButton = (Button) dialogView.findViewById(R.id.complaintBtn);
 
             dialogBuilder.setTitle("Set the rating for "+cartMeal.getChefName());
             final AlertDialog b = dialogBuilder.create();
@@ -86,7 +91,84 @@ public class ratingChefs extends AppCompatActivity {
                 }
             });
 
+        complaintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    addComplaint(cartMeal.getChefName());
+                    b.dismiss();
+
+          }
+        });
+
     }
+
+    public void addComplaint(String chefUid) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.add_complaint, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText ComplaintChefName = (EditText) dialogView.findViewById(R.id.ComplaintChefName);
+        final EditText complaintDate = (EditText) dialogView.findViewById(R.id.complaintDate);
+        final EditText complaintText = (EditText) dialogView.findViewById(R.id.complaintText);
+        final Button addComplaintBtn = (Button) dialogView.findViewById(R.id.addComplaintBtn);
+
+        dialogBuilder.setTitle("Add complaint");
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        addComplaintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                {
+
+                    String chefName = ComplaintChefName.getText().toString().trim();
+                    String date = complaintDate.getText().toString().trim();
+                    String text = complaintText.getText().toString().trim();
+
+                    DatabaseReference complaintReference = FirebaseDatabase.getInstance().getReference().child("complaints");
+                    //checking if the value is provided
+                    if (!(TextUtils.isEmpty(chefName) & TextUtils.isEmpty(date) & TextUtils.isEmpty(text))) {
+
+                        //getting a unique id using push().getKey() method
+                        //it will create a unique id and we will use it as the Primary key for our Complaint
+                        String id = reference.push().getKey();
+
+                        //creating a Complaint Object
+                        Complaint complaint = new Complaint(id, chefUid, date, text);
+
+                        //saving the complaint
+                        complaintReference.child(id).setValue(complaint);
+
+                        //setting edittext to blank again
+                        ComplaintChefName.setText("");
+                        complaintDate.setText("");
+                        complaintText.setText("");
+
+                        //displaying a success toast
+                        successToaster("Complaint added");
+                        b.dismiss();
+                    } else {
+                        //if the values are not given displaying a toast
+                        failingToaster("Make sure everything is filled");
+                        b.dismiss();
+
+                    }
+                }
+            }
+        });
+    }
+
+    public void successToaster(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    public void failingToaster(String msg) {
+
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
 
     //set the list
     @Override
