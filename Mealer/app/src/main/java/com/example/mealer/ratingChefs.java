@@ -83,11 +83,13 @@ public class ratingChefs extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     String ratetxt = editTextRate.getText().toString().trim();
-                    double rate = Double.parseDouble(String.valueOf(ratetxt));
                     if (!TextUtils.isEmpty(ratetxt)) {
+                        double rate = Double.parseDouble(String.valueOf(ratetxt));
                         setChefRating(cartMeal.getChefName(), rate);
                         b.dismiss();
                     }
+                    if(TextUtils.isEmpty(ratetxt))
+                        failingToaster("You forgot to rate");
                 }
             });
 
