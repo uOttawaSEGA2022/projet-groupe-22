@@ -237,14 +237,15 @@ public class PageMain extends AppCompatActivity implements IMealLoadListener, IC
     public void addToCart(Meal meal){
 
         DatabaseReference userCart = FirebaseDatabase.getInstance().getReference("cart").child(fUser.getUid());
-        userCart.child(meal.getID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        userCart.child(meal.getID())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists())//if the user has already item in the cart
                 {
                     //just update quantity and total Price
                     CartModel cartModel = snapshot.getValue(CartModel.class);
-                     Integer quantity = snapshot.child("quantity").getValue(Integer.class);
+                    Integer quantity = snapshot.child("quantity").getValue(Integer.class);
                     cartModel.setQuantity(quantity + 1);
                     Map<String, Object> updateData = new HashMap<>();
                     updateData.put("quantity", cartModel.getQuantity());
@@ -266,7 +267,7 @@ public class PageMain extends AppCompatActivity implements IMealLoadListener, IC
                 } else //if the item is not in the cart, add new
                 {
                     CartModel cartModel = new CartModel();
-                    cartModel.setChefName(meal.getChefName());
+                    cartModel.setChefName(meal.getChefUid());
                     cartModel.setName(meal.getMealName());
                     cartModel.setPrice(meal.getPrice());
                     cartModel.setKey(meal.getID());
