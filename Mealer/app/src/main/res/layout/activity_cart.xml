@@ -68,19 +68,36 @@
 
     <Button
         android:id="@+id/approveBtn"
-        android:layout_width="169dp"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="92dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="612dp"
-        android:layout_marginEnd="241dp"
-        android:layout_marginBottom="69dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="305dp"
+        android:layout_marginBottom="46dp"
+        android:text="Request chef approval" />
+
+    <Button
+        android:id="@+id/ratingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="92dp"
+        android:layout_below="@+id/txtinstr"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="-140dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="47dp"
         android:text="Request chef approval" />
 
     <TextView
-        android:layout_width="389dp"
-        android:layout_height="109dp"
+        android:id="@+id/txtinstr"
+        android:layout_width="wrap_content"
+        android:layout_height="88dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -88,10 +105,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="402dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="241dp"
         android:gravity="center"
         android:text="Please note that after clicking on the approve button you should wait for the chef to approve and then payment will be completed"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -102,12 +119,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="612dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="245dp"
+        android:layout_marginTop="524dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="167dp"
         android:gravity="center"
         android:text="Total"
         android:textSize="30sp"
         android:textStyle="bold" />
+
 </RelativeLayout>
