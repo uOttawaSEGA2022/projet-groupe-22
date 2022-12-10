@@ -10,18 +10,19 @@
 
     <SearchView
         android:id="@+id/mealsListViewSearch"
-        android:layout_width="315dp"
+        android:layout_width="match_parent"
         android:layout_height="58dp"
+        android:layout_below="@+id/panel"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="93dp" />
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp" />
 
     <LinearLayout
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_marginTop="10dp"
-        android:background="#E7E7E7"
+        android:background="@color/end_color"
         android:orientation="horizontal"
         android:weightSum="16">
 
@@ -42,6 +43,7 @@
             android:layout_weight="11"
             android:gravity="center"
             android:text="Meals List"
+            android:textColor="@color/bt_black_54"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -74,22 +76,21 @@
 
 
     <LinearLayout
+        android:id="@+id/mealsListViewLayout"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
+        android:layout_below="@id/mealsListViewSearch"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="150dp"
-        android:background="@color/cardview_light_background">
+        android:layout_marginTop="5dp"
+        android:background="@color/end_color">
 
         <ListView
             android:id="@+id/mealsListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
-            app:layout_constraintEnd_toEndOf="parent">
+            >
 
         </ListView>
 
@@ -115,15 +116,11 @@
         android:layout_marginStart="22dp"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="26dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/signOutBtn"
         android:text="Add Complaint"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.45"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        android:layout_alignRight="@+id/signOutBtn"/>
 
     <Button
         android:id="@+id/signOutBtn"
@@ -135,14 +132,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="20dp"
         android:layout_marginStart="22dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="27dp"
         android:text="Sign Out"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addComplaintBtn"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        android:layout_toLeftOf="@id/addComplaintBtn"
+        android:layout_below="@id/mealsListViewLayout"/>
 
 
 </RelativeLayout>
