@@ -33,6 +33,7 @@ public class CookPage extends AppCompatActivity {
     Button addMealBtn;
     Button signOutBtn;
     Button profilebtn;
+    Button viewordersBtn;
     
     DatabaseReference databaseMeals;
     DatabaseReference mealsReference;
@@ -56,6 +57,8 @@ public class CookPage extends AppCompatActivity {
         listViewMeals = (ListView) findViewById(R.id.listViewMeals);
         welcomingTag = (TextView) findViewById(R.id.welcomingTag);
         addMealBtn = (Button) findViewById(R.id.addMealBtn);
+        viewordersBtn = (Button) findViewById(R.id.viewordersBtn);
+
         addMealBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -89,6 +92,14 @@ public class CookPage extends AppCompatActivity {
                 finish();
                 Intent intent = new Intent(CookPage.this,
                         MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewordersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CookPage.this,CookViewOrders.class);
                 startActivity(intent);
             }
         });

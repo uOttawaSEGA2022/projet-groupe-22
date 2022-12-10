@@ -13,6 +13,8 @@
         android:layout_width="207dp"
         android:layout_height="30dp"
         android:text=""
+        android:fontFamily="monospace"
+        android:textSize="16sp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:textStyle="bold" />
@@ -55,11 +57,12 @@
         android:id="@+id/addMealBtn"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button"
         android:layout_below="@id/linlayout"
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="55dp"
+        android:background="@drawable/button"
         android:text="Add Meal"
+        android:textColor="#695B4A"
         android:textAlignment="center" />
 
     <Button
@@ -87,4 +90,18 @@
         android:text="view profile"
         android:textAlignment="center"
         android:textColor="#695B4A" />
+
+    <Button
+        android:id="@+id/viewordersBtn"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:backgroundTint="@color/middle_color"
+        android:textColor="@color/white"
+        android:text="orders"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/addMealBtn"
+        android:layout_below="@id/linlayout"
+        android:layout_marginEnd="10dp"/>
+
 </RelativeLayout>
